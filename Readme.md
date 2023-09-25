@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Igor Khripunov](https://up.htmlacademy.ru/react-individual/2/user/34540).
-* Наставник: `Неизвестно`.
+* Наставник: [Gleb Kletskov](https://htmlacademy.ru/profile/id1487865).
 
 ---
 
