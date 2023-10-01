@@ -1,12 +1,12 @@
-import MainScreen from '../../pages/main-screen/main-screen.tsx';
+import MainPage from '../../pages/main-page/main-page.tsx';
 
-type AppScreenProps = {
+type TAppScreenProps = {
   placesCount: number;
 }
 
-function App({placesCount}: AppScreenProps) {
+function App({placesCount}: TAppScreenProps) {
   return (
-    <MainScreen placesCount={placesCount}/>
+    <MainPage placesCount={placesCount}/>
   );
 }
 
