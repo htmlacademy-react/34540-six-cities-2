@@ -116,7 +116,7 @@ function MainScreen({placesCount}: MainScreenProps) {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <PlaceCard/>
+                  {[...Array(placesCount)].map(() => <PlaceCard/>)}
                 </div>
               </section>
               <div className="cities__right-section">

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
 
 const Setting = {
-  PacesCount: 3
+  PacesCount: 5
 } as const;
 
 const root = ReactDOM.createRoot(
