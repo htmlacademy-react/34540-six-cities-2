@@ -1,4 +1,4 @@
-import PlaceCard from '../../components/place-card/place-card.tsx';
+import {PlaceCard} from '../../components/place-card/place-card.tsx';
 
 type TMainScreenProps = {
   placesCount: number;
@@ -130,4 +130,4 @@ function MainPage({placesCount}: TMainScreenProps) {
   );
 }
 
-export default MainPage;
+export {MainPage};

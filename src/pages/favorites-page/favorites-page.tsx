@@ -226,4 +226,4 @@ function FavoritesPage() {
   );
 }
 
-export default FavoritesPage;
+export {FavoritesPage};

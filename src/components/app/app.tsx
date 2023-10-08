@@ -1,13 +1,13 @@
-import MainPage from '../../pages/main-page/main-page.tsx';
+import {MainPage} from '../../pages/main-page/main-page.tsx';
 
-type TAppScreenProps = {
+type TAppProps = {
   placesCount: number;
 }
 
-function App({placesCount}: TAppScreenProps) {
+function App({placesCount}: TAppProps) {
   return (
     <MainPage placesCount={placesCount}/>
   );
 }
 
-export default App;
+export {App};

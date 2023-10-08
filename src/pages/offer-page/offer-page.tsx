@@ -465,4 +465,4 @@ function OfferPage() {
   );
 }
 
-export default OfferPage;
+export {OfferPage};
