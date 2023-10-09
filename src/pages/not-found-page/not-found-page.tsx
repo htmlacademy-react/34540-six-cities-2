@@ -1,9 +1,13 @@
+import {Helmet} from 'react-helmet-async';
 import {Link} from 'react-router-dom';
-import {Logo} from "../../components/logo/logo.tsx";
+import {Logo} from '../../components/logo/logo.tsx';
 
 function NotFoundPage() {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>404. Page not found</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
