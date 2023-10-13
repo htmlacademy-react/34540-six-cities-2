@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/app/app.tsx';
-
-const Setting = {
-  PlacesCount: 5
-} as const;
+import {App} from './components/app/app.tsx';
+import {Setting} from './const.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
