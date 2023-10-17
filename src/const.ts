@@ -5,7 +5,7 @@ const Setting = {
 enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
+  Offer = '/offer',
   Root = '/'
 }
 
@@ -15,8 +15,11 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+const SITE_NAME: string = '6 cities';
+
 export {
   Setting,
   AppRoute,
-  AuthorizationStatus
+  AuthorizationStatus,
+  SITE_NAME
 };

@@ -1,12 +1,13 @@
 import {Logo} from '../../components/logo/logo.tsx';
 import {Helmet} from 'react-helmet-async';
+import {SITE_NAME} from '../../const.ts';
 
 
 function LoginPage() {
   return (
     <div className="page page--gray page--login">
       <Helmet>
-        <title>6 cities: authorization</title>
+        <title>{SITE_NAME}: authorization</title>
       </Helmet>
       <header className="header">
         <div className="container">

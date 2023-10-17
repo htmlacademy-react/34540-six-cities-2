@@ -1,12 +1,13 @@
 import {Logo} from '../../components/logo/logo.tsx';
 import {Helmet} from 'react-helmet-async';
+import {SITE_NAME} from '../../const.ts';
 
 
 function FavoritesPage() {
   return (
     <div className="page">
       <Helmet>
-        <title>6 cities: favorites</title>
+        <title>{SITE_NAME}: favorites</title>
       </Helmet>
       <header className="header">
         <div className="container">
