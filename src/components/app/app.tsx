@@ -7,12 +7,14 @@ import {LoginPage} from '../../pages/login-page/login-page.tsx';
 import {OfferPage} from '../../pages/offer-page/offer-page.tsx';
 import {FavoritesPage} from '../../pages/favorites-page/favorites-page.tsx';
 import {PrivateRoute} from '../private-route/private-route.tsx';
+import {TOffers} from '../../types/offer.ts';
 
 type TAppProps = {
   placesCount: number;
+  offers: TOffers;
 }
 
-function App({placesCount}: TAppProps) {
+function App({placesCount, offers}: TAppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
