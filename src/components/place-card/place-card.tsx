@@ -1,5 +1,6 @@
 import {TOffer} from '../../types/offer.ts';
 import {AppRoute, STARS_COUNT} from '../../const.ts';
+import {capitalizeFirstLetter} from '../../utils.ts';
 
 type TPlaceCard = {
   offer: TOffer;
@@ -18,9 +19,6 @@ function PlaceCard({offer, onMouseMove, onMouseLeave}: TPlaceCard) {
     isPremium,
     rating
   } = offer;
-
-  const capitalizeTypeName = (typeName: string) => typeName.charAt(0).toUpperCase()
-    + typeName.slice(1);
 
   const handleMouseMove = () => {
     onMouseMove(id);
@@ -87,7 +85,7 @@ function PlaceCard({offer, onMouseMove, onMouseLeave}: TPlaceCard) {
             {title}
           </a>
         </h2>
-        <p className="place-card__type">{capitalizeTypeName(type)}</p>
+        <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
       </div>
     </article>
   );
