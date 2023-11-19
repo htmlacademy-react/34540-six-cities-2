@@ -1,5 +1,5 @@
 const Setting = {
-  PlacesCount: 5
+  PlacesCount: 4
 } as const;
 
 enum AppRoute {
@@ -17,9 +17,12 @@ enum AuthorizationStatus {
 
 const SITE_NAME: string = '6 cities';
 
+const STARS_COUNT: number = 5;
+
 export {
   Setting,
   AppRoute,
   AuthorizationStatus,
-  SITE_NAME
+  SITE_NAME,
+  STARS_COUNT
 };

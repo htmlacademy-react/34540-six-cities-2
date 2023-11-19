@@ -21,7 +21,10 @@ function App({placesCount, offers}: TAppProps) {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage placesCount={placesCount}/>}
+            element={<MainPage
+              placesCount={placesCount}
+              offers={offers}
+            />}
           />
           <Route
             path={AppRoute.Favorites}

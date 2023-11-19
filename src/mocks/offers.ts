@@ -1,4 +1,6 @@
-const offers = [
+import {TOffers} from '../types/offer.ts';
+
+const offers: TOffers = [
   {
     id: 'a995b47b-ca31-4d52-9548-c762a637362c',
     title: 'Wood and stone place',
@@ -42,7 +44,7 @@ const offers = [
       zoom: 16
     },
     isFavorite: false,
-    isPremium: false,
+    isPremium: true,
     rating: 3.7
   },
   {

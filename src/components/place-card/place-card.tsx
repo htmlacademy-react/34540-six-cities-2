@@ -1,28 +1,55 @@
-function PlaceCard() {
+import {TOffer} from '../../types/offer.ts';
+import {STARS_COUNT} from '../../const.ts';
+import {AppRoute} from '../../const.ts';
+
+type TPlaceCard = {
+  offer: TOffer;
+}
+
+function PlaceCard({offer}: TPlaceCard) {
+  const {
+    id,
+    title,
+    type,
+    price: price,
+    previewImage,
+    isFavorite,
+    isPremium,
+    rating
+  } = offer;
+
+  const capitalizeTypeName = (typeName: string) => typeName.charAt(0).toUpperCase()
+    + typeName.slice(1);
+
   return (
     <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+      {isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <a
+          href={previewImage}
+          target="_blank"
+        >
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
+            src={previewImage}
             width={260}
             height={200}
-            alt="Place image"
+            alt={title}
           />
         </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€120</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className="place-card__bookmark-button button"
+            className={`place-card__bookmark-button button${isFavorite ? ' place-card__bookmark-button--active' : ''}`}
             type="button"
           >
             <svg
@@ -37,16 +64,21 @@ function PlaceCard() {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}/>
+            <span
+              style={{
+                width: `${(100 * rating) / STARS_COUNT}%`,
+              }}
+            >
+            </span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
-            Beautiful &amp; luxurious apartment at great location
+          <a href={`${AppRoute.Offer}/${id}`}>
+            {title}
           </a>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{capitalizeTypeName(type)}</p>
       </div>
     </article>
   );

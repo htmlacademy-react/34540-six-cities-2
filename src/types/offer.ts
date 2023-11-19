@@ -2,10 +2,11 @@ import {TCity} from './city.ts';
 import {THost} from './host.ts';
 import {TLocation} from './location.ts';
 
+
 type TOffer = {
   id: string;
   title: string;
-  type: string;
+  type: 'apartment' | 'room' | 'house' | 'hotel';
   price: number;
   previewImage: string;
   city: TCity;
@@ -23,4 +24,4 @@ type TOffer = {
 
 type TOffers = TOffer[];
 
-export type {TOffers};
+export type {TOffer, TOffers};
