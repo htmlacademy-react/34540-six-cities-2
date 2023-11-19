@@ -1,13 +1,23 @@
+import {useState} from 'react';
 import {PlaceCard} from '../place-card/place-card.tsx';
 import {TOffers} from '../../types/offer.ts';
 
 
 type TCitiesProps = {
-  placesCount: number;
   offers: TOffers;
 }
 
-function Cities({placesCount, offers}: TCitiesProps) {
+function Cities({offers}: TCitiesProps) {
+  const [activeOffer, setActiveOffer] = useState(null);
+
+  const handleCardMouseMove = (id: number) => {
+    setActiveOffer(id);
+  };
+
+  const handleCardMouseLeave = () => {
+    setActiveOffer(null);
+  };
+
   return (
     <div className="cities">
       <div className="cities__places-container container">
@@ -41,10 +51,12 @@ function Cities({placesCount, offers}: TCitiesProps) {
             </ul>
           </form>
           <div className="cities__places-list places__list tabs__content">
-            {Array.from({length: placesCount}, (_, index) => (
+            {offers.map((offer) => (
               <PlaceCard
-                key={offers[index].id}
-                offer={offers[index]}
+                key={offer.id}
+                offer={offer}
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
               />
             ))}
           </div>

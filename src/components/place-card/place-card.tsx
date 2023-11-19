@@ -1,12 +1,13 @@
 import {TOffer} from '../../types/offer.ts';
-import {STARS_COUNT} from '../../const.ts';
-import {AppRoute} from '../../const.ts';
+import {AppRoute, STARS_COUNT} from '../../const.ts';
 
 type TPlaceCard = {
   offer: TOffer;
+  onMouseMove: (id: number) => void;
+  onMouseLeave: () => void;
 }
 
-function PlaceCard({offer}: TPlaceCard) {
+function PlaceCard({offer, onMouseMove, onMouseLeave}: TPlaceCard) {
   const {
     id,
     title,
@@ -21,8 +22,16 @@ function PlaceCard({offer}: TPlaceCard) {
   const capitalizeTypeName = (typeName: string) => typeName.charAt(0).toUpperCase()
     + typeName.slice(1);
 
+  const handleMouseMove = () => {
+    onMouseMove(id);
+  };
+
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>

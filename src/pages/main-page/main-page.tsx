@@ -4,11 +4,10 @@ import {TOffers} from '../../types/offer.ts';
 
 
 type TMainScreenProps = {
-  placesCount: number;
   offers: TOffers;
 }
 
-function MainPage({placesCount, offers}: TMainScreenProps) {
+function MainPage({offers}: TMainScreenProps) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -79,7 +78,7 @@ function MainPage({placesCount, offers}: TMainScreenProps) {
             </ul>
           </section>
         </div>
-        <Cities placesCount={placesCount} offers={offers}/>
+        <Cities offers={offers}/>
       </main>
     </div>
   );

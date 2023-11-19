@@ -10,20 +10,17 @@ import {PrivateRoute} from '../private-route/private-route.tsx';
 import {TOffers} from '../../types/offer.ts';
 
 type TAppProps = {
-  placesCount: number;
   offers: TOffers;
 }
 
-function App({placesCount, offers}: TAppProps) {
+function App({offers}: TAppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage
-              placesCount={placesCount}
-              offers={offers}
+            element={<MainPage offers={offers}
             />}
           />
           <Route
