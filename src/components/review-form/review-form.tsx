@@ -5,13 +5,17 @@ import {STARS_COUNT} from '../../const.ts';
 function ReviewForm() {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
+  const isValid =
+    comment.length >= 1 &&
+    comment.length <= 50 &&
+    rating !== '';
 
   const handleTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
   };
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(evt.target.value));
+    setRating(evt.target.value);
   };
 
   return (
@@ -25,10 +29,10 @@ function ReviewForm() {
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              defaultValue={STARS_COUNT - i}
               id={`${STARS_COUNT - i}-stars`}
               type="radio"
               checked={STARS_COUNT - i === +rating}
+              value={STARS_COUNT - i}
               onChange={handleInputChange}
             />
             <label
@@ -48,7 +52,6 @@ function ReviewForm() {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
-        defaultValue={''}
         onChange={handleTextareaChange}
       />
       <div className="reviews__button-wrapper">
@@ -61,7 +64,7 @@ function ReviewForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={!isValid}
         >
           Submit
         </button>
