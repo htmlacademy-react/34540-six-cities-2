@@ -1,14 +1,34 @@
 import {Logo} from '../../components/logo/logo.tsx';
 import {ReviewForm} from '../../components/review-form/review-form.tsx';
 import {Helmet} from 'react-helmet-async';
-import {SITE_NAME} from '../../const.ts';
+import {Navigate, useParams} from 'react-router-dom';
+import {AppRoute, SITE_NAME} from '../../const.ts';
+import {offers} from "../../mocks/offers.ts";
+import {TOffer} from "../../types/offer.ts";
+import {calculateRatingPercentages, capitalizeFirstLetter} from "../../utils.ts";
 
 
 function OfferPage() {
+  const {offerId} = useParams();
+  const offer: TOffer = offers.find((offer) => offer.id === offerId);
+  const {
+    title,
+    type,
+    price: price,
+    previewImage,
+    isFavorite,
+    isPremium,
+    rating
+  } = offer;
+
+  if (!offer) {
+    return <Navigate to={AppRoute.NotFound}/>
+  }
+
   return (
     <div className="page">
       <Helmet>
-        <title>{SITE_NAME}: offer</title>
+        <title>{SITE_NAME}: {title}</title>
       </Helmet>
       <header className="header">
         <div className="container">
@@ -90,14 +110,19 @@ function OfferPage() {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>Premium</span>
-              </div>
+              {isPremium && (
+                <div className="offer__mark">
+                  <span>Premium</span>
+                </div>
+              )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button
+                    className={`offer__bookmark-button button${isFavorite ? ' offer__bookmark-button--active' : ''}`}
+                    type="button"
+                >
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -106,13 +131,17 @@ function OfferPage() {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: '80%'}}/>
+                  <span style={{
+                    width: `${calculateRatingPercentages(rating)}%`
+                  }}
+                  >
+                  </span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{rating}</span>
               </div>
               <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">Apartment</li>
+                <li className="offer__feature offer__feature--entire">{capitalizeFirstLetter(type)}</li>
                 <li className="offer__feature offer__feature--bedrooms">
                   3 Bedrooms
                 </li>
@@ -121,7 +150,7 @@ function OfferPage() {
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">€120</b>
+                <b className="offer__price-value">&euro;{price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">

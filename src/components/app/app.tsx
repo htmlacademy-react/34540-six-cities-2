@@ -35,7 +35,7 @@ function App({offers}: TAppProps) {
             element={<LoginPage/>}
           />
           <Route
-            path={`${AppRoute.Offer}/:id`}
+            path={`${AppRoute.Offer}/:offerId`}
             element={<OfferPage/>}
           />
           <Route

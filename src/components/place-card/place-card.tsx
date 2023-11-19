@@ -1,6 +1,6 @@
 import {TOffer} from '../../types/offer.ts';
-import {AppRoute, STARS_COUNT} from '../../const.ts';
-import {capitalizeFirstLetter} from '../../utils.ts';
+import {AppRoute} from '../../const.ts';
+import {capitalizeFirstLetter, calculateRatingPercentages} from '../../utils.ts';
 
 type TPlaceCard = {
   offer: TOffer;
@@ -74,7 +74,7 @@ function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: `${(100 * rating) / STARS_COUNT}%`,
+                width: `${calculateRatingPercentages(rating)}%`
               }}
             >
             </span>
