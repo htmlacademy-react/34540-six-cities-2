@@ -12,9 +12,9 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-const SITE_NAME: string = '6 cities';
+const SITE_NAME = '6 cities';
 
-const STARS_COUNT: number = 5;
+const STARS_COUNT = 5;
 
 export {
   AppRoute,

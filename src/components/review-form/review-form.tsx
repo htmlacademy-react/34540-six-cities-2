@@ -70,7 +70,7 @@ function ReviewForm() {
         </button>
       </div>
     </form>
-  )
+  );
 }
 
 export {ReviewForm};

@@ -40,6 +40,7 @@ function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
         <a
           href={previewImage}
           target="_blank"
+          rel="noreferrer"
         >
           <img
             className="place-card__image"

@@ -86,13 +86,8 @@ function FavoritesPage({offers}: TFavoritesPageProps) {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {groupedOffers.map((offer) => <PlaceCard
-                      key={offer.id}
-                      offer={offer}
-                      place = 'favorites'
-                      onMouseMove={handleCardMouseMove}
-                      onMouseLeave={handleCardMouseLeave}
-                    />)}
+                    {groupedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} place = 'favorites' onMouseMove={handleCardMouseMove} onMouseLeave={handleCardMouseLeave}/>
+                    )}
                   </div>
                 </li>
               ))}
