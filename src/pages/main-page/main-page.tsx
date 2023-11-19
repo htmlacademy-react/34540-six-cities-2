@@ -3,11 +3,11 @@ import {Cities} from '../../components/cities/cities.tsx';
 import {TOffers} from '../../types/offer.ts';
 
 
-type TMainScreenProps = {
+type TMainPageProps = {
   offers: TOffers;
 }
 
-function MainPage({offers}: TMainScreenProps) {
+function MainPage({offers}: TMainPageProps) {
   return (
     <div className="page page--gray page--main">
       <header className="header">

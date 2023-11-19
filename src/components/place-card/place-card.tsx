@@ -6,9 +6,10 @@ type TPlaceCard = {
   offer: TOffer;
   onMouseMove: (id: number) => void;
   onMouseLeave: () => void;
+  place?: 'cities' | 'favorites';
 }
 
-function PlaceCard({offer, onMouseMove, onMouseLeave}: TPlaceCard) {
+function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceCard) {
   const {
     id,
     title,
@@ -26,7 +27,7 @@ function PlaceCard({offer, onMouseMove, onMouseLeave}: TPlaceCard) {
 
   return (
     <article
-      className="cities__card place-card"
+      className={`${place}__card place-card`}
       onMouseMove={handleMouseMove}
       onMouseLeave={onMouseLeave}
     >
@@ -35,7 +36,7 @@ function PlaceCard({offer, onMouseMove, onMouseLeave}: TPlaceCard) {
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${place}__image-wrapper place-card__image-wrapper`}>
         <a
           href={previewImage}
           target="_blank"
@@ -43,8 +44,8 @@ function PlaceCard({offer, onMouseMove, onMouseLeave}: TPlaceCard) {
           <img
             className="place-card__image"
             src={previewImage}
-            width={260}
-            height={200}
+            width={place === 'cities' ? 260 : 150}
+            height={place === 'cities' ? 200 : 110}
             alt={title}
           />
         </a>

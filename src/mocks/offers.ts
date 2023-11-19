@@ -20,7 +20,7 @@ const offers: TOffers = [
       longitude: 2.342499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 4.5
   },
@@ -66,7 +66,7 @@ const offers: TOffers = [
       longitude: 2.335499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 2.4
   },
@@ -77,7 +77,7 @@ const offers: TOffers = [
     price: 253,
     previewImage: 'https://13.design.pages.academy/static/hotel/12.jpg',
     city: {
-      name: 'Paris',
+      name: 'Russia',
       location: {
         latitude: 48.85661,
         longitude: 2.351499,
@@ -89,7 +89,7 @@ const offers: TOffers = [
       longitude: 2.358499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 2.9
   }

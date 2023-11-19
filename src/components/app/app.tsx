@@ -20,14 +20,13 @@ function App({offers}: TAppProps) {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage offers={offers}
-            />}
+            element={<MainPage offers={offers}/>}
           />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesPage/>
+              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <FavoritesPage offers={offers}/>
               </PrivateRoute>
             }
           />
