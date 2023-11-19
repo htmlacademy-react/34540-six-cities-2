@@ -2,6 +2,8 @@ import {Helmet} from 'react-helmet-async';
 import {Link} from 'react-router-dom';
 import {Logo} from '../../components/logo/logo.tsx';
 
+import './not-found-page.scss';
+
 function NotFoundPage() {
   return (
     <div className="page page--gray page--main">
@@ -19,7 +21,7 @@ function NotFoundPage() {
       </header>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <h1>404. Page not found</h1>
+          <h1 className={'title'}>404. Page not found</h1>
           <div className="locations">
             <Link className="locations__item-link" to="/">
               <span>Вернуться на главную</span>

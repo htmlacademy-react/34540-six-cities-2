@@ -1,11 +1,8 @@
-const Setting = {
-  PlacesCount: 5
-} as const;
-
 enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
+  Offer = '/offer',
+  NotFound = '/404',
   Root = '/'
 }
 
@@ -15,8 +12,13 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+const SITE_NAME = '6 cities';
+
+const STARS_COUNT = 5;
+
 export {
-  Setting,
   AppRoute,
-  AuthorizationStatus
+  AuthorizationStatus,
+  SITE_NAME,
+  STARS_COUNT
 };

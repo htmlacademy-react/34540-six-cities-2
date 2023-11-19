@@ -1,28 +1,64 @@
-function PlaceCard() {
+import {TOffer} from '../../types/offer.ts';
+import {AppRoute} from '../../const.ts';
+import {capitalizeFirstLetter, calculateRatingPercentages} from '../../utils.ts';
+
+type TPlaceCard = {
+  offer: TOffer;
+  onMouseMove: (id: number) => void;
+  onMouseLeave: () => void;
+  place?: 'cities' | 'favorites';
+}
+
+function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceCard) {
+  const {
+    id,
+    title,
+    type,
+    price: price,
+    previewImage,
+    isFavorite,
+    isPremium,
+    rating
+  } = offer;
+
+  const handleMouseMove = () => {
+    onMouseMove(id);
+  };
+
   return (
-    <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+    <article
+      className={`${place}__card place-card`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
+      {isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
+      <div className={`${place}__image-wrapper place-card__image-wrapper`}>
+        <a
+          href={previewImage}
+          target="_blank"
+          rel="noreferrer"
+        >
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
-            width={260}
-            height={200}
-            alt="Place image"
+            src={previewImage}
+            width={place === 'cities' ? 260 : 150}
+            height={place === 'cities' ? 200 : 110}
+            alt={title}
           />
         </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€120</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className="place-card__bookmark-button button"
+            className={`place-card__bookmark-button button${isFavorite ? ' place-card__bookmark-button--active' : ''}`}
             type="button"
           >
             <svg
@@ -37,16 +73,21 @@ function PlaceCard() {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}/>
+            <span
+              style={{
+                width: `${calculateRatingPercentages(rating)}%`
+              }}
+            >
+            </span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
-            Beautiful &amp; luxurious apartment at great location
+          <a href={`${AppRoute.Offer}/${id}`}>
+            {title}
           </a>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
       </div>
     </article>
   );
