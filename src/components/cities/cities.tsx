@@ -8,7 +8,7 @@ type TCitiesProps = {
 }
 
 function Cities({offers}: TCitiesProps) {
-  const [activeOffer, setActiveOffer] = useState(null);
+  const [_, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {
     setActiveOffer(id);
