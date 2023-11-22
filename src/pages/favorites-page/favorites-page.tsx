@@ -12,9 +12,10 @@ type TFavoritesPageProps = {
 }
 
 function FavoritesPage({offers}: TFavoritesPageProps) {
-  const [activeOffer, setActiveOffer] = useState(null);
+  const [, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {
+    // @ts-ignore
     setActiveOffer(id);
   };
 
