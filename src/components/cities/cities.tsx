@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {PlaceCard} from '../place-card/place-card.tsx';
+import {Map} from '../map/map.tsx';
 import {TOffers} from '../../types/offer.ts';
 
 
@@ -8,7 +9,7 @@ type TCitiesProps = {
 }
 
 function Cities({offers}: TCitiesProps) {
-  const [activeOffer, setActiveOffer] = useState(null);
+  const [, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {
     setActiveOffer(id);
@@ -62,7 +63,7 @@ function Cities({offers}: TCitiesProps) {
           </div>
         </section>
         <div className="cities__right-section">
-          <section className="cities__map map"/>
+          <Map cities={offers.map((offer) => offer.city)}/>
         </div>
       </div>
     </div>

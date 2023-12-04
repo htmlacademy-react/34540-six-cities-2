@@ -1,15 +1,16 @@
+import {Link} from 'react-router-dom';
 import {TOffer} from '../../types/offer.ts';
 import {AppRoute} from '../../const.ts';
 import {capitalizeFirstLetter, calculateRatingPercentages} from '../../utils.ts';
 
-type TPlaceCard = {
+type TPlaceCardProps = {
   offer: TOffer;
-  onMouseMove: (id: number) => void;
+  onMouseMove: (id: string) => void;
   onMouseLeave: () => void;
   place?: 'cities' | 'favorites';
 }
 
-function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceCard) {
+function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceCardProps) {
   const {
     id,
     title,
@@ -37,8 +38,8 @@ function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
         </div>
       )}
       <div className={`${place}__image-wrapper place-card__image-wrapper`}>
-        <a
-          href={previewImage}
+        <Link
+          to={previewImage}
           target="_blank"
           rel="noreferrer"
         >
@@ -49,7 +50,7 @@ function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
             height={place === 'cities' ? 200 : 110}
             alt={title}
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -83,9 +84,9 @@ function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={`${AppRoute.Offer}/${id}`}>
+          <Link to={`${AppRoute.Offer}/${id}`}>
             {title}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
       </div>

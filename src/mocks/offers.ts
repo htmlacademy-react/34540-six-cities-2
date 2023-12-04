@@ -8,16 +8,16 @@ const offers: TOffers = [
     price: 272,
     previewImage: 'https://13.design.pages.academy/static/hotel/14.jpg',
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
         zoom: 13
       }
     },
     location: {
-      latitude: 48.868610000000004,
-      longitude: 2.342499,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 16
     },
     isFavorite: true,
@@ -31,16 +31,16 @@ const offers: TOffers = [
     price: 694,
     previewImage: 'https://13.design.pages.academy/static/hotel/5.jpg',
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
+        latitude: 52.3609553943508,
+        longitude: 4.85309666406198,
         zoom: 13
       }
     },
     location: {
-      latitude: 48.858610000000006,
-      longitude: 2.330499,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
       zoom: 16
     },
     isFavorite: false,
@@ -54,16 +54,16 @@ const offers: TOffers = [
     price: 118,
     previewImage: 'https://13.design.pages.academy/static/hotel/4.jpg',
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
         zoom: 13
       }
     },
     location: {
-      latitude: 48.834610000000005,
-      longitude: 2.335499,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 16
     },
     isFavorite: true,
@@ -77,16 +77,16 @@ const offers: TOffers = [
     price: 253,
     previewImage: 'https://13.design.pages.academy/static/hotel/12.jpg',
     city: {
-      name: 'Russia',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
         zoom: 13
       }
     },
     location: {
-      latitude: 48.85761,
-      longitude: 2.358499,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 16
     },
     isFavorite: true,
