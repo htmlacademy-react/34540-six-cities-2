@@ -2,7 +2,7 @@ import {TOffers} from '../types/offer.ts';
 
 const offers: TOffers = [
   {
-    id: 'a995b47b-ca31-4d52-9548-c762a637362c',
+    id: 'b7436b84-cf5d-424d-84fa-e7bee226c24b',
     title: 'Wood and stone place',
     type: 'hotel',
     price: 272,
