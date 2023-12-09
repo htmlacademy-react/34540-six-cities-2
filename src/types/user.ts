@@ -1,7 +1,7 @@
 type TUser = {
   token: string;
   name: string;
-  email: string
+  email: string;
   avatarUrl: string;
   isPro: boolean;
 }

@@ -38,7 +38,8 @@ const Review = ({comment, date, rating, user}: TComment) => {
         </p>
         <time
           className="reviews__time"
-          dateTime={date}>
+          dateTime={date}
+        >
           {formatDate(date)}
         </time>
       </div>

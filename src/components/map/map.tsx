@@ -27,7 +27,7 @@ type TMapProps = {
 };
 
 function Map({targetCity, locations, place = 'cities'}: TMapProps) {
-  let focusCity = targetCity ? targetCity.city : locations[Math.floor((locations.length - 1) / 2)].city;
+  const focusCity = targetCity ? targetCity.city : locations[Math.floor((locations.length - 1) / 2)].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, focusCity);
 
@@ -53,7 +53,7 @@ function Map({targetCity, locations, place = 'cities'}: TMapProps) {
           .addTo(map);
       });
     }
-  }, [map, locations]);
+  }, [map, locations, targetCity]);
 
   return <section className={`${place}__map map`} ref={mapRef}/>;
 }

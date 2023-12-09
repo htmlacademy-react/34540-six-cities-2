@@ -47,8 +47,8 @@ function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
           <img
             className="place-card__image"
             src={previewImage}
-            width={place === 'cities' ? 260 : 150}
-            height={place === 'cities' ? 200 : 110}
+            width={place !== 'favorites' ? 260 : 150}
+            height={place !== 'favorites' ? 200 : 110}
             alt={title}
           />
         </Link>
