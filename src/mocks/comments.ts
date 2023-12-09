@@ -1,4 +1,4 @@
-import {TComments} from '../types/comment.ts';
+import type {TComments} from '../types/comment.ts';
 
 const comments: TComments = [
   {

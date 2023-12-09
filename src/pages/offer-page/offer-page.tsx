@@ -1,11 +1,12 @@
-import {Logo} from '../../components/logo/logo.tsx';
-import {ReviewForm} from '../../components/review-form/review-form.tsx';
-import {Helmet} from 'react-helmet-async';
 import {Navigate, useParams} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
+import {Logo} from '../../components/logo/logo.tsx';
+import {ReviewList} from '../../components/review-list/review-list.tsx';
 import {AppRoute, SITE_NAME} from '../../const.ts';
 import {offers} from '../../mocks/offers.ts';
-import {TOffer} from '../../types/offer.ts';
+import type {TOffer} from '../../types/offer.ts';
 import {calculateRatingPercentages, capitalizeFirstLetter} from '../../utils.ts';
+import {comments} from "../../mocks/comments.ts";
 
 
 function OfferPage() {
@@ -192,44 +193,7 @@ function OfferPage() {
                   </p>
                 </div>
               </div>
-              <section className="offer__reviews reviews">
-                <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">1</span>
-                </h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img
-                          className="reviews__avatar user__avatar"
-                          src="img/avatar-max.jpg"
-                          width={54}
-                          height={54}
-                          alt="Reviews avatar"
-                        />
-                      </div>
-                      <span className="reviews__user-name">Max</span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: '80%'}}/>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by
-                        the unique lightness of Amsterdam. The building is green and
-                        from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">
-                        April 2019
-                      </time>
-                    </div>
-                  </li>
-                </ul>
-                <ReviewForm/>
-              </section>
+              <ReviewList reviews={comments}/>
             </div>
           </div>
           <section className="offer__map map"/>
