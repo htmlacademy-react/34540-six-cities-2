@@ -28,7 +28,11 @@ function OfferPage({offers, comments}: TOfferPageProps) {
   };
 
   const {offerId} = useParams();
-  const offer: TOffer = offers.find((item) => item.id === offerId);
+  const offer: TOffer | undefined = offers.find((item) => item.id === offerId);
+  if (!offer) {
+    return <Navigate to={AppRoute.NotFound}/>;
+  }
+
   const {
     title,
     type,
@@ -39,9 +43,6 @@ function OfferPage({offers, comments}: TOfferPageProps) {
   } = offer;
   const nearbyOffers = getNearbyOffers(offers, offer);
 
-  if (!offer) {
-    return <Navigate to={AppRoute.NotFound}/>;
-  }
 
   return (
     <div className="page">
