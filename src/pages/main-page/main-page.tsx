@@ -1,6 +1,6 @@
 import {Logo} from '../../components/logo/logo.tsx';
 import {Cities} from '../../components/cities/cities.tsx';
-import {TOffers} from '../../types/offer.ts';
+import type {TOffers} from '../../types/offer.ts';
 
 
 type TMainPageProps = {

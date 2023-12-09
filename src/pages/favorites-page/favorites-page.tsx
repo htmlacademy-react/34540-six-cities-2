@@ -1,10 +1,10 @@
 import {Helmet} from 'react-helmet-async';
 import {Link} from 'react-router-dom';
+import {useState} from 'react';
 import {Logo} from '../../components/logo/logo.tsx';
 import {PlaceCard} from '../../components/place-card/place-card.tsx';
+import type {TOffers} from '../../types/offer.ts';
 import {SITE_NAME} from '../../const.ts';
-import {TOffers} from '../../types/offer.ts';
-import {useState} from 'react';
 
 
 type TFavoritesPageProps = {

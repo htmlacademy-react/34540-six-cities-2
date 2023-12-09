@@ -2,14 +2,19 @@ import {Navigate, useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {Logo} from '../../components/logo/logo.tsx';
 import {ReviewList} from '../../components/review-list/review-list.tsx';
+import {Map} from '../../components/map/map.tsx';
 import {AppRoute, SITE_NAME} from '../../const.ts';
-import {offers} from '../../mocks/offers.ts';
-import type {TOffer} from '../../types/offer.ts';
-import {calculateRatingPercentages, capitalizeFirstLetter} from '../../utils.ts';
-import {comments} from "../../mocks/comments.ts";
+import type {TOffer, TOffers} from '../../types/offer.ts';
+import type {TComments} from '../../types/comment.ts';
+import {calculateRatingPercentages, capitalizeFirstLetter, getNearbyOffers} from '../../utils.ts';
 
 
-function OfferPage() {
+type TOfferPageProps = {
+  offers: TOffers;
+  comments: TComments;
+}
+
+function OfferPage({offers, comments}: TOfferPageProps) {
   const {offerId} = useParams();
   const offer: TOffer = offers.find((item) => item.id === offerId);
   const {
@@ -20,6 +25,7 @@ function OfferPage() {
     isPremium,
     rating
   } = offer;
+  const nearbyOffers = getNearbyOffers(offers, offer);
 
   if (!offer) {
     return <Navigate to={AppRoute.NotFound}/>;
@@ -119,7 +125,9 @@ function OfferPage() {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button className={`offer__bookmark-button button${isFavorite ? ' offer__bookmark-button--active' : ''}`} type="button">
+                <button
+                  className={`offer__bookmark-button button${isFavorite ? ' offer__bookmark-button--active' : ''}`}
+                  type="button">
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -193,10 +201,14 @@ function OfferPage() {
                   </p>
                 </div>
               </div>
-              <ReviewList reviews={comments}/>
+              <ReviewList comments={comments}/>
             </div>
           </div>
-          <section className="offer__map map"/>
+          <Map
+            targetCity={offer}
+            locations={nearbyOffers}
+            place="offer"
+          />
         </section>
         <div className="container">
           <section className="near-places places">

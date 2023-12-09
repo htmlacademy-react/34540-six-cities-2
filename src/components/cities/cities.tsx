@@ -63,7 +63,7 @@ function Cities({offers}: TCitiesProps) {
           </div>
         </section>
         <div className="cities__right-section">
-          <Map cities={offers.map((offer) => offer.city)}/>
+          <Map locations={offers}/>
         </div>
       </div>
     </div>

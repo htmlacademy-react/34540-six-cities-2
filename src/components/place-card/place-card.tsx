@@ -3,11 +3,12 @@ import {TOffer} from '../../types/offer.ts';
 import {AppRoute} from '../../const.ts';
 import {capitalizeFirstLetter, calculateRatingPercentages} from '../../utils.ts';
 
+
 type TPlaceCardProps = {
   offer: TOffer;
   onMouseMove: (id: string) => void;
   onMouseLeave: () => void;
-  place?: 'cities' | 'favorites';
+  place?: 'cities' | 'favorites' | 'near-places';
 }
 
 function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceCardProps) {

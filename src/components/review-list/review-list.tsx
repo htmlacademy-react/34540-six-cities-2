@@ -4,19 +4,19 @@ import {ReviewForm} from '../review-form/review-form.tsx';
 
 
 type ReviewListProps = {
-  reviews: TComments;
+  comments: TComments;
 }
 
-const ReviewList = ({reviews}: ReviewListProps) => (
+const ReviewList = ({comments}: ReviewListProps) => (
   <section className="offer__reviews reviews">
-    {reviews.length > 0 && (
+    {comments.length > 0 && (
       <>
         <h2 className="reviews__title">
-          Reviews · <span className="reviews__amount">{reviews.length}</span>
+          Reviews · <span className="reviews__amount">{comments.length}</span>
         </h2>
         <ul className="reviews__list">
-          {reviews.map((review) => (
-            <Review key={review.id} {...review} />
+          {comments.map((comment) => (
+            <Review key={comment.id} {...comment} />
           ))}
         </ul>
       </>)}
