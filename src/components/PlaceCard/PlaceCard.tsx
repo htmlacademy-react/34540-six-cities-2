@@ -3,14 +3,15 @@ import {TOffer} from '../../types/offer.ts';
 import {AppRoute} from '../../const.ts';
 import {capitalizeFirstLetter, calculateRatingPercentages} from '../../utils.ts';
 
+
 type TPlaceCardProps = {
   offer: TOffer;
   onMouseMove: (id: string) => void;
   onMouseLeave: () => void;
-  place?: 'cities' | 'favorites';
+  place?: 'cities' | 'favorites' | 'near-places';
 }
 
-function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceCardProps) {
+const PlaceCard = ({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceCardProps) => {
   const {
     id,
     title,
@@ -46,8 +47,8 @@ function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
           <img
             className="place-card__image"
             src={previewImage}
-            width={place === 'cities' ? 260 : 150}
-            height={place === 'cities' ? 200 : 110}
+            width={place !== 'favorites' ? 260 : 150}
+            height={place !== 'favorites' ? 200 : 110}
             alt={title}
           />
         </Link>
@@ -92,6 +93,6 @@ function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
       </div>
     </article>
   );
-}
+};
 
 export {PlaceCard};

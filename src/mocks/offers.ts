@@ -2,7 +2,7 @@ import {TOffers} from '../types/offer.ts';
 
 const offers: TOffers = [
   {
-    id: 'a995b47b-ca31-4d52-9548-c762a637362c',
+    id: 'b7436b84-cf5d-424d-84fa-e7bee226c24b',
     title: 'Wood and stone place',
     type: 'hotel',
     price: 272,
@@ -92,6 +92,52 @@ const offers: TOffers = [
     isFavorite: true,
     isPremium: false,
     rating: 2.9
+  },
+  {
+    id: 'a585f0fa-4daf-4c9d-a0ba-f3630b2afab1',
+    title: 'Beautiful & luxurious apartment at great location',
+    type: 'hotel',
+    price: 275,
+    previewImage: 'https://13.design.htmlacademy.pro/static/hotel/15.jpg',
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.37454,
+        longitude: 4.897976,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 52.36554,
+      longitude: 4.911976,
+      zoom: 16
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 1.9
+  },
+  {
+    id: '71c056aa-d259-4e80-bdc5-76988622734a',
+    title: 'Amazing and Extremely Central Flat',
+    type: 'house',
+    price: 227,
+    previewImage: 'https://13.design.htmlacademy.pro/static/hotel/10.jpg',
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.37454,
+        longitude: 4.997976,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 52.370540000000005,
+      longitude: 4.9099759999999995,
+      zoom: 16
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 3.3
   }
 ];
 

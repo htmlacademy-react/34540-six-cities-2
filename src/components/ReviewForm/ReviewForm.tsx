@@ -2,7 +2,8 @@ import {Fragment, useState} from 'react';
 import type {ChangeEvent} from 'react';
 import {STARS_COUNT} from '../../const.ts';
 
-function ReviewForm() {
+
+const ReviewForm = () => {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
   const isValid =
@@ -71,6 +72,6 @@ function ReviewForm() {
       </div>
     </form>
   );
-}
+};
 
 export {ReviewForm};
