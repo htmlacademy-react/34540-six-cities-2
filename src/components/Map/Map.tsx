@@ -1,7 +1,7 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import type {TOffer, TOffers} from '../../types/offer.ts';
-import {useMap} from '../../hooks/use-map.ts';
+import {useMap} from '../../hooks/useMap.ts';
 import 'leaflet/dist/leaflet.css';
 
 
@@ -26,7 +26,7 @@ type TMapProps = {
   place?: 'cities' | 'offer';
 };
 
-function Map({targetCity, locations, place = 'cities'}: TMapProps) {
+const Map = ({targetCity, locations, place = 'cities'}: TMapProps) => {
   const focusCity = targetCity ? targetCity.city : locations[Math.floor((locations.length - 1) / 2)].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, focusCity);
@@ -56,6 +56,6 @@ function Map({targetCity, locations, place = 'cities'}: TMapProps) {
   }, [map, locations, targetCity]);
 
   return <section className={`${place}__map map`} ref={mapRef}/>;
-}
+};
 
 export {Map};

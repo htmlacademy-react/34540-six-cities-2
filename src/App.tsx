@@ -1,14 +1,15 @@
+import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
-import {AppRoute, AuthorizationStatus} from '../../const.ts';
-import {MainPage} from '../../pages/main-page/main-page.tsx';
-import {NotFoundPage} from '../../pages/not-found-page/not-found-page.tsx';
-import {LoginPage} from '../../pages/login-page/login-page.tsx';
-import {OfferPage} from '../../pages/offer-page/offer-page.tsx';
-import {FavoritesPage} from '../../pages/favorites-page/favorites-page.tsx';
-import {PrivateRoute} from '../private-route/private-route.tsx';
-import type {TOffers} from '../../types/offer.ts';
-import type {TComments} from '../../types/comment.ts';
+import {AppRoute, AuthorizationStatus} from './const.ts';
+import {MainPage} from './pages/MainPage/MainPage.tsx';
+import {NotFoundPage} from './pages/NotFoundPage/NotFoundPage.tsx';
+import {LoginPage} from './pages/LoginPage/LoginPage.tsx';
+import {OfferPage} from './pages/OfferPage/OfferPage.tsx';
+import {FavoritesPage} from './pages/FavoritesPage/FavoritesPage.tsx';
+import {PrivateRoute} from './components/PrivateRoute/PrivateRoute.tsx';
+import type {TOffers} from './types/offer.ts';
+import type {TComments} from './types/comment.ts';
 
 
 type TAppProps = {
@@ -16,7 +17,7 @@ type TAppProps = {
   comments: TComments;
 }
 
-function App({offers, comments}: TAppProps) {
+function App({offers, comments}: TAppProps): React.FC {
   return (
     <HelmetProvider>
       <BrowserRouter>

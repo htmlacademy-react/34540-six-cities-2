@@ -1,8 +1,8 @@
 import {Helmet} from 'react-helmet-async';
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
-import {Logo} from '../../components/logo/logo.tsx';
-import {PlaceCard} from '../../components/place-card/place-card.tsx';
+import {Logo} from '../../components/Logo/Logo.tsx';
+import {PlaceCard} from '../../components/PlaceCard/PlaceCard.tsx';
 import type {TOffers} from '../../types/offer.ts';
 import {SITE_NAME} from '../../const.ts';
 
@@ -11,7 +11,7 @@ type TFavoritesPageProps = {
   offers: TOffers;
 }
 
-function FavoritesPage({offers}: TFavoritesPageProps) {
+const FavoritesPage = ({offers}: TFavoritesPageProps) => {
   const [, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {
@@ -22,7 +22,7 @@ function FavoritesPage({offers}: TFavoritesPageProps) {
     setActiveOffer(null);
   };
 
-  const groupedOffersByCity = offers.reduce<{ [key: string ]: TOffers }>((acc, curr) => {
+  const groupedOffersByCity = offers.reduce<{ [key: string]: TOffers }>((acc, curr) => {
     if (curr.isFavorite) {
       const city = curr.city.name;
 
@@ -86,7 +86,7 @@ function FavoritesPage({offers}: TFavoritesPageProps) {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {groupedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} place = 'favorites' onMouseMove={handleCardMouseMove} onMouseLeave={handleCardMouseLeave}/>
+                    {groupedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} place='favorites' onMouseMove={handleCardMouseMove} onMouseLeave={handleCardMouseLeave}/>
                     )}
                   </div>
                 </li>
@@ -108,6 +108,6 @@ function FavoritesPage({offers}: TFavoritesPageProps) {
       </footer>
     </div>
   );
-}
+};
 
 export {FavoritesPage};

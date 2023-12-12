@@ -11,7 +11,7 @@ type TPlaceCardProps = {
   place?: 'cities' | 'favorites' | 'near-places';
 }
 
-function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceCardProps) {
+const PlaceCard = ({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceCardProps) => {
   const {
     id,
     title,
@@ -93,6 +93,6 @@ function PlaceCard({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
       </div>
     </article>
   );
-}
+};
 
 export {PlaceCard};

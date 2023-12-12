@@ -1,14 +1,14 @@
 import {Navigate, useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {useState} from 'react';
-import {Logo} from '../../components/logo/logo.tsx';
-import {ReviewList} from '../../components/review-list/review-list.tsx';
-import {Map} from '../../components/map/map.tsx';
+import {Logo} from '../../components/Logo/Logo.tsx';
+import {PlaceCard} from '../../components/PlaceCard/PlaceCard.tsx';
+import {ReviewList} from '../../components/ReviewList/ReviewList.tsx';
+import {Map} from '../../components/Map/Map.tsx';
 import {AppRoute, SITE_NAME} from '../../const.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TComments} from '../../types/comment.ts';
 import {calculateRatingPercentages, capitalizeFirstLetter, getNearbyOffers} from '../../utils.ts';
-import {PlaceCard} from '../../components/place-card/place-card.tsx';
 
 
 type TOfferPageProps = {
@@ -16,7 +16,7 @@ type TOfferPageProps = {
   comments: TComments;
 }
 
-function OfferPage({offers, comments}: TOfferPageProps) {
+const OfferPage = ({offers, comments}: TOfferPageProps) => {
   const [, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {
@@ -245,6 +245,6 @@ function OfferPage({offers, comments}: TOfferPageProps) {
       </main>
     </div>
   );
-}
+};
 
 export {OfferPage};

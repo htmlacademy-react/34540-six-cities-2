@@ -1,6 +1,6 @@
 import type {TComments} from '../../types/comment.ts';
-import {Review} from '../review/review.tsx';
-import {ReviewForm} from '../review-form/review-form.tsx';
+import {Review} from '../Review/Review.tsx';
+import {ReviewForm} from '../ReviewForm/ReviewForm.tsx';
 
 
 type ReviewListProps = {
