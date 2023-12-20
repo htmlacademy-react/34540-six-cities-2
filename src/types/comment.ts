@@ -1,4 +1,4 @@
-import {TUser} from './user.ts';
+import type {TUser} from './user.ts';
 
 
 type TComment = {

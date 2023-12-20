@@ -1,9 +1,11 @@
 import {TLocation} from './location.ts';
+import {CityName} from '../const.ts';
 
+type TCityName = keyof typeof CityName;
 
 type TCity = {
-  name: string;
+  name: TCityName;
   location: TLocation;
 }
 
-export type {TCity};
+export type {TCityName, TCity};

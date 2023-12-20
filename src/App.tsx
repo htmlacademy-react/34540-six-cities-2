@@ -1,4 +1,3 @@
-import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import {AppRoute, AuthorizationStatus} from './const.ts';
@@ -17,7 +16,7 @@ type TAppProps = {
   comments: TComments;
 }
 
-function App({offers, comments}: TAppProps): React.FC {
+function App({offers, comments}: TAppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
