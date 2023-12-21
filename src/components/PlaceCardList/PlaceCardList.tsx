@@ -8,7 +8,7 @@ type TCitiesProps = {
   offers: TOffers;
 }
 
-const Cities = ({offers}: TCitiesProps) => {
+const PlaceCardList = ({offers}: TCitiesProps) => {
   const [, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {
@@ -70,4 +70,4 @@ const Cities = ({offers}: TCitiesProps) => {
   );
 };
 
-export {Cities};
+export {PlaceCardList};

@@ -1,5 +1,5 @@
 import {Logo} from '../../components/Logo/Logo.tsx';
-import {Cities} from '../../components/Cities/Cities.tsx';
+import {PlaceCardList} from '../../components/PlaceCardList/PlaceCardList.tsx';
 import type {TOffers} from '../../types/offer.ts';
 
 
@@ -77,7 +77,7 @@ const MainPage = ({offers}: TMainPageProps) => (
           </ul>
         </section>
       </div>
-      <Cities offers={offers}/>
+      <PlaceCardList offers={offers}/>
     </main>
   </div>
 );
