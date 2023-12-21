@@ -23,7 +23,7 @@ function App({offers, comments}: TAppProps) {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage offers={offers}/>}
+            element={<MainPage/>}
           />
           <Route
             path={AppRoute.Favorites}

@@ -1,14 +1,9 @@
 import {Logo} from '../../components/Logo/Logo.tsx';
 import {CitiesList} from '../../components/CitiesList/CitiesList.tsx';
 import {PlaceCardList} from '../../components/PlaceCardList/PlaceCardList.tsx';
-import type {TOffers} from '../../types/offer.ts';
 
 
-type TMainPageProps = {
-  offers: TOffers;
-}
-
-const MainPage = ({offers}: TMainPageProps) => (
+const MainPage = () => (
   <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -47,7 +42,7 @@ const MainPage = ({offers}: TMainPageProps) => (
           <CitiesList/>
         </section>
       </div>
-      <PlaceCardList offers={offers}/>
+      <PlaceCardList/>
     </main>
   </div>
 );

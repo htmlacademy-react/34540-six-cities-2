@@ -12,8 +12,6 @@ const CitiesList = () => {
     dispatch(setCity(name));
   };
 
-  console.log('CitiesList');
-
   return (
     <ul className="locations__list tabs__list">
       {Object.values(CityName).map((city) => (

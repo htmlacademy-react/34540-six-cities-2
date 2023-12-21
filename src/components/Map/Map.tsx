@@ -38,6 +38,8 @@ const Map = ({targetCity, locations, place = 'cities'}: TMapProps) => {
   }
 
   useEffect(() => {
+    const markers: Marker[] = [];
+
     if (map) {
       locations.forEach(({id: locationId, city}) => {
         const {latitude: lat, longitude: lng} = city.location;
@@ -53,8 +55,22 @@ const Map = ({targetCity, locations, place = 'cities'}: TMapProps) => {
               : defaultIconConfig
           )
           .addTo(map);
+
+        map.fitBounds([[city.location.latitude, city.location.longitude]], {
+          maxZoom: city.location.zoom
+        });
+
+        markers.push(marker);
       });
     }
+
+    return () => {
+      if (map) {
+        markers.forEach((marker) => {
+          map.removeLayer(marker);
+        });
+      }
+    };
   }, [map, locations, targetCity]);
 
   return <section className={`${place}__map map`} ref={mapRef}/>;

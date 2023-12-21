@@ -1,14 +1,12 @@
 import {useState} from 'react';
 import {PlaceCard} from '../PlaceCard/PlaceCard.tsx';
 import {Map} from '../Map/Map.tsx';
-import {TOffers} from '../../types/offer.ts';
+import {useAppSelector} from '../../hooks';
 
 
-type TCitiesProps = {
-  offers: TOffers;
-}
-
-const PlaceCardList = ({offers}: TCitiesProps) => {
+const PlaceCardList = () => {
+  const activeCity = useAppSelector((state) => state.city);
+  const offersByCity = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city.name));
   const [, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {
@@ -24,7 +22,8 @@ const PlaceCardList = ({offers}: TCitiesProps) => {
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">312 places to stay in Amsterdam</b>
+          <b className="places__found">{offersByCity.length} {offersByCity.length > 1 ? 'places' : 'place'} places to
+            stay in {activeCity.name}</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
@@ -52,7 +51,7 @@ const PlaceCardList = ({offers}: TCitiesProps) => {
             </ul>
           </form>
           <div className="cities__places-list places__list tabs__content">
-            {offers.map((offer) => (
+            {offersByCity.map((offer) => (
               <PlaceCard
                 key={offer.id}
                 offer={offer}
@@ -63,7 +62,7 @@ const PlaceCardList = ({offers}: TCitiesProps) => {
           </div>
         </section>
         <div className="cities__right-section">
-          <Map locations={offers}/>
+          <Map locations={offersByCity}/>
         </div>
       </div>
     </div>
