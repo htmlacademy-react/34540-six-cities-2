@@ -3,7 +3,7 @@ import type {TCityName} from '../../types/city.ts';
 
 
 type TCityProps = {
-  name: TCityName,
+  name: TCityName;
   isActive: boolean;
   onCityClick: (name: TCityName) => void;
 }

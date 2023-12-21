@@ -3,10 +3,11 @@ import {CitiesList} from '../../components/CitiesList/CitiesList.tsx';
 import {NoPlaces} from '../../components/NoPlaces/NoPlaces.tsx';
 import {PlaceCardList} from '../../components/PlaceCardList/PlaceCardList.tsx';
 import {useAppSelector} from '../../hooks';
+import {getOffersByCity} from '../../utils.ts';
 
 
 const MainPage = () => {
-  const offersByCity = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city.name));
+  const offersByCity = useAppSelector((state) => getOffersByCity(state));
   const activeCity = useAppSelector((state) => state.city);
 
   return (
@@ -27,7 +28,7 @@ const MainPage = () => {
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
                       igor.khripunov@mail.ru
-                  </span>
+                    </span>
                     <span className="header__favorite-count">3</span>
                   </a>
                 </li>
@@ -52,11 +53,10 @@ const MainPage = () => {
           <PlaceCardList
             activeCity={activeCity}
             offers={offersByCity}
-          />
-        }
+          />}
       </main>
     </div>
-  )
+  );
 };
 
 export {MainPage};

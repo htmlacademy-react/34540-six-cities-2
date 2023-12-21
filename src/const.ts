@@ -13,7 +13,7 @@ enum AuthorizationStatus {
 }
 
 enum NameSpace {
-  City = "CITY",
+  City = 'CITY',
   Offer = 'OFFER',
   Offers = 'OFFERS'
 }

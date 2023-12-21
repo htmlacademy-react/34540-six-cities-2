@@ -1,13 +1,13 @@
 import {useState} from 'react';
 import {PlaceCard} from '../PlaceCard/PlaceCard.tsx';
 import {Map} from '../Map/Map.tsx';
-import type {TCity} from "../../types/city.ts";
+import type {TCity} from '../../types/city.ts';
 import type {TOffers} from '../../types/offer.ts';
 
 
 type TPlaceCardListProps = {
-  activeCity: TCity
-  offers: TOffers
+  activeCity: TCity;
+  offers: TOffers;
 }
 
 const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
@@ -26,8 +26,9 @@ const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offers.length} {offers.length ? 'place' : 'places'} places to
-            stay in {activeCity.name}</b>
+          <b className="places__found">
+            {offers.length} {offers.length ? 'place' : 'places'} places to stay in {activeCity.name}
+          </b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>

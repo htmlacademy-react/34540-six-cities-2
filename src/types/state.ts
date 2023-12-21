@@ -4,8 +4,8 @@ import type {TOffers} from './offer.ts';
 
 
 type TState = {
-  city: TCity,
-  offers: TOffers
+  city: TCity;
+  offers: TOffers;
 }
 
 type TAppDispatch = typeof store.dispatch;

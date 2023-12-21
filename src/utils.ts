@@ -1,5 +1,6 @@
 import {STARS_COUNT, MONTHS} from './const.ts';
 import type {TOffer, TOffers} from './types/offer.ts';
+import type {TState} from './types/state.ts';
 
 
 const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase()
@@ -13,6 +14,8 @@ const formatDate = (date: string) => {
   return `${MONTHS[dateParsed.getMonth()]} ${dateParsed.getFullYear()}`;
 };
 
+const getOffersByCity = (state: TState) => state.offers.filter((offer: TOffer) => offer.city.name === state.city.name);
+
 const getNearbyOffers = (offers: TOffers, targetOffer: TOffer, amount = 3) => {
   const nearbyOffers = offers.filter((offer) => offer.id !== targetOffer.id);
   amount = offers.length < 3 ? offers.length : amount;
@@ -24,5 +27,6 @@ export {
   capitalizeFirstLetter,
   calculateRatingPercentages,
   formatDate,
+  getOffersByCity,
   getNearbyOffers
 };
