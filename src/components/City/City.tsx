@@ -1,4 +1,6 @@
+import {Link} from 'react-router-dom';
 import type {TCityName} from '../../types/city.ts';
+
 
 type TCityProps = {
   name: TCityName,
@@ -13,9 +15,12 @@ const City = ({name, isActive, onCityClick}: TCityProps) => {
 
   return (
     <li className="locations__item" onClick={handleCityClick}>
-      <a className={`locations__item-link tabs__item${isActive ? ' tabs__item--active' : ''}`} href="#">
+      <Link
+        to="/"
+        className={`locations__item-link tabs__item${isActive ? ' tabs__item--active' : ''}`}
+      >
         <span>{name}</span>
-      </a>
+      </Link>
     </li>
   );
 };

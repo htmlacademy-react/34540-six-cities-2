@@ -7,16 +7,14 @@ import {LoginPage} from './pages/LoginPage/LoginPage.tsx';
 import {OfferPage} from './pages/OfferPage/OfferPage.tsx';
 import {FavoritesPage} from './pages/FavoritesPage/FavoritesPage.tsx';
 import {PrivateRoute} from './components/PrivateRoute/PrivateRoute.tsx';
-import type {TOffers} from './types/offer.ts';
 import type {TComments} from './types/comment.ts';
 
 
 type TAppProps = {
-  offers: TOffers;
   comments: TComments;
 }
 
-function App({offers, comments}: TAppProps) {
+function App({comments}: TAppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -29,7 +27,7 @@ function App({offers, comments}: TAppProps) {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <FavoritesPage offers={offers}/>
+                <FavoritesPage/>
               </PrivateRoute>
             }
           />
@@ -39,7 +37,7 @@ function App({offers, comments}: TAppProps) {
           />
           <Route
             path={`${AppRoute.Offer}/:offerId`}
-            element={<OfferPage offers={offers} comments={comments}/>}
+            element={<OfferPage comments={comments}/>}
           />
           <Route
             path='*'

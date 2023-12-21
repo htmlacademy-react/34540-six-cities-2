@@ -5,13 +5,11 @@ import {Logo} from '../../components/Logo/Logo.tsx';
 import {PlaceCard} from '../../components/PlaceCard/PlaceCard.tsx';
 import type {TOffers} from '../../types/offer.ts';
 import {SITE_NAME} from '../../const.ts';
+import {useAppSelector} from '../../hooks';
 
 
-type TFavoritesPageProps = {
-  offers: TOffers;
-}
-
-const FavoritesPage = ({offers}: TFavoritesPageProps) => {
+const FavoritesPage = () => {
+  const offers: TOffers = useAppSelector((state) => state.offers);
   const [, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {

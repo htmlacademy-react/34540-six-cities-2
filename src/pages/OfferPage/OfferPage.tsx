@@ -9,14 +9,15 @@ import {AppRoute, SITE_NAME} from '../../const.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TComments} from '../../types/comment.ts';
 import {calculateRatingPercentages, capitalizeFirstLetter, getNearbyOffers} from '../../utils.ts';
+import {useAppSelector} from '../../hooks';
 
 
 type TOfferPageProps = {
-  offers: TOffers;
   comments: TComments;
 }
 
-const OfferPage = ({offers, comments}: TOfferPageProps) => {
+const OfferPage = ({comments}: TOfferPageProps) => {
+  const offers: TOffers = useAppSelector((state) => state.offers);
   const [, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {
