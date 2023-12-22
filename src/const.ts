@@ -12,7 +12,7 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-enum NameSpace {
+enum StoreNameSpace {
   City = 'CITY',
   Offer = 'OFFER',
   Offers = 'OFFERS'
@@ -69,7 +69,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 export {
   AppRoute,
   AuthorizationStatus,
-  NameSpace,
+  StoreNameSpace,
   CityName,
   SITE_NAME,
   CityLocations,

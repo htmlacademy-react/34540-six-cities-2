@@ -4,6 +4,7 @@ import {NoPlaces} from '../../components/NoPlaces/NoPlaces.tsx';
 import {PlaceCardList} from '../../components/PlaceCardList/PlaceCardList.tsx';
 import {useAppSelector} from '../../hooks';
 import {getOffersByCity} from '../../utils.ts';
+import classNames from 'classnames';
 
 
 const MainPage = () => {
@@ -42,7 +43,9 @@ const MainPage = () => {
           </div>
         </div>
       </header>
-      <main className={`page__main page__main--index${offersByCity.length ? '' : ' page__main--index-empty'}`}>
+      <main
+        className={classNames('page__main', 'page__main--index', {'page__main--index-empty': !offersByCity.length})}
+      >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">

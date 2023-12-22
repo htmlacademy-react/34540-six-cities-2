@@ -10,6 +10,7 @@ import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TComments} from '../../types/comment.ts';
 import {calculateRatingPercentages, capitalizeFirstLetter, getNearbyOffers, getOffersByCity} from '../../utils.ts';
 import {useAppSelector} from '../../hooks';
+import classNames from 'classnames';
 
 
 type TOfferPageProps = {
@@ -140,7 +141,7 @@ const OfferPage = ({comments}: TOfferPageProps) => {
                   {title}
                 </h1>
                 <button
-                  className={`offer__bookmark-button button${isFavorite ? ' offer__bookmark-button--active' : ''}`}
+                  className={classNames('offer__bookmark-button', 'button', {'offer__bookmark-button--active': isFavorite})}
                   type="button"
                 >
                   <svg className="offer__bookmark-icon" width={31} height={33}>
@@ -225,7 +226,7 @@ const OfferPage = ({comments}: TOfferPageProps) => {
             place="offer"
           />
         </section>
-        {nearbyOffers.length &&
+        {Boolean(nearbyOffers.length) &&
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">
