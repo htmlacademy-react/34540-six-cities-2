@@ -138,6 +138,98 @@ const offers: TOffers = [
     isFavorite: false,
     isPremium: true,
     rating: 3.3
+  },
+  {
+    id: 'e5607dfe-a74e-4148-abf6-b696f81105c5',
+    title: 'Amazing and Extremely Central Flat',
+    type: 'house',
+    price: 227,
+    previewImage: 'https://13.design.htmlacademy.pro/static/hotel/10.jpg',
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.85661,
+        longitude: 2.351499,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 48.868610000000004,
+      longitude: 2.342499,
+      zoom: 16
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 3.3
+  },
+  {
+    id: 'd4173959-175f-42da-b03a-69a36bf3ae27',
+    title: 'Amazing and Extremely Central Flat',
+    type: 'house',
+    price: 227,
+    previewImage: 'https://13.design.htmlacademy.pro/static/hotel/10.jpg',
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.938361,
+        longitude: 6.959974,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 50.932361,
+      longitude: 6.937974,
+      zoom: 16
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 3.3
+  },
+  {
+    id: '7f263cb5-d208-417a-b8b1-ec4bd1ef37fd',
+    title: 'Wood and stone place',
+    type: 'hotel',
+    price: 272,
+    previewImage: 'https://13.design.pages.academy/static/hotel/14.jpg',
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.913361,
+        longitude: 6.9509739999999995,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 50.934361,
+      longitude: 6.943974,
+      zoom: 16
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 4.5
+  },
+  {
+    id: 'bc3efcda-1342-4496-9264-b3988c1e2a22',
+    title: 'Tile House',
+    type: 'room',
+    price: 253,
+    previewImage: 'https://13.design.pages.academy/static/hotel/12.jpg',
+    city: {
+      name: 'Hamburg',
+      location: {
+        latitude: 53.550341,
+        longitude: 10.000654,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 53.573341000000006,
+      longitude: 10.009654000000001,
+      zoom: 16
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 2.9
   }
 ];
 

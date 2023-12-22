@@ -1,5 +1,5 @@
 import {useRef, useEffect} from 'react';
-import {Icon, Marker} from 'leaflet';
+import {Icon, Marker, PointExpression} from 'leaflet';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import {useMap} from '../../hooks/useMap.ts';
 import 'leaflet/dist/leaflet.css';
@@ -7,17 +7,19 @@ import 'leaflet/dist/leaflet.css';
 
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 const URL_MARKER_ACTIVE = 'img/pin-active.svg';
+const ICON_SIZE: PointExpression = [27, 40];
+const ICON_ANCHOR: PointExpression = [13, 40];
 
 const defaultIconConfig = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [27, 40],
-  iconAnchor: [13, 40]
+  iconSize: ICON_SIZE,
+  iconAnchor: ICON_ANCHOR
 });
 
 const activeIconConfig = new Icon({
   iconUrl: URL_MARKER_ACTIVE,
-  iconSize: [27, 40],
-  iconAnchor: [13, 40]
+  iconSize: ICON_SIZE,
+  iconAnchor: ICON_ANCHOR
 });
 
 type TMapProps = {
@@ -36,6 +38,8 @@ const Map = ({targetCity, locations, place = 'cities'}: TMapProps) => {
   }
 
   useEffect(() => {
+    const markers: Marker[] = [];
+
     if (map) {
       locations.forEach(({id: locationId, city}) => {
         const {latitude: lat, longitude: lng} = city.location;
@@ -51,8 +55,22 @@ const Map = ({targetCity, locations, place = 'cities'}: TMapProps) => {
               : defaultIconConfig
           )
           .addTo(map);
+
+        map.fitBounds([[city.location.latitude, city.location.longitude]], {
+          maxZoom: city.location.zoom
+        });
+
+        markers.push(marker);
       });
     }
+
+    return () => {
+      if (map) {
+        markers.forEach((marker) => {
+          map.removeLayer(marker);
+        });
+      }
+    };
   }, [map, locations, targetCity]);
 
   return <section className={`${place}__map map`} ref={mapRef}/>;

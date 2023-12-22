@@ -27,7 +27,7 @@ const Review = ({comment, date, rating, user}: TComment) => {
           <div className="reviews__stars rating__stars">
             <span
               style={{
-                width: `${(100 * rating) / STARS_COUNT}%`
+                width: `${(100 * Math.round(rating)) / STARS_COUNT}%`
               }}
             />
             <span className="visually-hidden">Rating</span>

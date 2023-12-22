@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import {TOffer} from '../../types/offer.ts';
 import {AppRoute} from '../../const.ts';
 import {capitalizeFirstLetter, calculateRatingPercentages} from '../../utils.ts';
+import classNames from 'classnames';
 
 
 type TPlaceCardProps = {
@@ -60,7 +61,7 @@ const PlaceCard = ({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button button${isFavorite ? ' place-card__bookmark-button--active' : ''}`}
+            className={classNames('place-card__bookmark-button', 'button', {'place-card__bookmark-button--active': isFavorite})}
             type="button"
           >
             <svg

@@ -1,14 +1,16 @@
 import {useState} from 'react';
 import {PlaceCard} from '../PlaceCard/PlaceCard.tsx';
 import {Map} from '../Map/Map.tsx';
-import {TOffers} from '../../types/offer.ts';
+import type {TCity} from '../../types/city.ts';
+import type {TOffers} from '../../types/offer.ts';
 
 
-type TCitiesProps = {
+type TPlaceCardListProps = {
+  activeCity: TCity;
   offers: TOffers;
 }
 
-const Cities = ({offers}: TCitiesProps) => {
+const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
   const [, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {
@@ -24,7 +26,9 @@ const Cities = ({offers}: TCitiesProps) => {
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">312 places to stay in Amsterdam</b>
+          <b className="places__found">
+            {offers.length} {offers.length ? 'place' : 'places'} places to stay in {activeCity.name}
+          </b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
@@ -70,4 +74,4 @@ const Cities = ({offers}: TCitiesProps) => {
   );
 };
 
-export {Cities};
+export {PlaceCardList};

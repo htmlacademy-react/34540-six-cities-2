@@ -1,6 +1,6 @@
-import {TCity} from './city.ts';
-import {THost} from './host.ts';
-import {TLocation} from './location.ts';
+import type {TCity} from './city.ts';
+import type {THost} from './host.ts';
+import type {TLocation} from './location.ts';
 
 
 type TOffer = {
