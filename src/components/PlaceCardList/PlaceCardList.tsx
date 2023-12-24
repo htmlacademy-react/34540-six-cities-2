@@ -1,8 +1,12 @@
 import {useState} from 'react';
 import {PlaceCard} from '../PlaceCard/PlaceCard.tsx';
 import {Map} from '../Map/Map.tsx';
+import {Sorting} from '../Sorting/Sorting.tsx';
 import type {TCity} from '../../types/city.ts';
 import type {TOffers} from '../../types/offer.ts';
+import type {TSortName} from '../../types/sort-name.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {setSorting} from '../../store/actions.ts';
 
 
 type TPlaceCardListProps = {
@@ -11,6 +15,8 @@ type TPlaceCardListProps = {
 }
 
 const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
+  const dispatch = useAppDispatch();
+  const activeSorting = useAppSelector((state) => state.sorting);
   const [, setActiveOffer] = useState(null);
 
   const handleCardMouseMove = (id: number) => {
@@ -21,6 +27,10 @@ const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
     setActiveOffer(null);
   };
 
+  const onSortingChange = (sortName: TSortName) => {
+    dispatch(setSorting(sortName));
+  };
+
   return (
     <div className="cities">
       <div className="cities__places-container container">
@@ -29,32 +39,10 @@ const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
           <b className="places__found">
             {offers.length} {offers.length ? 'place' : 'places'} places to stay in {activeCity.name}
           </b>
-          <form className="places__sorting" action="#" method="get">
-            <span className="places__sorting-caption">Sort by</span>
-            <span className="places__sorting-type" tabIndex={0}>
-              Popular
-              <svg className="places__sorting-arrow" width={7} height={4}>
-                <use xlinkHref="#icon-arrow-select"/>
-              </svg>
-            </span>
-            <ul className="places__options places__options--custom places__options--opened">
-              <li
-                className="places__option places__option--active"
-                tabIndex={0}
-              >
-                Popular
-              </li>
-              <li className="places__option" tabIndex={0}>
-                Price: low to high
-              </li>
-              <li className="places__option" tabIndex={0}>
-                Price: high to low
-              </li>
-              <li className="places__option" tabIndex={0}>
-                Top rated first
-              </li>
-            </ul>
-          </form>
+          <Sorting
+            onChange={onSortingChange}
+            activeSorting={activeSorting}
+          />
           <div className="cities__places-list places__list tabs__content">
             {offers.map((offer) => (
               <PlaceCard
