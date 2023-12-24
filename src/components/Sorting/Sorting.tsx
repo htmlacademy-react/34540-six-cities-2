@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {SortName} from '../../const.ts';
 import type {TSortName} from '../../types/sort-name.ts';
+import classNames from 'classnames';
 
 
 type TSortingProps = {
@@ -39,7 +40,7 @@ const Sorting = ({onChange, activeSorting}: TSortingProps) => {
           {(Object.entries(SortName) as [TSortName, SortName][]).map(([name, title]) => (
             <li
               key={name}
-              className="places__option"
+              className={classNames('places__option', {'places__option--active': name === activeSorting})}
               onClick={() => handleSortItemClick(name)}
               tabIndex={0}
             >
