@@ -24,13 +24,13 @@ const getNearbyOffers = (offers: TOffers, targetOffer: TOffer, amount = 3) => {
   return nearbyOffers.slice(0, amount);
 };
 
-const sorting: {
-  [key in TSortName]: (a: TOffer, b: TOffer) => number
+const sortingFilters: {
+  [key in SortName]: (a: TOffer, b: TOffer) => number
 } = {
-  [SortName.Popular]: () => 0,
-  [SortName.PriceIncrease]: (a, b) => a.price - b.price,
-  [SortName.PriceDecrease]: (a, b) => b.price - a.price,
-  [SortName.TopRated]: (a, b) => b.rating - a.rating,
+  Popular: () => 0,
+  PriceIncrease: (a: TOffer, b: TOffer) => a.price - b.price,
+  PriceDecrease: (a: TOffer, b: TOffer) => b.price - a.price,
+  TopRated: (a: TOffer, b: TOffer) => b.rating - a.rating,
 };
 
 export {
@@ -39,5 +39,5 @@ export {
   formatDate,
   getOffersByCity,
   getNearbyOffers,
-  sorting
+  sortingFilters
 };

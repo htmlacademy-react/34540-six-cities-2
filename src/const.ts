@@ -31,7 +31,7 @@ enum SortName {
   Popular = 'Popular',
   PriceIncrease = 'Price: low to high',
   PriceDecrease = 'Price: high to low',
-  TopRated = 'Top rated first',
+  TopRated = 'Top rated first'
 }
 
 const SITE_NAME = '6 cities';
