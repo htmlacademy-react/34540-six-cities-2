@@ -3,7 +3,7 @@ import {PlaceCard} from '../PlaceCard/PlaceCard.tsx';
 import {Map} from '../Map/Map.tsx';
 import {Sorting} from '../Sorting/Sorting.tsx';
 import type {TCity} from '../../types/city.ts';
-import type {TOffers} from '../../types/offer.ts';
+import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TSortName} from '../../types/sort-name.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {setSorting} from '../../store/actions.ts';
@@ -17,10 +17,10 @@ type TPlaceCardListProps = {
 const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
   const dispatch = useAppDispatch();
   const activeSorting = useAppSelector((state) => state.sorting);
-  const [, setActiveOffer] = useState(null);
+  const [activeOffer, setActiveOffer] = useState(null);
 
-  const handleCardMouseMove = (id: number) => {
-    setActiveOffer(id);
+  const handleCardMouseMove = (offer: TOffer) => {
+    setActiveOffer(offer);
   };
 
   const handleCardMouseLeave = () => {
@@ -55,7 +55,7 @@ const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
           </div>
         </section>
         <div className="cities__right-section">
-          <Map locations={offers}/>
+          <Map locations={offers} targetCity={activeOffer}/>
         </div>
       </div>
     </div>

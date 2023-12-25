@@ -7,7 +7,7 @@ import type {TSortName} from './sort-name.ts';
 type TState = {
   city: TCity;
   offers: TOffers;
-  sorting: TSortName
+  sorting: TSortName;
 }
 
 type TAppDispatch = typeof store.dispatch;

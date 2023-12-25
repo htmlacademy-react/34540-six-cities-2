@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {TOffer} from '../../types/offer.ts';
+import type {TOffer} from '../../types/offer.ts';
 import {AppRoute} from '../../const.ts';
 import {capitalizeFirstLetter, calculateRatingPercentages} from '../../utils.ts';
 import classNames from 'classnames';
@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 type TPlaceCardProps = {
   offer: TOffer;
-  onMouseMove: (id: string) => void;
+  onMouseMove: (offer: TOffer) => void;
   onMouseLeave: () => void;
   place?: 'cities' | 'favorites' | 'near-places';
 }
@@ -25,7 +25,7 @@ const PlaceCard = ({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
   } = offer;
 
   const handleMouseMove = () => {
-    onMouseMove(id);
+    onMouseMove(offer);
   };
 
   return (

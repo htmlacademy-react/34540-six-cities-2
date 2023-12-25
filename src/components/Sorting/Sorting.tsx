@@ -31,9 +31,9 @@ const Sorting = ({onChange, activeSorting}: TSortingProps) => {
         onClick={handleToggleButtonClick}
       >
               Popular
-              <svg className="places__sorting-arrow" width={7} height={4}>
-                <use xlinkHref="#icon-arrow-select"/>
-              </svg>
+        <svg className="places__sorting-arrow" width={7} height={4}>
+          <use xlinkHref="#icon-arrow-select"/>
+        </svg>
       </span>
       {isOpened &&
         <ul className="places__options places__options--custom places__options--opened">
@@ -49,7 +49,7 @@ const Sorting = ({onChange, activeSorting}: TSortingProps) => {
           ))}
         </ul>}
     </form>
-  )
+  );
 };
 
 export {Sorting};

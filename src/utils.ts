@@ -1,7 +1,6 @@
-import {STARS_COUNT, MONTHS, SortName} from './const.ts';
+import {STARS_COUNT, MONTHS} from './const.ts';
 import type {TOffer, TOffers} from './types/offer.ts';
 import type {TState} from './types/state.ts';
-import type {TSortName} from './types/sort-name.ts';
 
 
 const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase()
@@ -24,9 +23,7 @@ const getNearbyOffers = (offers: TOffers, targetOffer: TOffer, amount = 3) => {
   return nearbyOffers.slice(0, amount);
 };
 
-const sortingFilters: {
-  [key in SortName]: (a: TOffer, b: TOffer) => number
-} = {
+const sortingFilters = {
   Popular: () => 0,
   PriceIncrease: (a: TOffer, b: TOffer) => a.price - b.price,
   PriceDecrease: (a: TOffer, b: TOffer) => b.price - a.price,
