@@ -19,9 +19,9 @@ type TOfferPageProps = {
 
 const OfferPage = ({comments}: TOfferPageProps) => {
   const offersByCity: TOffers = useAppSelector((state) => getOffersByCity(state));
-  const [activeOffer, setActiveOffer] = useState(null);
+  const [activeOffer, setActiveOffer] = useState<TOffer | null>(null);
 
-  const handleCardMouseMove = (offer: TOffer) => {
+  const handleCardMouseOver = (offer: TOffer) => {
     setActiveOffer(offer);
   };
 
@@ -238,7 +238,7 @@ const OfferPage = ({comments}: TOfferPageProps) => {
                     key={item.id}
                     offer={item}
                     place="near-places"
-                    onMouseMove={handleCardMouseMove}
+                    onMouseOver={handleCardMouseOver}
                     onMouseLeave={handleCardMouseLeave}
                   />
                 ))}
