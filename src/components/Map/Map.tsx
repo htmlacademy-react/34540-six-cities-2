@@ -23,7 +23,7 @@ const activeIconConfig = new Icon({
 });
 
 type TMapProps = {
-  targetCity?: TOffer;
+  targetCity?: TOffer | null;
   locations: TOffers;
   place?: 'cities' | 'offer';
 };

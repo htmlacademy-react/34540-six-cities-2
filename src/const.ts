@@ -14,8 +14,8 @@ enum AuthorizationStatus {
 
 enum StoreNameSpace {
   City = 'CITY',
-  Offer = 'OFFER',
-  Offers = 'OFFERS'
+  Offers = 'OFFERS',
+  Sort = 'SORT'
 }
 
 enum CityName {
@@ -25,6 +25,13 @@ enum CityName {
   Amsterdam = 'Amsterdam',
   Hamburg = 'Hamburg',
   Dusseldorf = 'Dusseldorf'
+}
+
+enum SortName {
+  Popular = 'Popular',
+  PriceIncrease = 'Price: low to high',
+  PriceDecrease = 'Price: high to low',
+  TopRated = 'Top rated first'
 }
 
 const SITE_NAME = '6 cities';
@@ -71,6 +78,7 @@ export {
   AuthorizationStatus,
   StoreNameSpace,
   CityName,
+  SortName,
   SITE_NAME,
   CityLocations,
   STARS_COUNT,

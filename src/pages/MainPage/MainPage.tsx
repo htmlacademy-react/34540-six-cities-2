@@ -3,12 +3,12 @@ import {CitiesList} from '../../components/CitiesList/CitiesList.tsx';
 import {NoPlaces} from '../../components/NoPlaces/NoPlaces.tsx';
 import {PlaceCardList} from '../../components/PlaceCardList/PlaceCardList.tsx';
 import {useAppSelector} from '../../hooks';
-import {getOffersByCity} from '../../utils.ts';
+import {getOffersByCity, sortingFilters} from '../../utils.ts';
 import classNames from 'classnames';
 
 
 const MainPage = () => {
-  const offersByCity = useAppSelector((state) => getOffersByCity(state));
+  const offersByCity = useAppSelector((state) => getOffersByCity(state).sort(sortingFilters[state.sorting]));
   const activeCity = useAppSelector((state) => state.city);
 
   return (
