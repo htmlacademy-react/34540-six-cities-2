@@ -3,17 +3,17 @@ import {Link} from 'react-router-dom';
 import {useState} from 'react';
 import {Logo} from '../../components/Logo/Logo.tsx';
 import {PlaceCard} from '../../components/PlaceCard/PlaceCard.tsx';
-import type {TOffers} from '../../types/offer.ts';
+import type {TOffer, TOffers} from '../../types/offer.ts';
 import {SITE_NAME} from '../../const.ts';
 import {useAppSelector} from '../../hooks';
 
 
 const FavoritesPage = () => {
   const offers: TOffers = useAppSelector((state) => state.offers);
-  const [, setActiveOffer] = useState(null);
+  const [, setActiveOffer] = useState<TOffer | null>(null);
 
-  const handleCardMouseMove = (id: number) => {
-    setActiveOffer(id);
+  const handleCardMouseOver = (offer: TOffer) => {
+    setActiveOffer(offer);
   };
 
   const handleCardMouseLeave = () => {
@@ -84,7 +84,7 @@ const FavoritesPage = () => {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {groupedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} place='favorites' onMouseMove={handleCardMouseMove} onMouseLeave={handleCardMouseLeave}/>
+                    {groupedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} place='favorites' onMouseOver={handleCardMouseOver} onMouseLeave={handleCardMouseLeave}/>
                     )}
                   </div>
                 </li>
