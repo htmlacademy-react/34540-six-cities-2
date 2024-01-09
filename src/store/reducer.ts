@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {CityName, CityLocations, SortName} from '../const.ts';
 import type {TState} from '../types/state.ts';
-import {setCity, setOffers, setSorting, fetchOffers} from './actions.ts';
+import {setCity, setSorting, fetchOffers} from './actions.ts';
 
 
 const initialState: TState = {
@@ -16,7 +16,7 @@ const initialState: TState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(fetchOffers.pending, (state, _) => {
+    .addCase(fetchOffers.pending, (state) => {
       state.isOffersLoading = true;
     })
     .addCase(fetchOffers.fulfilled, (state, action) => {
@@ -28,9 +28,6 @@ const reducer = createReducer(initialState, (builder) => {
         name: action.payload,
         location: CityLocations[action.payload]
       };
-    })
-    .addCase(setOffers, (state, action) => {
-      state.offers = action.payload;
     })
     .addCase(setSorting, (state, action) => {
       state.sorting = action.payload;

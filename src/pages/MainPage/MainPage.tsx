@@ -15,7 +15,7 @@ const MainPage = () => {
 
   const getPlaceCardList = () => {
     if (!offersByCity.length) {
-      return <NoPlaces/>
+      return <NoPlaces/>;
     }
 
     return (
@@ -23,8 +23,8 @@ const MainPage = () => {
         activeCity={activeCity}
         offers={offersByCity}
       />
-    )
-  }
+    );
+  };
 
   return (
     <div className="page page--gray page--main">

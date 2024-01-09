@@ -7,7 +7,6 @@ import {ApiRoute, StoreNameSpace} from '../const.ts';
 
 
 const setCity = createAction<TCityName>(`${StoreNameSpace.City}/setCity`);
-const setOffers = createAction<TOffers>(`${StoreNameSpace.Offers}/setOffers`);
 const setSorting = createAction<TSortName>(`${StoreNameSpace.Sort}/setSorting`);
 
 const fetchOffers = createAsyncThunk(`${StoreNameSpace.Offers}/fetchOffers`, async (_, thunkAPI) => {
@@ -19,7 +18,6 @@ const fetchOffers = createAsyncThunk(`${StoreNameSpace.Offers}/fetchOffers`, asy
 
 export {
   setCity,
-  setOffers,
   setSorting,
   fetchOffers
 };
