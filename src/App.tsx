@@ -11,8 +11,7 @@ import {PrivateRoute} from './components/PrivateRoute/PrivateRoute.tsx';
 import type {TComments} from './types/comment.ts';
 import {Provider} from 'react-redux';
 import {store} from './store';
-import {setOffers} from './store/actions.ts';
-import {offers} from './mocks/offers.ts';
+import {fetchOffers} from './store/actions.ts';
 
 
 type TAppProps = {
@@ -21,7 +20,7 @@ type TAppProps = {
 
 function App({comments}: TAppProps) {
   useEffect(() => {
-    store.dispatch(setOffers(offers));
+    store.dispatch(fetchOffers());
   }, []);
 
   return (

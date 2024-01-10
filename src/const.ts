@@ -6,6 +6,10 @@ enum AppRoute {
   Root = '/'
 }
 
+enum ApiRoute {
+  Offers = '/offers'
+}
+
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -75,6 +79,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 
 export {
   AppRoute,
+  ApiRoute,
   AuthorizationStatus,
   StoreNameSpace,
   CityName,

@@ -17,9 +17,9 @@ type TPlaceCardListProps = {
 const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
   const dispatch = useAppDispatch();
   const activeSorting = useAppSelector((state) => state.sorting);
-  const [activeOffer, setActiveOffer] = useState(null);
+  const [activeOffer, setActiveOffer] = useState<TOffer | null>(null);
 
-  const handleCardMouseMove = (offer: TOffer) => {
+  const handleCardMouseOver = (offer: TOffer) => {
     setActiveOffer(offer);
   };
 
@@ -48,7 +48,7 @@ const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
               <PlaceCard
                 key={offer.id}
                 offer={offer}
-                onMouseMove={handleCardMouseMove}
+                onMouseOver={handleCardMouseOver}
                 onMouseLeave={handleCardMouseLeave}
               />
             ))}

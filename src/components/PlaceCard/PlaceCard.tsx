@@ -7,12 +7,12 @@ import classNames from 'classnames';
 
 type TPlaceCardProps = {
   offer: TOffer;
-  onMouseMove: (offer: TOffer) => void;
+  onMouseOver: (offer: TOffer) => void;
   onMouseLeave: () => void;
   place?: 'cities' | 'favorites' | 'near-places';
 }
 
-const PlaceCard = ({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceCardProps) => {
+const PlaceCard = ({offer, place = 'cities', onMouseOver, onMouseLeave}: TPlaceCardProps) => {
   const {
     id,
     title,
@@ -24,14 +24,14 @@ const PlaceCard = ({offer, place = 'cities', onMouseMove, onMouseLeave}: TPlaceC
     rating
   } = offer;
 
-  const handleMouseMove = () => {
-    onMouseMove(offer);
+  const handleMouseOver = () => {
+    onMouseOver(offer);
   };
 
   return (
     <article
       className={`${place}__card place-card`}
-      onMouseMove={handleMouseMove}
+      onMouseOver={handleMouseOver}
       onMouseLeave={onMouseLeave}
     >
       {isPremium && (

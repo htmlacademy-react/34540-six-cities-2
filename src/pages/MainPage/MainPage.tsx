@@ -1,4 +1,5 @@
 import {Logo} from '../../components/Logo/Logo.tsx';
+import {Spinner} from '../../components/Spinner/Spinner.tsx';
 import {CitiesList} from '../../components/CitiesList/CitiesList.tsx';
 import {NoPlaces} from '../../components/NoPlaces/NoPlaces.tsx';
 import {PlaceCardList} from '../../components/PlaceCardList/PlaceCardList.tsx';
@@ -8,8 +9,22 @@ import classNames from 'classnames';
 
 
 const MainPage = () => {
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
   const offersByCity = useAppSelector((state) => getOffersByCity(state).sort(sortingFilters[state.sorting]));
   const activeCity = useAppSelector((state) => state.city);
+
+  const getPlaceCardList = () => {
+    if (!offersByCity.length) {
+      return <NoPlaces/>;
+    }
+
+    return (
+      <PlaceCardList
+        activeCity={activeCity}
+        offers={offersByCity}
+      />
+    );
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -52,11 +67,7 @@ const MainPage = () => {
             <CitiesList/>
           </section>
         </div>
-        {!offersByCity.length ? <NoPlaces/> :
-          <PlaceCardList
-            activeCity={activeCity}
-            offers={offersByCity}
-          />}
+        {isOffersLoading ? <Spinner/> : getPlaceCardList()}
       </main>
     </div>
   );

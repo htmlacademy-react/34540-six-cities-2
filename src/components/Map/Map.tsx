@@ -41,8 +41,8 @@ const Map = ({targetCity, locations, place = 'cities'}: TMapProps) => {
     const markers: Marker[] = [];
 
     if (map) {
-      locations.forEach(({id: locationId, city}) => {
-        const {latitude: lat, longitude: lng} = city.location;
+      locations.forEach(({id: locationId, city, location}) => {
+        const {latitude: lat, longitude: lng} = location;
         const marker = new Marker({
           lat,
           lng
