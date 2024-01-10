@@ -3,6 +3,7 @@ import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import type {TCityName} from '../types/city.ts';
 import type {TOffers} from '../types/offer.ts';
 import type {TSortName} from '../types/sort-name.ts';
+import type {TUser} from '../types/user.ts';
 import {ApiRoute, StoreNameSpace} from '../const.ts';
 
 
@@ -17,8 +18,16 @@ const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance;
   return data;
 });
 
+const fetchUserStatus = createAsyncThunk<TUser, undefined, { extra: AxiosInstance }>
+(`${StoreNameSpace.Offers}/fetchUserStatus`, async (_, {extra: api}) => {
+  const {data} = await api.get<TUser>(ApiRoute.Login);
+
+  return data;
+});
+
 export {
   setCity,
   setSorting,
-  fetchOffers
+  fetchOffers,
+  fetchUserStatus
 };

@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {AuthorizationStatus, CityName, CityLocations, SortName} from '../const.ts';
 import type {TState} from '../types/state.ts';
-import {setCity, setSorting, fetchOffers} from './actions.ts';
+import {setCity, setSorting, fetchOffers, fetchUserStatus} from './actions.ts';
 
 
 const initialState: TState = {
@@ -33,6 +33,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSorting, (state, action) => {
       state.sorting = action.payload;
+    })
+    .addCase(fetchUserStatus.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
     });
 });
 
