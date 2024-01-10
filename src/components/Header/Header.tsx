@@ -1,11 +1,12 @@
 import {Link} from 'react-router-dom';
+import {Logo} from '../../components/Logo/Logo.tsx';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppSelector} from '../../hooks';
-import {Logo} from '../../components/Logo/Logo.tsx';
 
 
 const Header = () => {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const user = useAppSelector((state) => state.user);
 
   return (
     <header className="header">
@@ -24,7 +25,7 @@ const Header = () => {
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
-                      igor.khripunov@mail.ru
+                      {user}
                     </span>
                     <span className="header__favorite-count">3</span>
                   </Link>
