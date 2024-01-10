@@ -9,8 +9,9 @@ import {ApiRoute, StoreNameSpace} from '../const.ts';
 const setCity = createAction<TCityName>(`${StoreNameSpace.City}/setCity`);
 const setSorting = createAction<TSortName>(`${StoreNameSpace.Sort}/setSorting`);
 
-const fetchOffers = createAsyncThunk(`${StoreNameSpace.Offers}/fetchOffers`, async (_, thunkAPI) => {
-  const axios = thunkAPI.extra as AxiosInstance;
+const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance; }>
+(`${StoreNameSpace.Offers}/fetchOffers`, async (_, thunkAPI) => {
+  const axios = thunkAPI.extra;
   const {data} = await axios.get<TOffers>(ApiRoute.Offers);
 
   return data;
