@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import {useEffect} from 'react';
-import {AppRoute, AuthorizationStatus} from './const.ts';
+import {AppRoute} from './const.ts';
 import {MainPage} from './pages/MainPage/MainPage.tsx';
 import {NotFoundPage} from './pages/NotFoundPage/NotFoundPage.tsx';
 import {LoginPage} from './pages/LoginPage/LoginPage.tsx';
@@ -36,7 +36,7 @@ function App({comments}: TAppProps) {
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <PrivateRoute>
                   <FavoritesPage/>
                 </PrivateRoute>
               }
