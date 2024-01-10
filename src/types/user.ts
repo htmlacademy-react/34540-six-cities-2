@@ -6,4 +6,6 @@ type TUser = {
   isPro: boolean;
 }
 
-export type {TUser};
+type TUserAuth = Pick<TUser, 'email'> & { password: string };
+
+export type {TUser, TUserAuth};

@@ -3,8 +3,9 @@ import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import type {TCityName} from '../types/city.ts';
 import type {TOffers} from '../types/offer.ts';
 import type {TSortName} from '../types/sort-name.ts';
-import type {TUser} from '../types/user.ts';
+import type {TUser, TUserAuth} from '../types/user.ts';
 import {ApiRoute, StoreNameSpace} from '../const.ts';
+import {Token} from '../services/token.ts';
 
 
 const setCity = createAction<TCityName>(`${StoreNameSpace.City}/setCity`);
@@ -25,9 +26,24 @@ const fetchUserStatus = createAsyncThunk<TUser, undefined, { extra: AxiosInstanc
   return data;
 });
 
+const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: AxiosInstance }>(
+  `${StoreNameSpace.Offers}/login`,
+  async ({email, password}, {extra: api}) => {
+    const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
+    const {token} = data;
+
+    console.log(token);
+
+    Token.save(token);
+    window.history.back();
+
+    return email;
+  });
+
 export {
   setCity,
   setSorting,
   fetchOffers,
-  fetchUserStatus
+  fetchUserStatus,
+  loginUser
 };
