@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {CityName, CityLocations, SortName} from '../const.ts';
+import {AuthorizationStatus, CityName, CityLocations, SortName} from '../const.ts';
 import type {TState} from '../types/state.ts';
 import {setCity, setSorting, fetchOffers} from './actions.ts';
 
@@ -12,6 +12,8 @@ const initialState: TState = {
   offers: [],
   isOffersLoading: false,
   sorting: SortName.Popular,
+  authorizationStatus: AuthorizationStatus.NoAuth,
+  user: ''
 };
 
 const reducer = createReducer(initialState, (builder) => {
