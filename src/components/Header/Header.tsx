@@ -33,7 +33,8 @@ const Header = () => {
               <li className="header__nav-item">
                 <Link className="header__nav-link" to={AppRoute.Login}>
                   <span
-                    className="header__signout">
+                    className="header__signout"
+                  >
                     {authorizationStatus === AuthorizationStatus.Auth ? 'Sign out' : 'Sign in'}
                   </span>
                 </Link>

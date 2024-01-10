@@ -11,7 +11,7 @@ import {Token} from '../services/token.ts';
 const setCity = createAction<TCityName>(`${StoreNameSpace.City}/setCity`);
 const setSorting = createAction<TSortName>(`${StoreNameSpace.Sort}/setSorting`);
 
-const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance; }>
+const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/fetchOffers`, async (_, thunkAPI) => {
   const axios = thunkAPI.extra;
   const {data} = await axios.get<TOffers>(ApiRoute.Offers);
@@ -31,8 +31,6 @@ const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: Axios
   async ({email, password}, {extra: api}) => {
     const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
     const {token} = data;
-
-    console.log(token);
 
     Token.save(token);
     window.history.back();

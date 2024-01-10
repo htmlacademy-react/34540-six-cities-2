@@ -10,12 +10,12 @@ import type {TUserAuth} from '../../types/user.ts';
 const LoginPage = () => {
   const dispatch = useAppDispatch();
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const form = evt.currentTarget;
 
     const formData = new FormData(form) as Iterable<[TUserAuth]>;
-    const data = Object.fromEntries(formData);
+    const data: TUserAuth = Object.fromEntries(formData);
 
     dispatch(loginUser(data));
   };
