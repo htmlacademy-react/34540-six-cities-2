@@ -1,7 +1,7 @@
 import {Helmet} from 'react-helmet-async';
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
-import {Logo} from '../../components/Logo/Logo.tsx';
+import {Header} from '../../components/Header/Header.tsx';
 import {PlaceCard} from '../../components/PlaceCard/PlaceCard.tsx';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import {SITE_NAME} from '../../const.ts';
@@ -39,36 +39,7 @@ const FavoritesPage = () => {
       <Helmet>
         <title>{SITE_NAME}: favorites</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo/>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="#"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      igor.khripunov@mail.ru
-                    </span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header/>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -84,7 +55,8 @@ const FavoritesPage = () => {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {groupedOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} place='favorites' onMouseOver={handleCardMouseOver} onMouseLeave={handleCardMouseLeave}/>
+                    {groupedOffers.map((offer) =>
+                      <PlaceCard key={offer.id} offer={offer} place='favorites' onMouseOver={handleCardMouseOver} onMouseLeave={handleCardMouseLeave}/>
                     )}
                   </div>
                 </li>
