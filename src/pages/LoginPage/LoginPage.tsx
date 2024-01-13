@@ -14,10 +14,14 @@ const LoginPage = () => {
     evt.preventDefault();
     const form = evt.currentTarget;
 
-    const formData = new FormData(form) as Iterable<[TUserAuth]>;
-    const data: TUserAuth = Object.fromEntries(formData);
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    const loginData: TUserAuth = {
+      email: String(data.email),
+      password: String(data.password)
+    };
 
-    dispatch(loginUser(data));
+    dispatch(loginUser(loginData));
   };
 
   return (

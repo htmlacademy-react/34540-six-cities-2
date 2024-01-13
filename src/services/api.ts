@@ -1,5 +1,5 @@
 import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
-import {Token} from './token.ts';
+import {getToken} from './token.ts';
 
 
 const ENDPOINT = 'https://13.design.pages.academy/six-cities';
@@ -13,7 +13,7 @@ const createAPI = (): AxiosInstance => {
 
   api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-      const token = Token.get();
+      const token = getToken();
 
       if (token && config.headers) {
         config.headers['x-token'] = token;

@@ -5,7 +5,7 @@ import type {TOffers} from '../types/offer.ts';
 import type {TSortName} from '../types/sort-name.ts';
 import type {TUser, TUserAuth} from '../types/user.ts';
 import {ApiRoute, StoreNameSpace} from '../const.ts';
-import {Token} from '../services/token.ts';
+import {saveToken} from '../services/token.ts';
 
 
 const setCity = createAction<TCityName>(`${StoreNameSpace.City}/setCity`);
@@ -32,7 +32,7 @@ const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: Axios
     const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
     const {token} = data;
 
-    Token.save(token);
+    saveToken(token);
     window.history.back();
 
     return email;
