@@ -1,4 +1,5 @@
 import {FormEvent} from 'react';
+import {toast} from 'react-toastify';
 import {Logo} from '../../components/Logo/Logo.tsx';
 import {Helmet} from 'react-helmet-async';
 import {SITE_NAME} from '../../const.ts';
@@ -8,6 +9,8 @@ import type {TUserAuth} from '../../types/user.ts';
 
 
 const LoginPage = () => {
+  const INVALID_PASSWORD_MESSAGE = 'Password should contains at least one letter and digit';
+  const VALID_PASSWORD_REGEXP = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
   const dispatch = useAppDispatch();
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -20,6 +23,11 @@ const LoginPage = () => {
       email: String(data.email),
       password: String(data.password)
     };
+
+    if (!loginData.password.match(VALID_PASSWORD_REGEXP)) {
+      toast.warn(INVALID_PASSWORD_MESSAGE);
+      return;
+    }
 
     dispatch(loginUser(loginData));
   };
