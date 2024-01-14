@@ -4,7 +4,9 @@ import type {TOffer, TOffers} from '../../types/offer.ts';
 
 
 type TFavoritesListProps = {
-  [key: string]: TOffers;
+  groupedOffersByCity: {
+    [key: string]: TOffers
+  };
 }
 
 const FavoritesList = ({groupedOffersByCity}: TFavoritesListProps) => {

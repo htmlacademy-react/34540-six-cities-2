@@ -1,10 +1,10 @@
-import type {AxiosInstance} from 'axios';
+import type {AxiosInstance, AxiosError} from 'axios';
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import type {TCityName} from '../types/city.ts';
-import type {TOffers} from '../types/offer.ts';
+import type {TOffer, TOffers} from '../types/offer.ts';
 import type {TSortName} from '../types/sort-name.ts';
 import type {TUser, TUserAuth} from '../types/user.ts';
-import {ApiRoute, StoreNameSpace} from '../const.ts';
+import {ApiRoute, AppRoute, StoreNameSpace} from '../const.ts';
 import {saveToken} from '../services/token.ts';
 
 
@@ -19,8 +19,26 @@ const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance 
   return data;
 });
 
+const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance }>
+(`${StoreNameSpace.Offers}/fetchOffer`, async (id, thunkAPI) => {
+  try {
+    const axios = thunkAPI.extra;
+    const {data} = await axios.get<TOffer>(`${ApiRoute.Offers}/${id}`);
+
+    return data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    if (axiosError.response?.status === 404) {
+      // history.push(AppRoute.NotFound);
+    }
+
+    return Promise.reject(error);
+  }
+});
+
 const fetchUserStatus = createAsyncThunk<TUser, undefined, { extra: AxiosInstance }>
-(`${StoreNameSpace.Offers}/fetchUserStatus`, async (_, {extra: api}) => {
+(`${StoreNameSpace.User}/fetchUserStatus`, async (_, {extra: api}) => {
   const {data} = await api.get<TUser>(ApiRoute.Login);
 
   return data;
@@ -42,6 +60,7 @@ export {
   setCity,
   setSorting,
   fetchOffers,
+  fetchOffer,
   fetchUserStatus,
   loginUser
 };

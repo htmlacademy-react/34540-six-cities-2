@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {AuthorizationStatus, CityName, CityLocations, SortName} from '../const.ts';
 import type {TState} from '../types/state.ts';
-import {setCity, setSorting, fetchOffers, fetchUserStatus, loginUser} from './actions.ts';
+import {setCity, setSorting, fetchOffers, fetchOffer, fetchUserStatus, loginUser} from './actions.ts';
 
 
 const initialState: TState = {
@@ -11,6 +11,8 @@ const initialState: TState = {
   },
   offers: [],
   isOffersLoading: false,
+  offer: null,
+  isOfferLoading: false,
   sorting: SortName.Popular,
   authorizationStatus: AuthorizationStatus.NoAuth,
   user: ''
@@ -24,6 +26,16 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffers.fulfilled, (state, action) => {
       state.offers = action.payload;
       state.isOffersLoading = false;
+    })
+    .addCase(fetchOffer.pending, (state) => {
+      state.isOfferLoading = true;
+    })
+    .addCase(fetchOffer.fulfilled, (state, action) => {
+      state.offer = action.payload;
+      state.isOfferLoading = false;
+    })
+    .addCase(fetchOffer.rejected, (state) => {
+      state.isOfferLoading = false;
     })
     .addCase(setCity, (state, action) => {
       state.city = {
