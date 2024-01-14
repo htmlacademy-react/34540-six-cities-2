@@ -5,7 +5,7 @@ import type {TOffer, TOffers} from '../../types/offer.ts';
 
 type TFavoritesListProps = {
   groupedOffersByCity: {
-    [key: string]: TOffers
+    [key: string]: TOffers;
   };
 }
 
@@ -33,9 +33,14 @@ const FavoritesList = ({groupedOffersByCity}: TFavoritesListProps) => {
               </div>
             </div>
             <div className="favorites__places">
-              {groupedOffers.map((offer) =>
-                <PlaceCard key={offer.id} offer={offer} place='favorites' onMouseOver={handleCardMouseOver}
-                           onMouseLeave={handleCardMouseLeave}/>
+              {groupedOffers.map((offer) => (
+                <PlaceCard
+                  key={offer.id}
+                  offer={offer}
+                  place='favorites'
+                  onMouseOver={handleCardMouseOver}
+                  onMouseLeave={handleCardMouseLeave}
+                />)
               )}
             </div>
           </li>
@@ -45,4 +50,4 @@ const FavoritesList = ({groupedOffersByCity}: TFavoritesListProps) => {
   );
 };
 
-export {FavoritesList}
+export {FavoritesList};

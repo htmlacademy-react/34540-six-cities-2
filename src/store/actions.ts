@@ -4,7 +4,7 @@ import type {TCityName} from '../types/city.ts';
 import type {TOffer, TOffers} from '../types/offer.ts';
 import type {TSortName} from '../types/sort-name.ts';
 import type {TUser, TUserAuth} from '../types/user.ts';
-import type {TCommentAuth, TComments} from "../types/comment.ts";
+import type {TCommentAuth, TComments} from '../types/comment.ts';
 import {ApiRoute, AppRoute, StoreNameSpace} from '../const.ts';
 import {saveToken} from '../services/token.ts';
 

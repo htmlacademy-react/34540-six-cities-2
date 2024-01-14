@@ -5,7 +5,7 @@ import {STARS_COUNT} from '../../const.ts';
 
 
 type TReviewFormProps = {
-  onSubmit: (formData: Omit<TCommentAuth, 'id'>) => void
+  onSubmit: (formData: Omit<TCommentAuth, 'id'>) => void;
 }
 
 const ReviewForm = ({onSubmit}: TReviewFormProps) => {

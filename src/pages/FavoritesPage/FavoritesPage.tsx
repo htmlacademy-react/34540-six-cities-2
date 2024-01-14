@@ -33,9 +33,7 @@ const FavoritesPage = () => {
       <Header/>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          {Object.keys(groupedOffersByCity).length === 0
-              ? <FavoritesListEmpty/>
-              : <FavoritesList groupedOffersByCity={groupedOffersByCity}/>}
+          {Object.keys(groupedOffersByCity).length === 0 ? <FavoritesListEmpty/> : <FavoritesList groupedOffersByCity={groupedOffersByCity}/>}
         </div>
       </main>
       <footer className="footer container">

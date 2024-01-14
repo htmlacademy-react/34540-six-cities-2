@@ -161,7 +161,7 @@ const OfferPage = () => {
                       src={host.avatarUrl}
                       width={74}
                       height={74}
-                         alt={host.name}
+                      alt={host.name}
                     />
                   </div>
                   <span className="offer__user-name">{host.name}</span>
