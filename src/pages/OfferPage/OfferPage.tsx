@@ -8,22 +8,21 @@ import {ReviewList} from '../../components/ReviewList/ReviewList.tsx';
 import {Map} from '../../components/Map/Map.tsx';
 import {AppRoute, SITE_NAME} from '../../const.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
-import type {TComments} from '../../types/comment.ts';
 import {calculateRatingPercentages, capitalizeFirstLetter, getOffersByCity, getNearbyOffers} from '../../utils.ts';
 import {useAppSelector, useAppDispatch} from '../../hooks';
-import {fetchOffer} from '../../store/actions.ts';
+import {fetchOffer, fetchNearbyOffers, fetchComments} from '../../store/actions.ts';
 import classNames from 'classnames';
 
 
-type TOfferPageProps = {
-  comments: TComments;
-}
-
-const OfferPage = ({comments}: TOfferPageProps) => {
+const OfferPage = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
   const targetOffer = useAppSelector((state) => state.offer);
+  const comments = useAppSelector((state) => state.comments);
+  let nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+
   const [activeOffer, setActiveOffer] = useState<TOffer | null>(null);
   const offersByCity: TOffers = useAppSelector((state) => getOffersByCity(state));
 
@@ -35,27 +34,13 @@ const OfferPage = ({comments}: TOfferPageProps) => {
     setActiveOffer(null);
   };
 
-  // const {offerId} = useParams();
-  // const targetOffer: TOffer | undefined = offersByCity.find((item) => item.id === offerId);
-  // if (!targetOffer) {
-  //   return <Navigate to={AppRoute.NotFound}/>;
-  // }
-  //
-  // const {
-  //   title,
-  //   type,
-  //   price: price,
-  //   isFavorite,
-  //   isPremium,
-  //   rating
-  // } = targetOffer;
-  // const nearbyOffers = getNearbyOffers(offersByCity, targetOffer);
-
   useEffect(() => {
     const {offerId} = params;
 
     if (offerId) {
       dispatch(fetchOffer(offerId));
+      dispatch(fetchNearbyOffers(offerId));
+      dispatch(fetchComments(offerId));
     }
   }, [params, dispatch]);
 
@@ -81,6 +66,8 @@ const OfferPage = ({comments}: TOfferPageProps) => {
     host,
     description
   } = targetOffer;
+
+  nearbyOffers = getNearbyOffers(offersByCity, targetOffer);
 
   return (
     <div className="page">
@@ -180,34 +167,34 @@ const OfferPage = ({comments}: TOfferPageProps) => {
                   </p>
                 </div>
               </div>
-              <ReviewList comments={comments}/>
+              <ReviewList comments={comments} authorizationStatus={authorizationStatus}/>
             </div>
           </div>
-          {/*<Map*/}
-          {/*  targetCity={activeOffer ? activeOffer : targetOffer}*/}
-          {/*  locations={nearbyOffers}*/}
-          {/*  place="offer"*/}
-          {/*/>*/}
+          <Map
+            targetCity={activeOffer ? activeOffer : targetOffer}
+            locations={nearbyOffers}
+            place="offer"
+          />
         </section>
-        {/*{Boolean(nearbyOffers.length) &&*/}
-        {/*  <div className="container">*/}
-        {/*    <section className="near-places places">*/}
-        {/*      <h2 className="near-places__title">*/}
-        {/*        Other places in the neighbourhood*/}
-        {/*      </h2>*/}
-        {/*      <div className="near-places__list places__list">*/}
-        {/*        {nearbyOffers.map((item) => (*/}
-        {/*          <PlaceCard*/}
-        {/*            key={item.id}*/}
-        {/*            offer={item}*/}
-        {/*            place="near-places"*/}
-        {/*            onMouseOver={handleCardMouseOver}*/}
-        {/*            onMouseLeave={handleCardMouseLeave}*/}
-        {/*          />*/}
-        {/*        ))}*/}
-        {/*      </div>*/}
-        {/*    </section>*/}
-        {/*  </div>}*/}
+        {Boolean(nearbyOffers.length) &&
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">
+                Other places in the neighbourhood
+              </h2>
+              <div className="near-places__list places__list">
+                {nearbyOffers.map((item) => (
+                  <PlaceCard
+                    key={item.id}
+                    offer={item}
+                    place="near-places"
+                    onMouseOver={handleCardMouseOver}
+                    onMouseLeave={handleCardMouseLeave}
+                  />
+                ))}
+              </div>
+            </section>
+          </div>}
       </main>
     </div>
   );

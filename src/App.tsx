@@ -8,17 +8,12 @@ import {LoginPage} from './pages/LoginPage/LoginPage.tsx';
 import {OfferPage} from './pages/OfferPage/OfferPage.tsx';
 import {FavoritesPage} from './pages/FavoritesPage/FavoritesPage.tsx';
 import {PrivateRoute} from './components/PrivateRoute/PrivateRoute.tsx';
-import type {TComments} from './types/comment.ts';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {fetchUserStatus, fetchOffers} from './store/actions.ts';
 
 
-type TAppProps = {
-  comments: TComments;
-}
-
-function App({comments}: TAppProps) {
+function App() {
   useEffect(() => {
     store.dispatch(fetchUserStatus());
     store.dispatch(fetchOffers());
@@ -47,7 +42,7 @@ function App({comments}: TAppProps) {
             />
             <Route
               path={`${AppRoute.Offer}/:offerId`}
-              element={<OfferPage comments={comments}/>}
+              element={<OfferPage/>}
             />
             <Route
               path='*'

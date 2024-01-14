@@ -6,6 +6,7 @@ import type {TSortName} from '../types/sort-name.ts';
 import type {TUser, TUserAuth} from '../types/user.ts';
 import {ApiRoute, AppRoute, StoreNameSpace} from '../const.ts';
 import {saveToken} from '../services/token.ts';
+import {TComments} from "../types/comment.ts";
 
 
 const setCity = createAction<TCityName>(`${StoreNameSpace.City}/setCity`);
@@ -37,6 +38,22 @@ const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance
   }
 });
 
+const fetchComments = createAsyncThunk<TComments, TOffer['id'], { extra: AxiosInstance }>
+(`${StoreNameSpace.Comments}/fetchComments`, async (id, thunkAPI) => {
+  const axios = thunkAPI.extra;
+  const {data} = await axios.get<TComments>(`${ApiRoute.Comments}/${id}`);
+
+  return data;
+});
+
+const fetchNearbyOffers = createAsyncThunk<TOffers, TOffer['id'], { extra: AxiosInstance }>
+(`${StoreNameSpace.Offers}/fetchNearbyOffers`, async (id, thunkAPI) => {
+  const axios = thunkAPI.extra;
+  const {data} = await axios.get<TOffers>(`${ApiRoute.Offers}/${id}/nearby`);
+
+  return data;
+});
+
 const fetchUserStatus = createAsyncThunk<TUser, undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.User}/fetchUserStatus`, async (_, {extra: api}) => {
   const {data} = await api.get<TUser>(ApiRoute.Login);
@@ -44,23 +61,24 @@ const fetchUserStatus = createAsyncThunk<TUser, undefined, { extra: AxiosInstanc
   return data;
 });
 
-const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: AxiosInstance }>(
-  `${StoreNameSpace.Offers}/login`,
-  async ({email, password}, {extra: api}) => {
-    const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
-    const {token} = data;
+const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: AxiosInstance }>
+(`${StoreNameSpace.Offers}/login`, async ({email, password}, {extra: api}) => {
+  const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
+  const {token} = data;
 
-    saveToken(token);
-    window.history.back();
+  saveToken(token);
+  window.history.back();
 
-    return email;
-  });
+  return email;
+});
 
 export {
   setCity,
   setSorting,
   fetchOffers,
   fetchOffer,
+  fetchComments,
+  fetchNearbyOffers,
   fetchUserStatus,
   loginUser
 };

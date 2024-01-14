@@ -8,7 +8,8 @@ enum AppRoute {
 
 enum ApiRoute {
   Offers = '/offers',
-  Login = '/login'
+  Login = '/login',
+  Comments = '/comments'
 }
 
 enum AuthorizationStatus {
@@ -21,7 +22,8 @@ enum StoreNameSpace {
   City = 'CITY',
   Offers = 'OFFERS',
   Sort = 'SORT',
-  User = 'USER'
+  User = 'USER',
+  Comments = 'COMMENTS'
 }
 
 enum CityName {
