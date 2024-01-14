@@ -7,6 +7,7 @@ import {
   fetchOffers,
   fetchOffer,
   fetchComments,
+  postComment,
   fetchNearbyOffers,
   fetchUserStatus,
   loginUser
@@ -55,6 +56,9 @@ const reducer = createReducer(initialState, (builder) => {
       };
     })
     .addCase(fetchComments.fulfilled, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(postComment.fulfilled, (state, action) => {
       state.comments = action.payload;
     })
     .addCase(fetchNearbyOffers.fulfilled, (state, action) => {

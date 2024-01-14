@@ -8,9 +8,10 @@ import {ReviewList} from '../../components/ReviewList/ReviewList.tsx';
 import {Map} from '../../components/Map/Map.tsx';
 import {AppRoute, SITE_NAME} from '../../const.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
+import type {TCommentAuth} from '../../types/comment.ts';
 import {calculateRatingPercentages, capitalizeFirstLetter, getOffersByCity, getNearbyOffers} from '../../utils.ts';
 import {useAppSelector, useAppDispatch} from '../../hooks';
-import {fetchOffer, fetchNearbyOffers, fetchComments} from '../../store/actions.ts';
+import {fetchOffer, fetchNearbyOffers, fetchComments, postComment} from '../../store/actions.ts';
 import classNames from 'classnames';
 
 
@@ -25,14 +26,6 @@ const OfferPage = () => {
 
   const [activeOffer, setActiveOffer] = useState<TOffer | null>(null);
   const offersByCity: TOffers = useAppSelector((state) => getOffersByCity(state));
-
-  const handleCardMouseOver = (offer: TOffer) => {
-    setActiveOffer(offer);
-  };
-
-  const handleCardMouseLeave = () => {
-    setActiveOffer(null);
-  };
 
   useEffect(() => {
     const {offerId} = params;
@@ -53,6 +46,7 @@ const OfferPage = () => {
   }
 
   const {
+    id,
     title,
     type,
     price: price,
@@ -68,6 +62,18 @@ const OfferPage = () => {
   } = targetOffer;
 
   nearbyOffers = getNearbyOffers(offersByCity, targetOffer);
+
+  const handleCardMouseOver = (offer: TOffer) => {
+    setActiveOffer(offer);
+  };
+
+  const handleCardMouseLeave = () => {
+    setActiveOffer(null);
+  };
+
+  const onFormSubmit = (formData: Omit<TCommentAuth, 'id'>) => {
+    dispatch(postComment({ id, ...formData }));
+  };
 
   return (
     <div className="page">
@@ -167,7 +173,7 @@ const OfferPage = () => {
                   </p>
                 </div>
               </div>
-              <ReviewList comments={comments} authorizationStatus={authorizationStatus}/>
+              <ReviewList comments={comments} authorizationStatus={authorizationStatus} onSubmit={onFormSubmit}/>
             </div>
           </div>
           <Map

@@ -4,9 +4,9 @@ import type {TCityName} from '../types/city.ts';
 import type {TOffer, TOffers} from '../types/offer.ts';
 import type {TSortName} from '../types/sort-name.ts';
 import type {TUser, TUserAuth} from '../types/user.ts';
+import type {TCommentAuth, TComments} from "../types/comment.ts";
 import {ApiRoute, AppRoute, StoreNameSpace} from '../const.ts';
 import {saveToken} from '../services/token.ts';
-import {TComments} from "../types/comment.ts";
 
 
 const setCity = createAction<TCityName>(`${StoreNameSpace.City}/setCity`);
@@ -46,6 +46,14 @@ const fetchComments = createAsyncThunk<TComments, TOffer['id'], { extra: AxiosIn
   return data;
 });
 
+const postComment = createAsyncThunk<TComments, TCommentAuth, { extra: AxiosInstance }>
+(`${StoreNameSpace.Comments}/postComment`, async ({id, comment, rating}, thunkAPI) => {
+  const axios = thunkAPI.extra;
+  const {data} = await axios.post<TComments>(`${ApiRoute.Comments}/${id}`, {comment, rating});
+
+  return data;
+});
+
 const fetchNearbyOffers = createAsyncThunk<TOffers, TOffer['id'], { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/fetchNearbyOffers`, async (id, thunkAPI) => {
   const axios = thunkAPI.extra;
@@ -78,6 +86,7 @@ export {
   fetchOffers,
   fetchOffer,
   fetchComments,
+  postComment,
   fetchNearbyOffers,
   fetchUserStatus,
   loginUser
