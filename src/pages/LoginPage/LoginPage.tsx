@@ -9,7 +9,7 @@ import type {TUserAuth} from '../../types/user.ts';
 
 
 const LoginPage = () => {
-  const INVALID_PASSWORD_MESSAGE = 'Password should contains at least one letter and digit';
+  const INVALID_PASSWORD_MESSAGE = 'Password should contains at least one letter and digit and the password must not consist of spaces.';
   const VALID_PASSWORD_REGEXP = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
   const dispatch = useAppDispatch();
 

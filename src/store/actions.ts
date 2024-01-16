@@ -22,21 +22,22 @@ const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance 
 
 const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/fetchOffer`, async (id, thunkAPI) => {
-  try {
-    const axios = thunkAPI.extra;
-    const {data} = await axios.get<TOffer>(`${ApiRoute.Offers}/${id}`);
+    try {
+      const axios = thunkAPI.extra;
+      const {data} = await axios.get<TOffer>(`${ApiRoute.Offers}/${id}`);
 
-    return data;
-  } catch (error) {
-    const axiosError = error as AxiosError;
+      return data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
 
-    if (axiosError.response?.status === 404) {
-      history.push(AppRoute.NotFound);
+      if (axiosError.response?.status === 404) {
+        history.pushState({}, '', AppRoute.NotFound);
+      }
+
+      return Promise.reject(error);
     }
-
-    return Promise.reject(error);
   }
-});
+);
 
 const fetchComments = createAsyncThunk<TComments, TOffer['id'], { extra: AxiosInstance }>
 (`${StoreNameSpace.Comments}/fetchComments`, async (id, thunkAPI) => {
@@ -62,11 +63,11 @@ const fetchNearbyOffers = createAsyncThunk<TOffers, TOffer['id'], { extra: Axios
   return data;
 });
 
-const fetchUserStatus = createAsyncThunk<TUser, undefined, { extra: AxiosInstance }>
+const fetchUserStatus = createAsyncThunk<TUser['email'], undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.User}/fetchUserStatus`, async (_, {extra: api}) => {
   const {data} = await api.get<TUser>(ApiRoute.Login);
 
-  return data;
+  return data.email;
 });
 
 const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: AxiosInstance }>

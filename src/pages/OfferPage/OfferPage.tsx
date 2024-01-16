@@ -72,7 +72,7 @@ const OfferPage = () => {
   };
 
   const onFormSubmit = (formData: Omit<TCommentAuth, 'id'>) => {
-    dispatch(postComment({ id, ...formData }));
+    dispatch(postComment({id, ...formData}));
   };
 
   return (
@@ -85,7 +85,7 @@ const OfferPage = () => {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((image) => (
+              {(images ?? []).map((image) => (
                 <div key={image} className="offer__image-wrapper">
                   <img className="offer__image" src={image} alt={title}/>
                 </div>
@@ -127,10 +127,18 @@ const OfferPage = () => {
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">{capitalizeFirstLetter(type)}</li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms}{bedrooms > 1 ? ' Bedrooms' : ' Bedroom'}
+                  {typeof bedrooms === 'number' && (
+                    <>
+                      {bedrooms}{bedrooms > 1 ? ' Bedrooms' : ' Bedroom'}
+                    </>
+                  )}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} {maxAdults > 1 ? ' adults' : ' adult'}
+                  {maxAdults && (
+                    <>
+                      Max {maxAdults} {maxAdults > 1 ? ' adults' : ' adult'}
+                    </>
+                  )}
                 </li>
               </ul>
               <div className="offer__price">
@@ -139,7 +147,7 @@ const OfferPage = () => {
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
-                {goods.length > 0 && (
+                {goods?.length && (
                   <ul className="offer__inside-list">
                     {goods.map((good) => (
                       <li key={good} className="offer__inside-item">
@@ -154,18 +162,18 @@ const OfferPage = () => {
 
                 <div className="offer__host-user user">
                   <div
-                    className={classNames('offer__avatar', 'user__avatar-wrapper', {'property__avatar-wrapper--pro': host.isPro})}
+                    className={classNames('offer__avatar', 'user__avatar-wrapper', {'property__avatar-wrapper--pro': host?.isPro})}
                   >
                     <img
                       className="offer__avatar user__avatar"
-                      src={host.avatarUrl}
+                      src={host?.avatarUrl}
                       width={74}
                       height={74}
-                      alt={host.name}
+                      alt={host?.name}
                     />
                   </div>
-                  <span className="offer__user-name">{host.name}</span>
-                  {host.isPro && <span className="offer__user-status">Pro</span>}
+                  <span className="offer__user-name">{host?.name}</span>
+                  {host?.isPro && <span className="offer__user-status">Pro</span>}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">

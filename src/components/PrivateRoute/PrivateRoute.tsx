@@ -9,6 +9,7 @@ type TPrivateRouteProps = {
 
 const PrivateRoute = ({children}: TPrivateRouteProps) => {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  console.log(authorizationStatus);
 
   return (
     authorizationStatus === AuthorizationStatus.Auth

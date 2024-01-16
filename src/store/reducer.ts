@@ -22,7 +22,7 @@ const initialState: TState = {
   offers: [],
   isOffersLoading: false,
   offer: null,
-  isOfferLoading: false,
+  isOfferLoading: true,
   nearbyOffers: [],
   comments: [],
   sorting: SortName.Popular,
@@ -67,7 +67,12 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setSorting, (state, action) => {
       state.sorting = action.payload;
     })
+    .addCase(fetchUserStatus.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
     .addCase(fetchUserStatus.rejected, (state) => {
+      state.user = '';
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
     .addCase(loginUser.fulfilled, (state, action) => {
