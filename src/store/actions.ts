@@ -22,22 +22,23 @@ const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance 
 
 const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/fetchOffer`, async (id, thunkAPI) => {
-    try {
-      const axios = thunkAPI.extra;
-      const {data} = await axios.get<TOffer>(`${ApiRoute.Offers}/${id}`);
+  const axios = thunkAPI.extra;
 
-      return data;
-    } catch (error) {
-      const axiosError = error as AxiosError;
+  try {
+    const {data} = await axios.get<TOffer>(`${ApiRoute.Offers}/${id}`);
 
-      if (axiosError.response?.status === 404) {
-        history.pushState({}, '', AppRoute.NotFound);
-      }
+    return data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
 
-      return Promise.reject(error);
+
+    if (axiosError.response?.status === 404) {
+      history.pushState('', '', AppRoute.NotFound);
     }
+
+    return Promise.reject(error);
   }
-);
+});
 
 const fetchComments = createAsyncThunk<TComments, TOffer['id'], { extra: AxiosInstance }>
 (`${StoreNameSpace.Comments}/fetchComments`, async (id, thunkAPI) => {

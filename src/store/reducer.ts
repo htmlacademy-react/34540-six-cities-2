@@ -22,7 +22,7 @@ const initialState: TState = {
   offers: [],
   isOffersLoading: false,
   offer: null,
-  isOfferLoading: true,
+  isOfferLoading: false,
   nearbyOffers: [],
   comments: [],
   sorting: SortName.Popular,
@@ -47,7 +47,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.isOfferLoading = false;
     })
     .addCase(fetchOffer.rejected, (state) => {
-      state.isOfferLoading = false;
+      state.isOfferLoading = true;
     })
     .addCase(setCity, (state, action) => {
       state.city = {
