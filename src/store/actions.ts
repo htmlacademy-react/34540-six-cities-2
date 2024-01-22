@@ -31,7 +31,6 @@ const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance
   } catch (error) {
     const axiosError = error as AxiosError;
 
-
     if (axiosError.response?.status === 404) {
       history.pushState('', '', AppRoute.NotFound);
     }
