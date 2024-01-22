@@ -1,24 +1,15 @@
 import {Helmet} from 'react-helmet-async';
 import {Link} from 'react-router-dom';
-import {useState} from 'react';
 import {Header} from '../../components/Header/Header.tsx';
-import {PlaceCard} from '../../components/PlaceCard/PlaceCard.tsx';
-import type {TOffer, TOffers} from '../../types/offer.ts';
+import {FavoritesList} from '../../components/FavoritesList/FavoritesList.tsx';
+import {FavoritesListEmpty} from '../../components/FavoritesListEmpty/FavoritesListEmpty.tsx';
+import type {TOffers} from '../../types/offer.ts';
 import {SITE_NAME} from '../../const.ts';
 import {useAppSelector} from '../../hooks';
 
 
 const FavoritesPage = () => {
   const offers: TOffers = useAppSelector((state) => state.offers);
-  const [, setActiveOffer] = useState<TOffer | null>(null);
-
-  const handleCardMouseOver = (offer: TOffer) => {
-    setActiveOffer(offer);
-  };
-
-  const handleCardMouseLeave = () => {
-    setActiveOffer(null);
-  };
 
   const groupedOffersByCity = offers.reduce<{ [key: string]: TOffers }>((acc, curr) => {
     if (curr.isFavorite) {
@@ -42,27 +33,7 @@ const FavoritesPage = () => {
       <Header/>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {Object.entries(groupedOffersByCity).map(([city, groupedOffers]) => (
-                <li className="favorites__locations-items" key={city}>
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <a className="locations__item-link" href="#">
-                        <span>{city}</span>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="favorites__places">
-                    {groupedOffers.map((offer) =>
-                      <PlaceCard key={offer.id} offer={offer} place='favorites' onMouseOver={handleCardMouseOver} onMouseLeave={handleCardMouseLeave}/>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
+          {Object.keys(groupedOffersByCity).length === 0 ? <FavoritesListEmpty/> : <FavoritesList groupedOffersByCity={groupedOffersByCity}/>}
         </div>
       </main>
       <footer className="footer container">

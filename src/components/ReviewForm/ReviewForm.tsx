@@ -1,14 +1,18 @@
-import {Fragment, useState} from 'react';
+import {FormEvent, Fragment, useState} from 'react';
 import type {ChangeEvent} from 'react';
+import type {TCommentAuth} from '../../types/comment.ts';
 import {STARS_COUNT} from '../../const.ts';
 
 
-const ReviewForm = () => {
+type TReviewFormProps = {
+  onSubmit: (formData: Omit<TCommentAuth, 'id'>) => void;
+}
+
+const ReviewForm = ({onSubmit}: TReviewFormProps) => {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
   const isValid =
-    comment.length >= 1 &&
-    comment.length <= 50 &&
+    comment.length >= 50 &&
     rating !== '';
 
   const handleTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,8 +23,17 @@ const ReviewForm = () => {
     setRating(evt.target.value);
   };
 
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    onSubmit({
+      comment: comment,
+      rating: +rating
+    });
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>

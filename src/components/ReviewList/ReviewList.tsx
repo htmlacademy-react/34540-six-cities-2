@@ -1,13 +1,17 @@
 import type {TComments} from '../../types/comment.ts';
 import {Review} from '../Review/Review.tsx';
 import {ReviewForm} from '../ReviewForm/ReviewForm.tsx';
+import {AuthorizationStatus} from '../../const.ts';
+import type {TCommentAuth} from '../../types/comment.ts';
 
 
 type ReviewListProps = {
   comments: TComments;
+  authorizationStatus: AuthorizationStatus;
+  onSubmit: (formData: Omit<TCommentAuth, 'id'>) => void;
 }
 
-const ReviewList = ({comments}: ReviewListProps) => (
+const ReviewList = ({comments, authorizationStatus, onSubmit}: ReviewListProps) => (
   <section className="offer__reviews reviews">
     {comments.length > 0 && (
       <>
@@ -20,7 +24,7 @@ const ReviewList = ({comments}: ReviewListProps) => (
           ))}
         </ul>
       </>)}
-    <ReviewForm/>
+    {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm onSubmit={onSubmit}/>}
   </section>
 );
 

@@ -1,4 +1,5 @@
 import {FormEvent} from 'react';
+import {toast} from 'react-toastify';
 import {Logo} from '../../components/Logo/Logo.tsx';
 import {Helmet} from 'react-helmet-async';
 import {SITE_NAME} from '../../const.ts';
@@ -7,6 +8,9 @@ import {loginUser} from '../../store/actions.ts';
 import type {TUserAuth} from '../../types/user.ts';
 
 
+const INVALID_PASSWORD_MESSAGE = 'Password should contains at least one letter and digit and the password must not consist of spaces.';
+const VALID_PASSWORD_REGEXP = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
+
 const LoginPage = () => {
   const dispatch = useAppDispatch();
 
@@ -14,10 +18,19 @@ const LoginPage = () => {
     evt.preventDefault();
     const form = evt.currentTarget;
 
-    const formData = new FormData(form) as Iterable<[TUserAuth]>;
-    const data: TUserAuth = Object.fromEntries(formData);
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    const loginData: TUserAuth = {
+      email: String(data.email),
+      password: String(data.password)
+    };
 
-    dispatch(loginUser(data));
+    if (!loginData.password.match(VALID_PASSWORD_REGEXP)) {
+      toast.warn(INVALID_PASSWORD_MESSAGE);
+      return;
+    }
+
+    dispatch(loginUser(loginData));
   };
 
   return (

@@ -1,25 +1,67 @@
 import {Navigate, useParams} from 'react-router-dom';
+import {useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {useState} from 'react';
+import {Spinner} from '../../components/Spinner/Spinner.tsx';
 import {Header} from '../../components/Header/Header.tsx';
 import {PlaceCard} from '../../components/PlaceCard/PlaceCard.tsx';
 import {ReviewList} from '../../components/ReviewList/ReviewList.tsx';
 import {Map} from '../../components/Map/Map.tsx';
 import {AppRoute, SITE_NAME} from '../../const.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
-import type {TComments} from '../../types/comment.ts';
-import {calculateRatingPercentages, capitalizeFirstLetter, getNearbyOffers, getOffersByCity} from '../../utils.ts';
-import {useAppSelector} from '../../hooks';
+import type {TCommentAuth} from '../../types/comment.ts';
+import {calculateRatingPercentages, capitalizeFirstLetter, getOffersByCity, getNearbyOffers} from '../../utils.ts';
+import {useAppSelector, useAppDispatch} from '../../hooks';
+import {fetchOffer, fetchNearbyOffers, fetchComments, postComment} from '../../store/actions.ts';
 import classNames from 'classnames';
 
 
-type TOfferPageProps = {
-  comments: TComments;
-}
+const OfferPage = () => {
+  const params = useParams();
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
+  const targetOffer = useAppSelector((state) => state.offer);
+  const comments = useAppSelector((state) => state.comments);
+  let nearbyOffers = useAppSelector((state) => state.nearbyOffers);
 
-const OfferPage = ({comments}: TOfferPageProps) => {
-  const offersByCity: TOffers = useAppSelector((state) => getOffersByCity(state));
   const [activeOffer, setActiveOffer] = useState<TOffer | null>(null);
+  const offersByCity: TOffers = useAppSelector((state) => getOffersByCity(state));
+
+  useEffect(() => {
+    const {offerId} = params;
+
+    if (offerId) {
+      dispatch(fetchOffer(offerId));
+      dispatch(fetchNearbyOffers(offerId));
+      dispatch(fetchComments(offerId));
+    }
+  }, [params, dispatch]);
+
+  if (isOfferLoading) {
+    return <Spinner/>;
+  }
+
+  if (!targetOffer) {
+    return <Navigate to={AppRoute.NotFound}/>;
+  }
+
+  const {
+    id,
+    title,
+    type,
+    price: price,
+    isFavorite,
+    isPremium,
+    rating,
+    images,
+    bedrooms,
+    maxAdults,
+    goods,
+    host,
+    description
+  } = targetOffer;
+
+  nearbyOffers = getNearbyOffers(offersByCity, targetOffer);
 
   const handleCardMouseOver = (offer: TOffer) => {
     setActiveOffer(offer);
@@ -29,22 +71,9 @@ const OfferPage = ({comments}: TOfferPageProps) => {
     setActiveOffer(null);
   };
 
-  const {offerId} = useParams();
-  const targetOffer: TOffer | undefined = offersByCity.find((item) => item.id === offerId);
-  if (!targetOffer) {
-    return <Navigate to={AppRoute.NotFound}/>;
-  }
-
-  const {
-    title,
-    type,
-    price: price,
-    isFavorite,
-    isPremium,
-    rating
-  } = targetOffer;
-  const nearbyOffers = getNearbyOffers(offersByCity, targetOffer);
-
+  const onFormSubmit = (formData: Omit<TCommentAuth, 'id'>) => {
+    dispatch(postComment({id, ...formData}));
+  };
 
   return (
     <div className="page">
@@ -56,48 +85,11 @@ const OfferPage = ({comments}: TOfferPageProps) => {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/room.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/apartment-01.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/apartment-02.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/apartment-03.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/studio-01.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="img/apartment-01.jpg"
-                  alt="Photo studio"
-                />
-              </div>
+              {(images ?? []).map((image) => (
+                <div key={image} className="offer__image-wrapper">
+                  <img className="offer__image" src={image} alt={title}/>
+                </div>
+              ))}
             </div>
           </div>
           <div className="offer__container container">
@@ -135,10 +127,18 @@ const OfferPage = ({comments}: TOfferPageProps) => {
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">{capitalizeFirstLetter(type)}</li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  3 Bedrooms
+                  {typeof bedrooms === 'number' && (
+                    <>
+                      {bedrooms}{bedrooms > 1 ? ' Bedrooms' : ' Bedroom'}
+                    </>
+                  )}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max 4 adults
+                  {maxAdults && (
+                    <>
+                      Max {maxAdults} {maxAdults > 1 ? ' adults' : ' adult'}
+                    </>
+                  )}
                 </li>
               </ul>
               <div className="offer__price">
@@ -147,48 +147,41 @@ const OfferPage = ({comments}: TOfferPageProps) => {
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
-                <ul className="offer__inside-list">
-                  <li className="offer__inside-item">Wi-Fi</li>
-                  <li className="offer__inside-item">Washing machine</li>
-                  <li className="offer__inside-item">Towels</li>
-                  <li className="offer__inside-item">Heating</li>
-                  <li className="offer__inside-item">Coffee machine</li>
-                  <li className="offer__inside-item">Baby seat</li>
-                  <li className="offer__inside-item">Kitchen</li>
-                  <li className="offer__inside-item">Dishwasher</li>
-                  <li className="offer__inside-item">Cabel TV</li>
-                  <li className="offer__inside-item">Fridge</li>
-                </ul>
+                {goods?.length && (
+                  <ul className="offer__inside-list">
+                    {goods.map((good) => (
+                      <li key={good} className="offer__inside-item">
+                        {good}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
+
                 <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                  <div
+                    className={classNames('offer__avatar', 'user__avatar-wrapper', {'property__avatar-wrapper--pro': host?.isPro})}
+                  >
                     <img
                       className="offer__avatar user__avatar"
-                      src="img/avatar-angelina.jpg"
+                      src={host?.avatarUrl}
                       width={74}
                       height={74}
-                      alt="Host avatar"
+                      alt={host?.name}
                     />
                   </div>
-                  <span className="offer__user-name">Angelina</span>
-                  <span className="offer__user-status">Pro</span>
+                  <span className="offer__user-name">{host?.name}</span>
+                  {host?.isPro && <span className="offer__user-status">Pro</span>}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by the
-                    unique lightness of Amsterdam. The building is green and from
-                    18th century.
-                  </p>
-                  <p className="offer__text">
-                    An independent House, strategically located between Rembrand
-                    Square and National Opera, but where the bustle of the city
-                    comes to rest in this alley flowery and colorful.
+                    {description}
                   </p>
                 </div>
               </div>
-              <ReviewList comments={comments}/>
+              <ReviewList comments={comments} authorizationStatus={authorizationStatus} onSubmit={onFormSubmit}/>
             </div>
           </div>
           <Map

@@ -1,19 +1,19 @@
-class Token {
-  private static _tokenName = 'AUTH_TOKEN_KEY_NAME';
+import type {TToken} from '../types/token.ts';
 
-  static get() {
-    const token = localStorage.getItem(this._tokenName);
 
-    return token ?? '';
-  }
+const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
-  static save(token: string) {
-    localStorage.setItem(this._tokenName, token);
-  }
+const getToken = (): TToken => {
+  const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+  return token ?? '';
+};
 
-  static drop() {
-    localStorage.removeItem(this._tokenName);
-  }
-}
+const saveToken = (token: TToken): void => {
+  localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
+};
 
-export {Token};
+const dropToken = (): void => {
+  localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
+};
+
+export {getToken, saveToken, dropToken};

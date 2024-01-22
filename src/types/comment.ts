@@ -1,4 +1,5 @@
 import type {TUser} from './user.ts';
+import type {TOffer} from './offer.ts';
 
 
 type TComment = {
@@ -10,5 +11,6 @@ type TComment = {
 }
 
 type TComments = TComment[];
+type TCommentAuth = Pick<TComment, 'comment' | 'rating'> & Pick<TOffer, 'id'>;
 
-export type {TComment, TComments};
+export type {TComment, TComments, TCommentAuth};

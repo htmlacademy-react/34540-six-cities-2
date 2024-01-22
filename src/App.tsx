@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import {useEffect} from 'react';
 import {AppRoute} from './const.ts';
@@ -7,18 +7,15 @@ import {NotFoundPage} from './pages/NotFoundPage/NotFoundPage.tsx';
 import {LoginPage} from './pages/LoginPage/LoginPage.tsx';
 import {OfferPage} from './pages/OfferPage/OfferPage.tsx';
 import {FavoritesPage} from './pages/FavoritesPage/FavoritesPage.tsx';
+import {HistoryRouter} from './components/HistoryRouter/HistoryRouter.tsx';
+import {browserHistory} from './browser-history.ts';
 import {PrivateRoute} from './components/PrivateRoute/PrivateRoute.tsx';
-import type {TComments} from './types/comment.ts';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {fetchUserStatus, fetchOffers} from './store/actions.ts';
 
 
-type TAppProps = {
-  comments: TComments;
-}
-
-function App({comments}: TAppProps) {
+function App() {
   useEffect(() => {
     store.dispatch(fetchUserStatus());
     store.dispatch(fetchOffers());
@@ -26,8 +23,8 @@ function App({comments}: TAppProps) {
 
   return (
     <Provider store={store}>
-      <HelmetProvider>
-        <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
+        <HelmetProvider>
           <Routes>
             <Route
               path={AppRoute.Root}
@@ -47,15 +44,15 @@ function App({comments}: TAppProps) {
             />
             <Route
               path={`${AppRoute.Offer}/:offerId`}
-              element={<OfferPage comments={comments}/>}
+              element={<OfferPage/>}
             />
             <Route
               path='*'
               element={<NotFoundPage/>}
             />
           </Routes>
-        </BrowserRouter>
-      </HelmetProvider>
+        </HelmetProvider>
+      </HistoryRouter>
     </Provider>
   );
 }
