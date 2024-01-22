@@ -37,13 +37,12 @@ const OfferPage = () => {
     }
   }, [params, dispatch]);
 
+  if (isOfferLoading) {
+    return <Spinner/>;
+  }
 
   if (!targetOffer) {
     return <Navigate to={AppRoute.NotFound}/>;
-  }
-
-  if (isOfferLoading) {
-    return <Spinner/>;
   }
 
   const {
