@@ -6,10 +6,11 @@ import {FavoritesListEmpty} from '../../components/FavoritesListEmpty/FavoritesL
 import type {TOffers} from '../../types/offer.ts';
 import {SITE_NAME} from '../../const.ts';
 import {useAppSelector} from '../../hooks';
+import {getOffers} from '../../store/site-data/selectors.ts';
 
 
 const FavoritesPage = () => {
-  const offers: TOffers = useAppSelector((state) => state.offers);
+  const offers: TOffers = useAppSelector(getOffers);
 
   const groupedOffersByCity = offers.reduce<{ [key: string]: TOffers }>((acc, curr) => {
     if (curr.isFavorite) {
@@ -33,7 +34,8 @@ const FavoritesPage = () => {
       <Header/>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          {Object.keys(groupedOffersByCity).length === 0 ? <FavoritesListEmpty/> : <FavoritesList groupedOffersByCity={groupedOffersByCity}/>}
+          {Object.keys(groupedOffersByCity).length === 0 ? <FavoritesListEmpty/> :
+            <FavoritesList groupedOffersByCity={groupedOffersByCity}/>}
         </div>
       </main>
       <footer className="footer container">

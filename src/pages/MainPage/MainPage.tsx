@@ -5,13 +5,17 @@ import {NoPlaces} from '../../components/NoPlaces/NoPlaces.tsx';
 import {PlaceCardList} from '../../components/PlaceCardList/PlaceCardList.tsx';
 import {useAppSelector} from '../../hooks';
 import {getOffersByCity, sortingFilters} from '../../utils.ts';
+import {getIsOffersLoading} from '../../store/site-data/selectors.ts';
+import {getCity} from '../../store/site-process/selectors.ts';
+import {getSorting} from '../../store/site-process/selectors.ts';
 import classNames from 'classnames';
 
 
 const MainPage = () => {
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
-  const offersByCity = useAppSelector((state) => getOffersByCity(state).sort(sortingFilters[state.sorting]));
-  const activeCity = useAppSelector((state) => state.city);
+  const isOffersLoading = useAppSelector(getIsOffersLoading);
+  const activeSorting = useAppSelector(getSorting);
+  const offersByCity = useAppSelector((state) => getOffersByCity(state).sort(sortingFilters[activeSorting]));
+  const activeCity = useAppSelector(getCity);
 
   const getPlaceCardList = () => {
     if (!offersByCity.length) {

@@ -17,7 +17,7 @@ const formatDate = (date: string) => {
 
 const getOffersByCity = (state: TState) => state[StoreNameSlice.SiteData].offers.filter((offer: TOffer) => offer.city.name === state[StoreNameSlice.SiteProcess].city.name);
 
-const getNearbyOffers = (offers: TOffers, targetOffer: TOffer, amount = 3) => {
+const getNearbyOffersbyActiveOffer = (offers: TOffers, targetOffer: TOffer, amount = 3) => {
   const nearbyOffers = offers.filter((offer) => offer.id !== targetOffer.id);
   amount = offers.length < 3 ? offers.length : amount;
 
@@ -36,6 +36,6 @@ export {
   calculateRatingPercentages,
   formatDate,
   getOffersByCity,
-  getNearbyOffers,
+  getNearbyOffersbyActiveOffer,
   sortingFilters
 };

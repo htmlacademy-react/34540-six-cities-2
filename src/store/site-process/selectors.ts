@@ -4,8 +4,8 @@ import type {TCity} from '../../types/city.ts';
 import type {TSortName} from '../../types/sort-name.ts';
 
 
-const getCity = (state: TState): TCity => state[StoreNameSlice.UserProcess].city;
-const getSorting = (state: TState): TSortName => state[StoreNameSlice.UserProcess].sorting;
+const getCity = (state: TState): TCity => state[StoreNameSlice.SiteProcess].city;
+const getSorting = (state: TState): TSortName => state[StoreNameSlice.SiteProcess].sorting;
 
 
 export {getCity, getSorting};

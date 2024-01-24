@@ -2,11 +2,12 @@ import {Link} from 'react-router-dom';
 import {Logo} from '../../components/Logo/Logo.tsx';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppSelector} from '../../hooks';
+import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors.ts';
 
 
 const Header = () => {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUser);
 
   return (
     <header className="header">

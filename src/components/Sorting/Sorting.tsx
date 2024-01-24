@@ -30,7 +30,7 @@ const Sorting = ({onChange, activeSorting}: TSortingProps) => {
         tabIndex={0}
         onClick={handleToggleButtonClick}
       >
-              Popular
+              {activeSorting}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
