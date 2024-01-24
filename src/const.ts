@@ -26,6 +26,12 @@ enum StoreNameSpace {
   Comments = 'COMMENTS'
 }
 
+enum StoreNameSlice {
+  SiteData = 'SITE_DATA',
+  SiteProcess = 'SITE_PROCESS',
+  UserProcess = 'USER_PROCESS'
+}
+
 enum CityName {
   Paris = 'Paris',
   Cologne = 'Cologne',
@@ -86,6 +92,7 @@ export {
   ApiRoute,
   AuthorizationStatus,
   StoreNameSpace,
+  StoreNameSlice,
   CityName,
   SortName,
   SITE_NAME,
