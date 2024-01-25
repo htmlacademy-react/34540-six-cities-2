@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import {PlaceCard} from '../PlaceCard/PlaceCard.tsx';
 import {Map} from '../Map/Map.tsx';
 import {Sorting} from '../Sorting/Sorting.tsx';
@@ -20,17 +20,17 @@ const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
   const activeSorting = useAppSelector(getSorting);
   const [activeOffer, setActiveOffer] = useState<TOffer | null>(null);
 
-  const handleCardMouseOver = (offer: TOffer) => {
+  const handleCardMouseOver = useCallback((offer: TOffer) => {
     setActiveOffer(offer);
-  };
+  }, [activeOffer]);
 
-  const handleCardMouseLeave = () => {
+  const handleCardMouseLeave = useCallback(() => {
     setActiveOffer(null);
-  };
+  }, [activeOffer]);
 
-  const onSortingChange = (sortName: TSortName) => {
+  const onSortingChange = useCallback((sortName: TSortName) => {
     dispatch(setSorting(sortName));
-  };
+  }, [dispatch]);
 
   return (
     <div className="cities">

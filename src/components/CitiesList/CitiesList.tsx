@@ -1,3 +1,4 @@
+import {useCallback} from 'react';
 import {City} from '../City/City.tsx';
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import {setCity} from '../../store/site-process/site-process.ts';
@@ -10,9 +11,10 @@ const CitiesList = () => {
   const dispatch = useAppDispatch();
   const activeCity = useAppSelector(getCity);
 
-  const handleCityClick = (name: TCityName) => {
+
+  const handleCityClick = useCallback((name: TCityName) => {
     dispatch(setCity(name));
-  };
+  }, [dispatch]);
 
   return (
     <ul className="locations__list tabs__list">

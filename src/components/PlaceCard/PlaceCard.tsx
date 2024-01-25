@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import {Link} from 'react-router-dom';
 import type {TOffer} from '../../types/offer.ts';
 import {AppRoute} from '../../const.ts';
@@ -12,7 +13,7 @@ type TPlaceCardProps = {
   place?: 'cities' | 'favorites' | 'near-places';
 }
 
-const PlaceCard = ({offer, place = 'cities', onMouseOver, onMouseLeave}: TPlaceCardProps) => {
+const PlaceCard = memo(({offer, place = 'cities', onMouseOver, onMouseLeave}: TPlaceCardProps) => {
   const {
     id,
     title,
@@ -94,6 +95,6 @@ const PlaceCard = ({offer, place = 'cities', onMouseOver, onMouseLeave}: TPlaceC
       </div>
     </article>
   );
-};
+});
 
 export {PlaceCard};

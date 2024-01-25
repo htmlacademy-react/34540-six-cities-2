@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, memo} from 'react';
 import {SortName} from '../../const.ts';
 import type {TSortName} from '../../types/sort-name.ts';
 import classNames from 'classnames';
@@ -9,7 +9,7 @@ type TSortingProps = {
   activeSorting: TSortName;
 };
 
-const Sorting = ({onChange, activeSorting}: TSortingProps) => {
+const Sorting = memo(({onChange, activeSorting}: TSortingProps) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
 
   const handleToggleButtonClick = () => {
@@ -50,6 +50,6 @@ const Sorting = ({onChange, activeSorting}: TSortingProps) => {
         </ul>}
     </form>
   );
-};
+});
 
 export {Sorting};
