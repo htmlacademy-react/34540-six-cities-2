@@ -22,11 +22,11 @@ const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
 
   const handleCardMouseOver = useCallback((offer: TOffer) => {
     setActiveOffer(offer);
-  }, [activeOffer]);
+  }, []);
 
   const handleCardMouseLeave = useCallback(() => {
     setActiveOffer(null);
-  }, [activeOffer]);
+  }, []);
 
   const onSortingChange = useCallback((sortName: TSortName) => {
     dispatch(setSorting(sortName));
