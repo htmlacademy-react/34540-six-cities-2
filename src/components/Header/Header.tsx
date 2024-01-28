@@ -1,13 +1,23 @@
 import {Link} from 'react-router-dom';
 import {Logo} from '../../components/Logo/Logo.tsx';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {useAppSelector} from '../../hooks';
+import {dropToken} from '../../services/token.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors.ts';
+import {logoutUser} from '../../store/user-process/user-process.ts';
 
 
 const Header = () => {
+  const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const user = useAppSelector(getUser);
+
+  const onLoginClick = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dropToken();
+      dispatch(logoutUser());
+    }
+  };
 
   return (
     <header className="header">
@@ -28,11 +38,11 @@ const Header = () => {
                     <span className="header__user-name user__name">
                       {user}
                     </span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">0</span>
                   </Link>
                 </li>)}
               <li className="header__nav-item">
-                <Link className="header__nav-link" to={AppRoute.Login}>
+                <Link className="header__nav-link" to={AppRoute.Login} onClick={onLoginClick}>
                   <span
                     className="header__signout"
                   >
