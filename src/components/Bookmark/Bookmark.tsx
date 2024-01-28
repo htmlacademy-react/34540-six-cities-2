@@ -21,9 +21,9 @@ const Bookmark = ({id, isActive, place = 'place-card'}: TBookmarkProps) => {
 
   return (
     <button
-      onClick={handleButtonClick}
       className={`${place}__bookmark-button button${isActive ? ` ${place}__bookmark-button--active` : ''}`}
       type="button"
+      onClick={handleButtonClick}
     >
       <svg className={`${place}__bookmark-icon`}
            width={place === 'offer' ? 31 : 18}
