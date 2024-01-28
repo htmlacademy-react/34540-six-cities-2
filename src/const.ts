@@ -9,7 +9,8 @@ enum AppRoute {
 enum ApiRoute {
   Offers = '/offers',
   Login = '/login',
-  Comments = '/comments'
+  Comments = '/comments',
+  Favorite = '/favorite'
 }
 
 enum AuthorizationStatus {
@@ -18,12 +19,23 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+enum HttpCode {
+  NotFound = 404,
+  NoAuth = 401
+}
+
 enum StoreNameSpace {
   City = 'CITY',
   Offers = 'OFFERS',
   Sort = 'SORT',
   User = 'USER',
   Comments = 'COMMENTS'
+}
+
+enum StoreNameSlice {
+  SiteData = 'SITE_DATA',
+  SiteProcess = 'SITE_PROCESS',
+  UserProcess = 'USER_PROCESS'
 }
 
 enum CityName {
@@ -81,11 +93,14 @@ const STARS_COUNT = 5;
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as const;
 
+
 export {
   AppRoute,
   ApiRoute,
   AuthorizationStatus,
+  HttpCode,
   StoreNameSpace,
+  StoreNameSlice,
   CityName,
   SortName,
   SITE_NAME,

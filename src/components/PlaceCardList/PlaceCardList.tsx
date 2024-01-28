@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import {PlaceCard} from '../PlaceCard/PlaceCard.tsx';
 import {Map} from '../Map/Map.tsx';
 import {Sorting} from '../Sorting/Sorting.tsx';
@@ -6,7 +6,8 @@ import type {TCity} from '../../types/city.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TSortName} from '../../types/sort-name.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {setSorting} from '../../store/actions.ts';
+import {setSorting} from '../../store/site-process/site-process.ts';
+import {getSorting} from '../../store/site-process/selectors.ts';
 
 
 type TPlaceCardListProps = {
@@ -16,20 +17,20 @@ type TPlaceCardListProps = {
 
 const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
   const dispatch = useAppDispatch();
-  const activeSorting = useAppSelector((state) => state.sorting);
+  const activeSorting = useAppSelector(getSorting);
   const [activeOffer, setActiveOffer] = useState<TOffer | null>(null);
 
-  const handleCardMouseOver = (offer: TOffer) => {
+  const handleCardMouseOver = useCallback((offer: TOffer) => {
     setActiveOffer(offer);
-  };
+  }, []);
 
-  const handleCardMouseLeave = () => {
+  const handleCardMouseLeave = useCallback(() => {
     setActiveOffer(null);
-  };
+  }, []);
 
-  const onSortingChange = (sortName: TSortName) => {
+  const onSortingChange = useCallback((sortName: TSortName) => {
     dispatch(setSorting(sortName));
-  };
+  }, [dispatch]);
 
   return (
     <div className="cities">

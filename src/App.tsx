@@ -12,13 +12,14 @@ import {browserHistory} from './browser-history.ts';
 import {PrivateRoute} from './components/PrivateRoute/PrivateRoute.tsx';
 import {Provider} from 'react-redux';
 import {store} from './store';
-import {fetchUserStatus, fetchOffers} from './store/actions.ts';
+import {fetchUserStatus, fetchOffers, fetchFavoriteOffers} from './store/actions.ts';
 
 
 function App() {
   useEffect(() => {
     store.dispatch(fetchUserStatus());
     store.dispatch(fetchOffers());
+    store.dispatch(fetchFavoriteOffers());
   }, []);
 
   return (
@@ -56,5 +57,6 @@ function App() {
     </Provider>
   );
 }
+
 
 export {App};

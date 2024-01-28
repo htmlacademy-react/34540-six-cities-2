@@ -2,15 +2,17 @@ import type {AxiosInstance, AxiosError} from 'axios';
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import type {TCityName} from '../types/city.ts';
 import type {TOffer, TOffers} from '../types/offer.ts';
+import type {TFavorite} from '../types/favorite.ts';
 import type {TSortName} from '../types/sort-name.ts';
 import type {TUser, TUserAuth} from '../types/user.ts';
 import type {TCommentAuth, TComments} from '../types/comment.ts';
-import {ApiRoute, AppRoute, StoreNameSpace} from '../const.ts';
+import {ApiRoute, AppRoute, HttpCode, StoreNameSpace} from '../const.ts';
 import {saveToken} from '../services/token.ts';
 
 
 const setCity = createAction<TCityName>(`${StoreNameSpace.City}/setCity`);
 const setSorting = createAction<TSortName>(`${StoreNameSpace.Sort}/setSorting`);
+
 
 const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/fetchOffers`, async (_, thunkAPI) => {
@@ -31,14 +33,49 @@ const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance
   } catch (error) {
     const axiosError = error as AxiosError;
 
-
-    if (axiosError.response?.status === 404) {
+    if (axiosError.response?.status === HttpCode.NotFound) {
       history.pushState('', '', AppRoute.NotFound);
     }
 
     return Promise.reject(error);
   }
 });
+
+const fetchNearbyOffers = createAsyncThunk<TOffers, TOffer['id'], { extra: AxiosInstance }>
+(`${StoreNameSpace.Offers}/fetchNearbyOffers`, async (id, thunkAPI) => {
+  const axios = thunkAPI.extra;
+  const {data} = await axios.get<TOffers>(`${ApiRoute.Offers}/${id}/nearby`);
+
+  return data;
+});
+
+const fetchFavoriteOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance }>
+(`${StoreNameSpace.Offers}/fetchFavoriteOffers`, async (_, thunkAPI) => {
+  const axios = thunkAPI.extra;
+  const {data} = await axios.get<TOffers>(ApiRoute.Favorite);
+
+  return data;
+});
+
+const postFavorite = createAsyncThunk<TOffer, TFavorite, { extra: AxiosInstance }>
+(`${StoreNameSpace.Offers}/postFavoriteOffer`, async ({id, status}, thunkAPI) => {
+  const axios = thunkAPI.extra;
+
+  try {
+    const {data} = await axios.post<TOffer>(`${ApiRoute.Favorite}/${id}/${status}`);
+
+    return data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    if (axiosError.response?.status === HttpCode.NoAuth) {
+      history.pushState('', '', AppRoute.Login);
+    }
+
+    return Promise.reject(error);
+  }
+});
+
 
 const fetchComments = createAsyncThunk<TComments, TOffer['id'], { extra: AxiosInstance }>
 (`${StoreNameSpace.Comments}/fetchComments`, async (id, thunkAPI) => {
@@ -56,13 +93,6 @@ const postComment = createAsyncThunk<TComments, TCommentAuth, { extra: AxiosInst
   return data;
 });
 
-const fetchNearbyOffers = createAsyncThunk<TOffers, TOffer['id'], { extra: AxiosInstance }>
-(`${StoreNameSpace.Offers}/fetchNearbyOffers`, async (id, thunkAPI) => {
-  const axios = thunkAPI.extra;
-  const {data} = await axios.get<TOffers>(`${ApiRoute.Offers}/${id}/nearby`);
-
-  return data;
-});
 
 const fetchUserStatus = createAsyncThunk<TUser['email'], undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.User}/fetchUserStatus`, async (_, {extra: api}) => {
@@ -82,11 +112,14 @@ const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: Axios
   return email;
 });
 
+
 export {
   setCity,
   setSorting,
   fetchOffers,
   fetchOffer,
+  fetchFavoriteOffers,
+  postFavorite,
   fetchComments,
   postComment,
   fetchNearbyOffers,

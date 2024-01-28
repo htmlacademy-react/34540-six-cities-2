@@ -2,7 +2,7 @@ import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
 import {getToken} from './token.ts';
 
 
-const ENDPOINT = 'https://13.design.pages.academy/six-cities';
+const ENDPOINT = 'https://13.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
 const createAPI = (): AxiosInstance => {

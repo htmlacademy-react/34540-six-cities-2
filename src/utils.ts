@@ -1,4 +1,5 @@
 import {STARS_COUNT, MONTHS} from './const.ts';
+import {StoreNameSlice} from './const.ts';
 import type {TOffer, TOffers} from './types/offer.ts';
 import type {TState} from './types/state.ts';
 
@@ -14,9 +15,9 @@ const formatDate = (date: string) => {
   return `${MONTHS[dateParsed.getMonth()]} ${dateParsed.getFullYear()}`;
 };
 
-const getOffersByCity = (state: TState) => state.offers.filter((offer: TOffer) => offer.city.name === state.city.name);
+const getOffersByCity = (state: TState) => state[StoreNameSlice.SiteData].offers.filter((offer: TOffer) => offer.city.name === state[StoreNameSlice.SiteProcess].city.name);
 
-const getNearbyOffers = (offers: TOffers, targetOffer: TOffer, amount = 3) => {
+const getNearbyOffersbyActiveOffer = (offers: TOffers, targetOffer: TOffer, amount = 3) => {
   const nearbyOffers = offers.filter((offer) => offer.id !== targetOffer.id);
   amount = offers.length < 3 ? offers.length : amount;
 
@@ -30,11 +31,12 @@ const sortingFilters = {
   TopRated: (a: TOffer, b: TOffer) => b.rating - a.rating,
 };
 
+
 export {
   capitalizeFirstLetter,
   calculateRatingPercentages,
   formatDate,
   getOffersByCity,
-  getNearbyOffers,
+  getNearbyOffersbyActiveOffer,
   sortingFilters
 };

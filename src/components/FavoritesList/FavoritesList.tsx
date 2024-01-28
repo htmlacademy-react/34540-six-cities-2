@@ -1,23 +1,22 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import {PlaceCard} from '../PlaceCard/PlaceCard.tsx';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 
 
 type TFavoritesListProps = {
-  groupedOffersByCity: {
-    [key: string]: TOffers;
-  };
+  groupedOffersByCity: Record<string, TOffers>;
 }
 
 const FavoritesList = ({groupedOffersByCity}: TFavoritesListProps) => {
   const [, setActiveOffer] = useState<TOffer | null>(null);
-  const handleCardMouseOver = (offer: TOffer) => {
-    setActiveOffer(offer);
-  };
 
-  const handleCardMouseLeave = () => {
+  const handleCardMouseOver = useCallback((offer: TOffer) => {
+    setActiveOffer(offer);
+  }, []);
+
+  const handleCardMouseLeave = useCallback(() => {
     setActiveOffer(null);
-  };
+  }, []);
 
   return (
     <section className="favorites">

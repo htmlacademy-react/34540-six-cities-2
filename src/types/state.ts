@@ -20,6 +20,28 @@ type TState = {
   user: TUser['email'];
 }
 
+type TSiteData = {
+  offers: TOffers;
+  isOffersLoading: boolean;
+  offer: TOffer | null;
+  isOfferLoading: boolean;
+  nearbyOffers: TOffers;
+  comments: TComments;
+  favoriteOffers: TOffers;
+  isFavoriteOffersLoading: boolean;
+}
+
+type TUserProcess = {
+  authorizationStatus: AuthorizationStatus;
+  user: TUser['email'];
+}
+
+type TSiteProcess = {
+  city: TCity;
+  sorting: TSortName;
+}
+
 type TAppDispatch = typeof store.dispatch;
 
-export type {TState, TAppDispatch};
+
+export type {TState, TSiteData, TUserProcess, TSiteProcess, TAppDispatch};

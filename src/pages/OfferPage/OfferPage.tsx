@@ -6,23 +6,31 @@ import {Header} from '../../components/Header/Header.tsx';
 import {PlaceCard} from '../../components/PlaceCard/PlaceCard.tsx';
 import {ReviewList} from '../../components/ReviewList/ReviewList.tsx';
 import {Map} from '../../components/Map/Map.tsx';
+import {Bookmark} from '../../components/Bookmark/Bookmark.tsx';
 import {AppRoute, SITE_NAME} from '../../const.ts';
-import type {TOffer, TOffers} from '../../types/offer.ts';
-import type {TCommentAuth} from '../../types/comment.ts';
-import {calculateRatingPercentages, capitalizeFirstLetter, getOffersByCity, getNearbyOffers} from '../../utils.ts';
+import {
+  calculateRatingPercentages,
+  capitalizeFirstLetter,
+  getOffersByCity,
+  getNearbyOffersbyActiveOffer
+} from '../../utils.ts';
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import {fetchOffer, fetchNearbyOffers, fetchComments, postComment} from '../../store/actions.ts';
+import {getAuthorizationStatus} from '../../store/user-process/selectors.ts';
+import {getIsOfferLoading, getOffer, getComments, getNearbyOffers} from '../../store/site-data/selectors.ts';
 import classNames from 'classnames';
+import type {TOffer, TOffers} from '../../types/offer.ts';
+import type {TCommentAuth} from '../../types/comment.ts';
 
 
 const OfferPage = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
-  const targetOffer = useAppSelector((state) => state.offer);
-  const comments = useAppSelector((state) => state.comments);
-  let nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOfferLoading = useAppSelector(getIsOfferLoading);
+  const targetOffer = useAppSelector(getOffer);
+  const comments = useAppSelector(getComments);
+  let nearbyOffers = useAppSelector(getNearbyOffers);
 
   const [activeOffer, setActiveOffer] = useState<TOffer | null>(null);
   const offersByCity: TOffers = useAppSelector((state) => getOffersByCity(state));
@@ -61,7 +69,7 @@ const OfferPage = () => {
     description
   } = targetOffer;
 
-  nearbyOffers = getNearbyOffers(offersByCity, targetOffer);
+  nearbyOffers = getNearbyOffersbyActiveOffer(offersByCity, targetOffer);
 
   const handleCardMouseOver = (offer: TOffer) => {
     setActiveOffer(offer);
@@ -103,15 +111,7 @@ const OfferPage = () => {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button
-                  className={classNames('offer__bookmark-button', 'button', {'offer__bookmark-button--active': isFavorite})}
-                  type="button"
-                >
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark"/>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <Bookmark id={id} isActive={isFavorite} place={'offer'}/>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -213,5 +213,6 @@ const OfferPage = () => {
     </div>
   );
 };
+
 
 export {OfferPage};

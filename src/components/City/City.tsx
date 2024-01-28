@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import {Link} from 'react-router-dom';
 import type {TCityName} from '../../types/city.ts';
 import classNames from 'classnames';
@@ -9,7 +10,7 @@ type TCityProps = {
   onCityClick: (name: TCityName) => void;
 }
 
-const City = ({name, isActive, onCityClick}: TCityProps) => {
+const City = memo(({name, isActive, onCityClick}: TCityProps) => {
   const handleCityClick = () => {
     onCityClick(name);
   };
@@ -24,6 +25,6 @@ const City = ({name, isActive, onCityClick}: TCityProps) => {
       </Link>
     </li>
   );
-};
+});
 
 export {City};
