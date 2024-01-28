@@ -31,6 +31,7 @@ const sortingFilters = {
   TopRated: (a: TOffer, b: TOffer) => b.rating - a.rating,
 };
 
+
 export {
   capitalizeFirstLetter,
   calculateRatingPercentages,

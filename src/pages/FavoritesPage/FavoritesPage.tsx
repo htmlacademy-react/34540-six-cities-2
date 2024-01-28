@@ -1,18 +1,20 @@
 import {Helmet} from 'react-helmet-async';
 import {Link} from 'react-router-dom';
+import {Spinner} from '../../components/Spinner/Spinner.tsx';
 import {Header} from '../../components/Header/Header.tsx';
 import {FavoritesList} from '../../components/FavoritesList/FavoritesList.tsx';
 import {FavoritesListEmpty} from '../../components/FavoritesListEmpty/FavoritesListEmpty.tsx';
-import type {TOffers} from '../../types/offer.ts';
 import {SITE_NAME} from '../../const.ts';
 import {useAppSelector} from '../../hooks';
-import {getOffers} from '../../store/site-data/selectors.ts';
+import {getIsFavoriteOffersLoading, getFavoriteOffers} from '../../store/site-data/selectors.ts';
+import type {TOffers} from '../../types/offer.ts';
 
 
 const FavoritesPage = () => {
-  const offers: TOffers = useAppSelector(getOffers);
+  const isFavoriteOffersLoading = useAppSelector(getIsFavoriteOffersLoading);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
-  const groupedOffersByCity = offers.reduce<{ [key: string]: TOffers }>((acc, curr) => {
+  const groupedOffersByCity = favoriteOffers.reduce<{ [key: string]: TOffers }>((acc, curr) => {
     if (curr.isFavorite) {
       const city = curr.city.name;
 
@@ -25,6 +27,10 @@ const FavoritesPage = () => {
 
     return acc;
   }, {});
+
+  if (!isFavoriteOffersLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="page">
@@ -52,5 +58,6 @@ const FavoritesPage = () => {
     </div>
   );
 };
+
 
 export {FavoritesPage};
