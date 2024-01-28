@@ -13,4 +13,5 @@ type TComment = {
 type TComments = TComment[];
 type TCommentAuth = Pick<TComment, 'comment' | 'rating'> & Pick<TOffer, 'id'>;
 
+``
 export type {TComment, TComments, TCommentAuth};

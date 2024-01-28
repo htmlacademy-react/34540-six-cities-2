@@ -19,6 +19,11 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+enum HttpCode {
+  NotFound = 404,
+  NoAuth = 401
+}
+
 enum StoreNameSpace {
   City = 'CITY',
   Offers = 'OFFERS',
@@ -93,6 +98,7 @@ export {
   AppRoute,
   ApiRoute,
   AuthorizationStatus,
+  HttpCode,
   StoreNameSpace,
   StoreNameSlice,
   CityName,

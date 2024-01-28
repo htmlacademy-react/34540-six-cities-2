@@ -2,10 +2,11 @@ import type {AxiosInstance, AxiosError} from 'axios';
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import type {TCityName} from '../types/city.ts';
 import type {TOffer, TOffers} from '../types/offer.ts';
+import type {TFavorite} from '../types/favorite.ts';
 import type {TSortName} from '../types/sort-name.ts';
 import type {TUser, TUserAuth} from '../types/user.ts';
 import type {TCommentAuth, TComments} from '../types/comment.ts';
-import {ApiRoute, AppRoute, StoreNameSpace} from '../const.ts';
+import {ApiRoute, AppRoute, HttpCode, StoreNameSpace} from '../const.ts';
 import {saveToken} from '../services/token.ts';
 
 
@@ -32,7 +33,7 @@ const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance
   } catch (error) {
     const axiosError = error as AxiosError;
 
-    if (axiosError.response?.status === 404) {
+    if (axiosError.response?.status === HttpCode.NotFound) {
       history.pushState('', '', AppRoute.NotFound);
     }
 
@@ -54,6 +55,25 @@ const fetchFavoriteOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosI
   const {data} = await axios.get<TOffers>(ApiRoute.Favorite);
 
   return data;
+});
+
+const postFavorite = createAsyncThunk<TOffer, TFavorite, { extra: AxiosInstance }>
+(`${StoreNameSpace.Offers}/postFavoriteOffer`, async ({id, status}, thunkAPI) => {
+  const axios = thunkAPI.extra;
+
+  try {
+    const {data} = await axios.post<TOffer>(`${ApiRoute.Favorite}/${id}/${status}`);
+
+    return data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    if (axiosError.response?.status === HttpCode.NoAuth) {
+      history.pushState('', '', AppRoute.Login);
+    }
+
+    return Promise.reject(error);
+  }
 });
 
 
@@ -99,6 +119,7 @@ export {
   fetchOffers,
   fetchOffer,
   fetchFavoriteOffers,
+  postFavorite,
   fetchComments,
   postComment,
   fetchNearbyOffers,

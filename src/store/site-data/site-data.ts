@@ -6,7 +6,8 @@ import {
   fetchNearbyOffers,
   fetchComments,
   postComment,
-  fetchFavoriteOffers
+  fetchFavoriteOffers,
+  postFavorite
 } from '../actions.ts';
 import type {TSiteData} from '../../types/state.ts';
 
@@ -64,6 +65,20 @@ const siteData = createSlice({
       .addCase(fetchFavoriteOffers.rejected, (state) => {
         state.isFavoriteOffersLoading = true;
       })
+      .addCase(postFavorite.fulfilled, (state, action) => {
+        const updatedOffer = action.payload;
+        state.offers = state.offers.map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
+
+        if (state.offer && state.offer.id === updatedOffer.id) {
+          state.offer = updatedOffer;
+        }
+
+        if (updatedOffer.isFavorite) {
+          state.favoriteOffers = state.favoriteOffers.concat(updatedOffer);
+        } else {
+          state.favoriteOffers = state.favoriteOffers.filter((favoriteOffer) => favoriteOffer.id !== updatedOffer.id);
+        }
+      });
   }
 });
 
