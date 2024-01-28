@@ -1,6 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {StoreNameSlice} from '../../const.ts';
-import {fetchOffers, fetchOffer, fetchNearbyOffers, fetchComments, postComment} from '../actions.ts';
+import {
+  fetchOffers,
+  fetchOffer,
+  fetchNearbyOffers,
+  fetchComments,
+  postComment,
+  fetchFavoriteOffers
+} from '../actions.ts';
 import type {TSiteData} from '../../types/state.ts';
 
 
@@ -10,7 +17,9 @@ const initialState: TSiteData = {
   offer: null,
   isOfferLoading: true,
   nearbyOffers: [],
-  comments: []
+  comments: [],
+  favoriteOffers: [],
+  isFavoriteOffersLoading: true
 };
 
 const siteData = createSlice({
@@ -44,8 +53,19 @@ const siteData = createSlice({
       })
       .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
-      });
+      })
+      .addCase(fetchFavoriteOffers.pending, (state) => {
+        state.isFavoriteOffersLoading = true;
+      })
+      .addCase(fetchFavoriteOffers.fulfilled, (state, action) => {
+        state.favoriteOffers = action.payload;
+        state.isFavoriteOffersLoading = false;
+      })
+      .addCase(fetchFavoriteOffers.rejected, (state) => {
+        state.isFavoriteOffersLoading = true;
+      })
   }
 });
+
 
 export {siteData};

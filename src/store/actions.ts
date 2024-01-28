@@ -12,6 +12,7 @@ import {saveToken} from '../services/token.ts';
 const setCity = createAction<TCityName>(`${StoreNameSpace.City}/setCity`);
 const setSorting = createAction<TSortName>(`${StoreNameSpace.Sort}/setSorting`);
 
+
 const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/fetchOffers`, async (_, thunkAPI) => {
   const axios = thunkAPI.extra;
@@ -39,6 +40,23 @@ const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance
   }
 });
 
+const fetchNearbyOffers = createAsyncThunk<TOffers, TOffer['id'], { extra: AxiosInstance }>
+(`${StoreNameSpace.Offers}/fetchNearbyOffers`, async (id, thunkAPI) => {
+  const axios = thunkAPI.extra;
+  const {data} = await axios.get<TOffers>(`${ApiRoute.Offers}/${id}/nearby`);
+
+  return data;
+});
+
+const fetchFavoriteOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance }>
+(`${StoreNameSpace.Offers}/fetchFavoriteOffers`, async (_, thunkAPI) => {
+  const axios = thunkAPI.extra;
+  const {data} = await axios.get<TOffers>(ApiRoute.Favorite);
+
+  return data;
+});
+
+
 const fetchComments = createAsyncThunk<TComments, TOffer['id'], { extra: AxiosInstance }>
 (`${StoreNameSpace.Comments}/fetchComments`, async (id, thunkAPI) => {
   const axios = thunkAPI.extra;
@@ -55,13 +73,6 @@ const postComment = createAsyncThunk<TComments, TCommentAuth, { extra: AxiosInst
   return data;
 });
 
-const fetchNearbyOffers = createAsyncThunk<TOffers, TOffer['id'], { extra: AxiosInstance }>
-(`${StoreNameSpace.Offers}/fetchNearbyOffers`, async (id, thunkAPI) => {
-  const axios = thunkAPI.extra;
-  const {data} = await axios.get<TOffers>(`${ApiRoute.Offers}/${id}/nearby`);
-
-  return data;
-});
 
 const fetchUserStatus = createAsyncThunk<TUser['email'], undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.User}/fetchUserStatus`, async (_, {extra: api}) => {
@@ -81,11 +92,13 @@ const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: Axios
   return email;
 });
 
+
 export {
   setCity,
   setSorting,
   fetchOffers,
   fetchOffer,
+  fetchFavoriteOffers,
   fetchComments,
   postComment,
   fetchNearbyOffers,

@@ -9,7 +9,8 @@ enum AppRoute {
 enum ApiRoute {
   Offers = '/offers',
   Login = '/login',
-  Comments = '/comments'
+  Comments = '/comments',
+  Favorite = '/favorite'
 }
 
 enum AuthorizationStatus {
@@ -86,6 +87,7 @@ const CityLocations = {
 const STARS_COUNT = 5;
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as const;
+
 
 export {
   AppRoute,

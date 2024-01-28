@@ -13,6 +13,9 @@ const getOffer = (state: TState): TOffer | null => state[StoreNameSlice.SiteData
 const getNearbyOffers = (state: TState): TOffers => state[StoreNameSlice.SiteData].nearbyOffers;
 const getComments = (state: TState): TComments => state[StoreNameSlice.SiteData].comments;
 
+export const getIsFavoriteOffersLoading = (state: TState): boolean => state[StoreNameSlice.SiteData].isFavoriteOffersLoading;
+export const getFavoriteOffers = (state: TState): TOffers => state[StoreNameSlice.SiteData].favoriteOffers;
+
 
 export {
   getIsOffersLoading,

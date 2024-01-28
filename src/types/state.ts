@@ -27,6 +27,8 @@ type TSiteData = {
   isOfferLoading: boolean;
   nearbyOffers: TOffers;
   comments: TComments;
+  favoriteOffers: TOffers;
+  isFavoriteOffersLoading: boolean
 }
 
 type TUserProcess = {
@@ -40,5 +42,6 @@ type TSiteProcess = {
 }
 
 type TAppDispatch = typeof store.dispatch;
+
 
 export type {TState, TSiteData, TUserProcess, TSiteProcess, TAppDispatch};
