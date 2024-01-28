@@ -5,12 +5,14 @@ import {dropToken} from '../../services/token.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors.ts';
 import {logoutUser} from '../../store/user-process/user-process.ts';
+import {getFavoriteOffers} from '../../store/site-data/selectors.ts';
 
 
 const Header = () => {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const user = useAppSelector(getUser);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   const onLoginClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -38,7 +40,7 @@ const Header = () => {
                     <span className="header__user-name user__name">
                       {user}
                     </span>
-                    <span className="header__favorite-count">0</span>
+                    <span className="header__favorite-count">{favoriteOffers.length}</span>
                   </Link>
                 </li>)}
               <li className="header__nav-item">
@@ -57,5 +59,6 @@ const Header = () => {
     </header>
   );
 };
+
 
 export {Header};

@@ -28,7 +28,7 @@ type TSiteData = {
   nearbyOffers: TOffers;
   comments: TComments;
   favoriteOffers: TOffers;
-  isFavoriteOffersLoading: boolean
+  isFavoriteOffersLoading: boolean;
 }
 
 type TUserProcess = {

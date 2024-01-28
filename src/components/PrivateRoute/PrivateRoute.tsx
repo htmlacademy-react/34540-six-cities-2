@@ -6,7 +6,7 @@ import {getAuthorizationStatus} from '../../store/user-process/selectors.ts';
 
 
 type TPrivateRouteProps = {
-  children: Element;
+  children: JSX.Element;
 }
 
 const PrivateRoute = ({children}: TPrivateRouteProps) => {

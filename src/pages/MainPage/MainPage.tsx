@@ -48,4 +48,5 @@ const MainPage = () => {
   );
 };
 
+
 export {MainPage};
