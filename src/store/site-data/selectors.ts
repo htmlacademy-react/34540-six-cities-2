@@ -5,13 +5,13 @@ import type {TStateReducer} from '../../types/state.ts';
 
 
 const getIsOffersLoading = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isOffersLoading;
-const getOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].offers;
 
 const getIsOfferLoading = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isOfferLoading;
 const getOffer = (state: TStateReducer): TOffer | null => state[StoreNameSlice.SiteData].offer;
 
 const getNearbyOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].nearbyOffers;
 const getComments = (state: TStateReducer): TComments => state[StoreNameSlice.SiteData].comments;
+const getIsPostCommentSuccess = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isPostCommentSuccess;
 
 export const getIsFavoriteOffersLoading = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isFavoriteOffersLoading;
 export const getFavoriteOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].favoriteOffers;
@@ -19,9 +19,9 @@ export const getFavoriteOffers = (state: TStateReducer): TOffers => state[StoreN
 
 export {
   getIsOffersLoading,
-  getOffers,
   getIsOfferLoading,
   getOffer,
   getNearbyOffers,
-  getComments
+  getComments,
+  getIsPostCommentSuccess
 };

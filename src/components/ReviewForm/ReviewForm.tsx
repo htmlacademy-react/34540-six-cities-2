@@ -1,14 +1,20 @@
 import {FormEvent, Fragment, useState} from 'react';
+import {toast} from 'react-toastify';
+import {STARS_COUNT} from '../../const.ts';
+import {useAppSelector} from '../../hooks';
+import {getIsPostCommentSuccess} from '../../store/site-data/selectors.ts';
 import type {ChangeEvent} from 'react';
 import type {TCommentAuth} from '../../types/comment.ts';
-import {STARS_COUNT} from '../../const.ts';
 
 
 type TReviewFormProps = {
   onSubmit: (formData: Omit<TCommentAuth, 'id'>) => void;
 }
 
+const UNSUCCESSFUL_COMMENT_POST_MESSAGE = 'An error occurred while posting a comment. Please try again later.';
+
 const ReviewForm = ({onSubmit}: TReviewFormProps) => {
+  const isPostCommentSuccess = useAppSelector(getIsPostCommentSuccess);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
   const isValid =
@@ -34,6 +40,10 @@ const ReviewForm = ({onSubmit}: TReviewFormProps) => {
 
     setComment('');
     setRating('');
+
+    if (!isPostCommentSuccess) {
+      toast.warn(UNSUCCESSFUL_COMMENT_POST_MESSAGE);
+    }
   };
 
   return (
@@ -91,5 +101,6 @@ const ReviewForm = ({onSubmit}: TReviewFormProps) => {
     </form>
   );
 };
+
 
 export {ReviewForm};

@@ -19,6 +19,7 @@ const initialState: TSiteData = {
   isOfferLoading: true,
   nearbyOffers: [],
   comments: [],
+  isPostCommentSuccess: true,
   favoriteOffers: [],
   isFavoriteOffersLoading: true
 };
@@ -51,6 +52,9 @@ const siteData = createSlice({
       })
       .addCase(postComment.fulfilled, (state, action) => {
         state.comments = [...state.comments, action.payload];
+      })
+      .addCase(postComment.rejected, (state) => {
+        state.isPostCommentSuccess = false;
       })
       .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;

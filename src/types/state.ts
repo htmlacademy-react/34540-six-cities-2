@@ -15,6 +15,7 @@ type TSiteData = {
   isOfferLoading: boolean;
   nearbyOffers: TOffers;
   comments: TComments;
+  isPostCommentSuccess: boolean;
   favoriteOffers: TOffers;
   isFavoriteOffersLoading: boolean;
 }
