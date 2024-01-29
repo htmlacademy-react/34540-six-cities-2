@@ -52,4 +52,7 @@ const Sorting = memo(({onChange, activeSorting}: TSortingProps) => {
   );
 });
 
+Sorting.displayName = 'Sorting';
+
+
 export {Sorting};

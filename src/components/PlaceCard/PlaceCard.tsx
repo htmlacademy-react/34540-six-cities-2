@@ -84,5 +84,7 @@ const PlaceCard = memo(({offer, place = 'cities', onMouseOver, onMouseLeave}: TP
   );
 });
 
+PlaceCard.displayName = 'PlaceCard';
+
 
 export {PlaceCard};

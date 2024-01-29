@@ -1,20 +1,20 @@
 import {StoreNameSlice} from '../../const.ts';
-import type {TState} from '../../types/state.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TComments} from '../../types/comment.ts';
+import type {TStateReducer} from '../../types/state.ts';
 
 
-const getIsOffersLoading = (state: TState): boolean => state[StoreNameSlice.SiteData].isOffersLoading;
-const getOffers = (state: TState): TOffers => state[StoreNameSlice.SiteData].offers;
+const getIsOffersLoading = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isOffersLoading;
+const getOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].offers;
 
-const getIsOfferLoading = (state: TState): boolean => state[StoreNameSlice.SiteData].isOfferLoading;
-const getOffer = (state: TState): TOffer | null => state[StoreNameSlice.SiteData].offer;
+const getIsOfferLoading = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isOfferLoading;
+const getOffer = (state: TStateReducer): TOffer | null => state[StoreNameSlice.SiteData].offer;
 
-const getNearbyOffers = (state: TState): TOffers => state[StoreNameSlice.SiteData].nearbyOffers;
-const getComments = (state: TState): TComments => state[StoreNameSlice.SiteData].comments;
+const getNearbyOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].nearbyOffers;
+const getComments = (state: TStateReducer): TComments => state[StoreNameSlice.SiteData].comments;
 
-export const getIsFavoriteOffersLoading = (state: TState): boolean => state[StoreNameSlice.SiteData].isFavoriteOffersLoading;
-export const getFavoriteOffers = (state: TState): TOffers => state[StoreNameSlice.SiteData].favoriteOffers;
+export const getIsFavoriteOffersLoading = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isFavoriteOffersLoading;
+export const getFavoriteOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].favoriteOffers;
 
 
 export {

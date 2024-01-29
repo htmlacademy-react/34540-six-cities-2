@@ -1,8 +1,9 @@
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import type {TState, TAppDispatch} from '../types/state.ts';
+import type {TAppDispatch} from '../types/state.ts';
+import type {TStateReducer} from '../types/state.ts';
 
 
 const useAppDispatch = () => useDispatch<TAppDispatch>();
-const useAppSelector: TypedUseSelectorHook<TState> = useSelector;
+const useAppSelector: TypedUseSelectorHook<TStateReducer> = useSelector;
 
 export {useAppDispatch, useAppSelector};

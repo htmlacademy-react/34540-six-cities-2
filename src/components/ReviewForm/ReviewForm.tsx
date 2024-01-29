@@ -13,6 +13,7 @@ const ReviewForm = ({onSubmit}: TReviewFormProps) => {
   const [rating, setRating] = useState('');
   const isValid =
     comment.length >= 50 &&
+    comment.length <= 300 &&
     rating !== '';
 
   const handleTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
@@ -30,6 +31,9 @@ const ReviewForm = ({onSubmit}: TReviewFormProps) => {
       comment: comment,
       rating: +rating
     });
+
+    setComment('');
+    setRating('');
   };
 
   return (
@@ -66,6 +70,7 @@ const ReviewForm = ({onSubmit}: TReviewFormProps) => {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
+        maxLength={300}
         onChange={handleTextareaChange}
       />
       <div className="reviews__button-wrapper">

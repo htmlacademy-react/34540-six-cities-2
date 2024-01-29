@@ -8,4 +8,5 @@ type TUser = {
 
 type TUserAuth = Pick<TUser, 'email'> & { password: string };
 
+
 export type {TUser, TUserAuth};

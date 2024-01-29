@@ -1,17 +1,11 @@
-import type {AxiosInstance, AxiosError} from 'axios';
-import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
-import type {TCityName} from '../types/city.ts';
-import type {TOffer, TOffers} from '../types/offer.ts';
-import type {TFavorite} from '../types/favorite.ts';
-import type {TSortName} from '../types/sort-name.ts';
-import type {TUser, TUserAuth} from '../types/user.ts';
-import type {TCommentAuth, TComments} from '../types/comment.ts';
+import {AxiosError, AxiosInstance} from 'axios';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ApiRoute, AppRoute, HttpCode, StoreNameSpace} from '../const.ts';
 import {saveToken} from '../services/token.ts';
-
-
-const setCity = createAction<TCityName>(`${StoreNameSpace.City}/setCity`);
-const setSorting = createAction<TSortName>(`${StoreNameSpace.Sort}/setSorting`);
+import type {TOffer, TOffers} from '../types/offer.ts';
+import type {TFavorite} from '../types/favorite.ts';
+import type {TUser, TUserAuth} from '../types/user.ts';
+import type {TCommentAuth, TComment, TComments} from '../types/comment.ts';
 
 
 const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance }>
@@ -31,10 +25,10 @@ const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance
 
     return data;
   } catch (error) {
-    const axiosError = error as AxiosError;
-
-    if (axiosError.response?.status === HttpCode.NotFound) {
-      history.pushState('', '', AppRoute.NotFound);
+    if (error instanceof AxiosError) {
+      if (error.response?.status === HttpCode.NotFound) {
+        history.pushState('', '', AppRoute.NotFound);
+      }
     }
 
     return Promise.reject(error);
@@ -66,10 +60,10 @@ const postFavorite = createAsyncThunk<TOffer, TFavorite, { extra: AxiosInstance 
 
     return data;
   } catch (error) {
-    const axiosError = error as AxiosError;
-
-    if (axiosError.response?.status === HttpCode.NoAuth) {
-      history.pushState('', '', AppRoute.Login);
+    if (error instanceof AxiosError) {
+      if (error.response?.status === HttpCode.NoAuth) {
+        history.pushState('', '', AppRoute.Login);
+      }
     }
 
     return Promise.reject(error);
@@ -85,10 +79,10 @@ const fetchComments = createAsyncThunk<TComments, TOffer['id'], { extra: AxiosIn
   return data;
 });
 
-const postComment = createAsyncThunk<TComments, TCommentAuth, { extra: AxiosInstance }>
+const postComment = createAsyncThunk<TComment, TCommentAuth, { extra: AxiosInstance }>
 (`${StoreNameSpace.Comments}/postComment`, async ({id, comment, rating}, thunkAPI) => {
   const axios = thunkAPI.extra;
-  const {data} = await axios.post<TComments>(`${ApiRoute.Comments}/${id}`, {comment, rating});
+  const {data} = await axios.post<TComment>(`${ApiRoute.Comments}/${id}`, {comment, rating});
 
   return data;
 });
@@ -114,8 +108,6 @@ const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: Axios
 
 
 export {
-  setCity,
-  setSorting,
   fetchOffers,
   fetchOffer,
   fetchFavoriteOffers,

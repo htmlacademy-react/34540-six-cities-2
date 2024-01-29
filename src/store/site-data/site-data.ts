@@ -50,7 +50,7 @@ const siteData = createSlice({
         state.comments = action.payload;
       })
       .addCase(postComment.fulfilled, (state, action) => {
-        state.comments = action.payload;
+        state.comments = [...state.comments, action.payload];
       })
       .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
