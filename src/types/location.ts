@@ -4,4 +4,5 @@ type TLocation = {
   zoom: number;
 }
 
+
 export type {TLocation};

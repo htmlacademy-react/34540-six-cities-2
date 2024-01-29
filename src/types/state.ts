@@ -5,20 +5,8 @@ import type {TOffer, TOffers} from './offer.ts';
 import type {TSortName} from './sort-name.ts';
 import type {TUser} from './user.ts';
 import type {TComments} from './comment.ts';
+import {CombinedState} from '@reduxjs/toolkit';
 
-
-type TState = {
-  city: TCity;
-  offers: TOffers;
-  isOffersLoading: boolean;
-  offer: TOffer | null;
-  isOfferLoading: boolean;
-  nearbyOffers: TOffers;
-  comments: TComments;
-  sorting: TSortName;
-  authorizationStatus: AuthorizationStatus;
-  user: TUser['email'];
-}
 
 type TSiteData = {
   offers: TOffers;
@@ -27,6 +15,7 @@ type TSiteData = {
   isOfferLoading: boolean;
   nearbyOffers: TOffers;
   comments: TComments;
+  isPostCommentSuccess: boolean;
   favoriteOffers: TOffers;
   isFavoriteOffersLoading: boolean;
 }
@@ -43,5 +32,11 @@ type TSiteProcess = {
 
 type TAppDispatch = typeof store.dispatch;
 
+type TStateReducer = CombinedState<{
+  SITE_DATA: TSiteData;
+  SITE_PROCESS: TSiteProcess;
+  USER_PROCESS: TUserProcess;
+}>;
 
-export type {TState, TSiteData, TUserProcess, TSiteProcess, TAppDispatch};
+
+export type {TSiteData, TUserProcess, TSiteProcess, TAppDispatch, TStateReducer};

@@ -27,4 +27,7 @@ const City = memo(({name, isActive, onCityClick}: TCityProps) => {
   );
 });
 
+City.displayName = 'City';
+
+
 export {City};

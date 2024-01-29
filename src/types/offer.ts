@@ -24,4 +24,5 @@ type TOffer = {
 
 type TOffers = TOffer[];
 
+
 export type {TOffer, TOffers};

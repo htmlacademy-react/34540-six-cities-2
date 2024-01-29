@@ -35,5 +35,6 @@ const userProcess = createSlice({
   }
 });
 
+
 export {userProcess};
 export const {logoutUser} = userProcess.actions;
