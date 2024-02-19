@@ -1,5 +1,5 @@
-import {siteProcess, setCity, setSorting} from './site-process';
-import {StoreNameSlice, CityName, CityLocations, SortName} from '../../const';
+import {siteProcess, setCity, setSorting} from './site-process.ts';
+import {StoreNameSlice, CityName, CityLocations, SortName} from '../../const.ts';
 import type {TSortName} from '../../types/sort-name.ts';
 
 
