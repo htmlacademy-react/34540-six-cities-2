@@ -11,7 +11,7 @@ import {
 } from '../actions.ts';
 import type {TOffers} from '../../types/offer.ts';
 import type {TUser} from '../../types/user.ts';
-import type {TComments} from '../../types/comment.ts';
+import type {TComment, TComments} from '../../types/comment.ts';
 
 
 const user: TUser = {
@@ -52,12 +52,21 @@ const offers: TOffers = [
   }
 ];
 
+const comment: TComment = {
+  id: '1',
+  comment: 'Test comment 1',
+  date: '20-02-2024',
+  rating: 3.0,
+  user
+};
+
 const comments: TComments = [
+  comment,
   {
-    id: '1',
-    comment: 'Test comment',
-    date: '19-02-2024',
-    rating: 3.0,
+    id: '2',
+    comment: 'Test comment 2',
+    date: '21-02-2024',
+    rating: 5.0,
     user
   }
 ];
@@ -122,37 +131,40 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
     expect(siteData.reducer(initialState, {type: fetchOffer.pending.type}))
       .toEqual({
         offers: [],
-        isOffersLoading: false,
+        isOffersLoading: true,
         offer: null,
         isOfferLoading: true,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: false,
         nearbyOffers: [],
         comments: [],
+        isPostCommentSuccess: true,
+        favoriteOffers: [],
+        isFavoriteOffersLoading: true
       });
 
     expect(siteData.reducer(initialState, {type: fetchOffer.fulfilled.type, payload: offers[0]}))
       .toEqual({
         offers: [],
-        isOffersLoading: false,
+        isOffersLoading: true,
         offer: offers[0],
         isOfferLoading: false,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: false,
         nearbyOffers: [],
         comments: [],
+        isPostCommentSuccess: true,
+        favoriteOffers: [],
+        isFavoriteOffersLoading: true
       });
 
     expect(siteData.reducer(initialState, {type: fetchOffer.rejected.type}))
       .toEqual({
         offers: [],
-        isOffersLoading: false,
+        isOffersLoading: true,
         offer: null,
         isOfferLoading: false,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: false,
         nearbyOffers: [],
         comments: [],
+        isPostCommentSuccess: true,
+        favoriteOffers: [],
+        isFavoriteOffersLoading: true
       });
   });
 
@@ -160,37 +172,40 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
     expect(siteData.reducer(initialState, {type: fetchFavoriteOffers.pending.type}))
       .toEqual({
         offers: [],
-        isOffersLoading: false,
+        isOffersLoading: true,
         offer: null,
-        isOfferLoading: false,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: true,
+        isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
+        isPostCommentSuccess: true,
+        favoriteOffers: [],
+        isFavoriteOffersLoading: true
       });
 
     expect(siteData.reducer(initialState, {type: fetchFavoriteOffers.fulfilled.type, payload: offers}))
       .toEqual({
         offers: [],
-        isOffersLoading: false,
+        isOffersLoading: true,
         offer: null,
-        isOfferLoading: false,
-        favoriteOffers: offers,
-        isFavoriteOffersLoading: false,
+        isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
+        isPostCommentSuccess: true,
+        favoriteOffers: offers,
+        isFavoriteOffersLoading: false
       });
 
     expect(siteData.reducer(initialState, {type: fetchFavoriteOffers.rejected.type}))
       .toEqual({
         offers: [],
-        isOffersLoading: false,
+        isOffersLoading: true,
         offer: null,
-        isOfferLoading: false,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: false,
+        isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
+        isPostCommentSuccess: true,
+        favoriteOffers: [],
+        isFavoriteOffersLoading: true
       });
   });
 
@@ -198,88 +213,100 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
     expect(siteData.reducer(initialState, {type: fetchNearbyOffers.fulfilled.type, payload: offers}))
       .toEqual({
         offers: [],
-        isOffersLoading: false,
+        isOffersLoading: true,
         offer: null,
-        isOfferLoading: false,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: false,
+        isOfferLoading: true,
         nearbyOffers: offers,
         comments: [],
+        isPostCommentSuccess: true,
+        favoriteOffers: [],
+        isFavoriteOffersLoading: true
       });
   });
 
-  it('should fetch nearby comments', () => {
-   expect(siteData.reducer(initialState, {type: fetchComments.fulfilled.type, payload: comments}))
+  it('should fetch comments', () => {
+    expect(siteData.reducer(initialState, {type: fetchComments.fulfilled.type, payload: comment}))
       .toEqual({
         offers: [],
-        isOffersLoading: false,
+        isOffersLoading: true,
         offer: null,
-        isOfferLoading: false,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: false,
+        isOfferLoading: true,
         nearbyOffers: [],
-        comments,
+        comments: comment,
+        isPostCommentSuccess: true,
+        favoriteOffers: [],
+        isFavoriteOffersLoading: true
       });
   });
-
 
   it('should post comment', () => {
     expect(siteData.reducer(initialState, {type: postComment.fulfilled.type, payload: comments}))
       .toEqual({
         offers: [],
-        isOffersLoading: false,
+        isOffersLoading: true,
         offer: null,
-        isOfferLoading: false,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: false,
+        isOfferLoading: true,
         nearbyOffers: [],
-        comments,
+        comments: comments,
+        isPostCommentSuccess: true,
+        favoriteOffers: [],
+        isFavoriteOffersLoading: true
+      });
+
+    expect(siteData.reducer(initialState, {type: postComment.rejected.type}))
+      .toEqual({
+        offers: [],
+        isOffersLoading: true,
+        offer: null,
+        isOfferLoading: true,
+        nearbyOffers: [],
+        comments: [],
+        isPostCommentSuccess: false,
+        favoriteOffers: [],
+        isFavoriteOffersLoading: true
       });
   });
 
-  it('should post favorite', () => {
+  it('should post favorite offer', () => {
     const state = {
       offers,
-      isOffersLoading: false,
+      isOffersLoading: true,
       offer: null,
-      isOfferLoading: false,
-      favoriteOffers: [] as TOffers,
-      isFavoriteOffersLoading: false,
+      isOfferLoading: true,
       nearbyOffers: [],
       comments: [],
+      isPostCommentSuccess: true,
+      favoriteOffers: [],
+      isFavoriteOffersLoading: true
     };
 
     expect(siteData.reducer(state, {
-      type: postFavorite.fulfilled.type,
-      payload: {...offers[0], isFavorite: true}
-    }))
-      .toEqual({
-        offers: [{...offers[0], isFavorite: true}],
-        isOffersLoading: false,
-        offer: null,
-        isOfferLoading: false,
-        favoriteOffers: [{...offers[0], isFavorite: true}],
-        isFavoriteOffersLoading: false,
-        nearbyOffers: [],
-        comments: [],
-      });
-
-    state.offers = [{...offers[0], isFavorite: true}];
-    state.favoriteOffers = [{...offers[0], isFavorite: true}];
-
-    expect(siteData.reducer(initialState, {
-      type: postFavorite.fulfilled.type,
-      payload: {...offers[0], isFavorite: false}
+      type: postFavorite.fulfilled.type, payload: {...offers[0], isFavorite: true}
     }))
       .toEqual({
         offers,
-        isOffersLoading: false,
+        isOffersLoading: true,
         offer: null,
-        isOfferLoading: false,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: false,
+        isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
+        isPostCommentSuccess: true,
+        favoriteOffers: [{...offers[0], isFavorite: true}],
+        isFavoriteOffersLoading: true
+      });
+
+    expect(siteData.reducer(initialState, {type: postFavorite.fulfilled.type,payload: {...offers[0], isFavorite: false}
+    }))
+      .toEqual({
+        offers,
+        isOffersLoading: true,
+        offer: null,
+        isOfferLoading: true,
+        nearbyOffers: [],
+        comments: [],
+        isPostCommentSuccess: true,
+        favoriteOffers: [{...offers[0], isFavorite: false}],
+        isFavoriteOffersLoading: true
       });
   });
 });
