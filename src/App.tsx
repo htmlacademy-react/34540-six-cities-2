@@ -15,7 +15,7 @@ import {store} from './store';
 import {fetchUserStatus, fetchOffers, fetchFavoriteOffers} from './store/actions.ts';
 
 
-function App() {
+const App = () => {
   useEffect(() => {
     store.dispatch(fetchUserStatus());
     store.dispatch(fetchOffers());
@@ -56,7 +56,7 @@ function App() {
       </HistoryRouter>
     </Provider>
   );
-}
+};
 
 
 export {App};
