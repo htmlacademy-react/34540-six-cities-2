@@ -1,5 +1,4 @@
 import {render, screen} from '@testing-library/react';
-import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
@@ -95,9 +94,7 @@ const store = mockStore({
 });
 
 const fakeApp = (
-  <Provider store={store}>
-    <App/>
-  </Provider>
+  <App fakeStore={store}/>
 );
 
 describe('Application Routing', () => {
@@ -108,7 +105,7 @@ describe('Application Routing', () => {
 
     expect(screen.getByText(user.email)).toBeInTheDocument();
     expect(screen.getByText('Sign out')).toBeInTheDocument();
-    expect(screen.getByText(`1 places to stay in ${CityName.Paris}`)).toBeInTheDocument();
+    expect(screen.getByText(`1 place to stay in ${CityName.Paris}`)).toBeInTheDocument();
     expect(screen.getByText(SortName.Popular)).toBeInTheDocument();
     expect(screen.getByText('Premium')).toBeInTheDocument();
     expect(screen.getByText(offers[0].title)).toBeInTheDocument();
@@ -149,7 +146,7 @@ describe('Application Routing', () => {
     render(fakeApp);
 
     expect(screen.getByText(offers[0].title)).toBeInTheDocument();
-    expect(screen.getByText(offers[0].description)).toBeInTheDocument();
+    expect(screen.getByText(offers[0].description || '')).toBeInTheDocument();
     expect(screen.getByText(offers[0].type)).toBeInTheDocument();
   });
 });

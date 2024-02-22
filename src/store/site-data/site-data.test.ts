@@ -225,14 +225,14 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
   });
 
   it('should fetch comments', () => {
-    expect(siteData.reducer(initialState, {type: fetchComments.fulfilled.type, payload: comment}))
+    expect(siteData.reducer(initialState, {type: fetchComments.fulfilled.type, payload: comments}))
       .toEqual({
         offers: [],
         isOffersLoading: true,
         offer: null,
         isOfferLoading: true,
         nearbyOffers: [],
-        comments: comment,
+        comments,
         isPostCommentSuccess: true,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
@@ -240,14 +240,14 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
   });
 
   it('should post comment', () => {
-    expect(siteData.reducer(initialState, {type: postComment.fulfilled.type, payload: comments}))
+    expect(siteData.reducer(initialState, {type: postComment.fulfilled.type, payload: comment}))
       .toEqual({
         offers: [],
         isOffersLoading: true,
         offer: null,
         isOfferLoading: true,
         nearbyOffers: [],
-        comments: comments,
+        comments: [comment],
         isPostCommentSuccess: true,
         favoriteOffers: [],
         isFavoriteOffersLoading: true

@@ -18,7 +18,7 @@ describe('Async actions', () => {
   const mockStore = configureMockStore<
     TStateReducer,
     Action,
-    ThunkDispatch<TStateReducer, { api: AxiosInstance, history: History }, Action>
+    ThunkDispatch<TStateReducer, { api: AxiosInstance; history: History }, Action>
   >(middlewares);
 
   it('fetchUserStatus should be fullfilled when server returns 200', async () => {
@@ -29,6 +29,7 @@ describe('Async actions', () => {
       .reply(200, {});
     expect(store.getActions()).toEqual([]);
 
+    // @ts-ignore
     await store.dispatch(fetchUserStatus());
 
     const actions = store.getActions().map(({type}) => type);

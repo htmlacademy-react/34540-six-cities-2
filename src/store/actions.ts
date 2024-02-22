@@ -84,8 +84,6 @@ const postComment = createAsyncThunk<TComment, TCommentAuth, { extra: AxiosInsta
   const axios = thunkAPI.extra;
   const {data} = await axios.post<TComment>(`${ApiRoute.Comments}/${id}`, {comment, rating});
 
-  console.log(data);
-
   return data;
 });
 
