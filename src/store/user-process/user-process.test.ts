@@ -7,7 +7,7 @@ const TEST_EMAIL = 'igor.khripunov@mail.ru';
 
 describe(`Reducer: ${StoreNameSlice.UserProcess}`, () => {
   it('should return initial state without additional parameters ', () => {
-    expect(userProcess.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
+    expect(userProcess.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
       .toEqual({
         authorizationStatus: AuthorizationStatus.NoAuth,
         user: ''

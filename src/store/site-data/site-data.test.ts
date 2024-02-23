@@ -85,7 +85,7 @@ const initialState = {
 
 describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
   it('should return initial state without additional parameters', () => {
-    expect(siteData.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
+    expect(siteData.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
       .toEqual({
         offers: [],
         isOffersLoading: true,
