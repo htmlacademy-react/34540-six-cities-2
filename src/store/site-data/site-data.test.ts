@@ -284,7 +284,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
       type: postFavorite.fulfilled.type, payload: {...offers[0], isFavorite: true}
     }))
       .toEqual({
-        offers,
+        offers: [{...offers[0], isFavorite: true}],
         isOffersLoading: true,
         offer: null,
         isOfferLoading: true,
@@ -295,17 +295,18 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isFavoriteOffersLoading: true
       });
 
-    expect(siteData.reducer(initialState, {type: postFavorite.fulfilled.type,payload: {...offers[0], isFavorite: false}
+    expect(siteData.reducer(state, {
+      type: postFavorite.fulfilled.type, payload: {...offers[0], isFavorite: false}
     }))
       .toEqual({
-        offers,
+        offers: [{...offers[0], isFavorite: false}],
         isOffersLoading: true,
         offer: null,
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
         isPostCommentSuccess: true,
-        favoriteOffers: [{...offers[0], isFavorite: false}],
+        favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
   });

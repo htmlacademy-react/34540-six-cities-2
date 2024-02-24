@@ -63,7 +63,7 @@ const LoginPage = () => {
                   className="login__input form__input"
                   type="email"
                   name="email"
-                  placeholder="Email"
+                  placeholder="E-mail"
                   required
                 />
               </div>

@@ -7,7 +7,6 @@ import {browserHistory} from '../../browser-history.ts';
 import {AppRoute, AuthorizationStatus, StoreNameSlice} from '../../const.ts';
 
 
-
 const EXPECTED_TEXT = 'public route';
 const NOT_EXPECTED_TEXT = 'private route';
 
