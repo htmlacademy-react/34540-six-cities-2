@@ -13,8 +13,8 @@ const getNearbyOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.
 const getComments = (state: TStateReducer): TComments => state[StoreNameSlice.SiteData].comments;
 const getIsPostCommentSuccess = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isPostCommentSuccess;
 
-export const getIsFavoriteOffersLoading = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isFavoriteOffersLoading;
-export const getFavoriteOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].favoriteOffers;
+const getIsFavoriteOffersLoading = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isFavoriteOffersLoading;
+const getFavoriteOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].favoriteOffers;
 
 
 export {
@@ -23,5 +23,7 @@ export {
   getOffer,
   getNearbyOffers,
   getComments,
-  getIsPostCommentSuccess
+  getIsPostCommentSuccess,
+  getIsFavoriteOffersLoading,
+  getFavoriteOffers
 };

@@ -13,9 +13,14 @@ import {PrivateRoute} from './components/PrivateRoute/PrivateRoute.tsx';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {fetchUserStatus, fetchOffers, fetchFavoriteOffers} from './store/actions.ts';
+import type {ToolkitStore} from '@reduxjs/toolkit/dist/configureStore';
 
 
-const App = () => {
+type TFakeStoreProps = {
+  fakeStore?: ToolkitStore;
+}
+
+const App = ({fakeStore}: TFakeStoreProps) => {
   useEffect(() => {
     store.dispatch(fetchUserStatus());
     store.dispatch(fetchOffers());
@@ -23,7 +28,7 @@ const App = () => {
   }, []);
 
   return (
-    <Provider store={store}>
+    <Provider store={fakeStore ?? store}>
       <HistoryRouter history={browserHistory}>
         <HelmetProvider>
           <Routes>

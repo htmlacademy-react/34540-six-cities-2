@@ -85,7 +85,7 @@ const initialState = {
 
 describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
   it('should return initial state without additional parameters', () => {
-    expect(siteData.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
+    expect(siteData.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
       .toEqual({
         offers: [],
         isOffersLoading: true,
@@ -225,14 +225,14 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
   });
 
   it('should fetch comments', () => {
-    expect(siteData.reducer(initialState, {type: fetchComments.fulfilled.type, payload: comment}))
+    expect(siteData.reducer(initialState, {type: fetchComments.fulfilled.type, payload: comments}))
       .toEqual({
         offers: [],
         isOffersLoading: true,
         offer: null,
         isOfferLoading: true,
         nearbyOffers: [],
-        comments: comment,
+        comments,
         isPostCommentSuccess: true,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
@@ -240,14 +240,14 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
   });
 
   it('should post comment', () => {
-    expect(siteData.reducer(initialState, {type: postComment.fulfilled.type, payload: comments}))
+    expect(siteData.reducer(initialState, {type: postComment.fulfilled.type, payload: comment}))
       .toEqual({
         offers: [],
         isOffersLoading: true,
         offer: null,
         isOfferLoading: true,
         nearbyOffers: [],
-        comments: comments,
+        comments: [comment],
         isPostCommentSuccess: true,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
@@ -284,7 +284,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
       type: postFavorite.fulfilled.type, payload: {...offers[0], isFavorite: true}
     }))
       .toEqual({
-        offers,
+        offers: [{...offers[0], isFavorite: true}],
         isOffersLoading: true,
         offer: null,
         isOfferLoading: true,
@@ -295,17 +295,18 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isFavoriteOffersLoading: true
       });
 
-    expect(siteData.reducer(initialState, {type: postFavorite.fulfilled.type,payload: {...offers[0], isFavorite: false}
+    expect(siteData.reducer(state, {
+      type: postFavorite.fulfilled.type, payload: {...offers[0], isFavorite: false}
     }))
       .toEqual({
-        offers,
+        offers: [{...offers[0], isFavorite: false}],
         isOffersLoading: true,
         offer: null,
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
         isPostCommentSuccess: true,
-        favoriteOffers: [{...offers[0], isFavorite: false}],
+        favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
   });

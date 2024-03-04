@@ -5,7 +5,7 @@ import type {TSortName} from '../../types/sort-name.ts';
 
 describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
   it('should return initial state without additional parameters', () => {
-    expect(siteProcess.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
+    expect(siteProcess.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
       .toEqual({
         city: {
           name: CityName.Paris,
@@ -43,13 +43,13 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
       sorting: SortName.Popular as TSortName
     };
 
-    expect(siteProcess.reducer(state, setSorting(Object.keys(SortName)[1] as TSortName)))
+    expect(siteProcess.reducer(state, setSorting(SortName.PriceIncrease as TSortName)))
       .toEqual({
         city: {
           name: CityName.Paris,
           location: CityLocations[CityName.Paris]
         },
-        sorting: Object.keys(SortName)[1]
+        sorting: SortName.PriceIncrease
       });
   });
 });

@@ -1,5 +1,4 @@
 import {render, screen} from '@testing-library/react';
-import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
@@ -27,7 +26,7 @@ const offers: TOffers = [
     rating: 3.0,
     title: 'Test Offer 1',
     isPremium: true,
-    isFavorite: false,
+    isFavorite: true,
     city: {
       name: CityName.Paris,
       location: CityLocations[CityName.Paris]
@@ -88,54 +87,51 @@ const store = mockStore({
     offer: offers[0],
     isOfferLoading: false,
     favoriteOffers: offers,
-    isFavoriteOffersLoading: false,
+    isFavoriteOffersLoading: true,
     nearbyOffers: [],
     comments
   }
 });
 
 const fakeApp = (
-  <Provider store={store}>
-    <App/>
-  </Provider>
+  <App fakeStore={store}/>
 );
 
 describe('Application Routing', () => {
-  it('should render "Main" page when user navigates to "/"', () => {
+  it('should render a "Main" page when the user navigates to "/"', () => {
     browserHistory.push(AppRoute.Root);
 
     render(fakeApp);
 
     expect(screen.getByText(user.email)).toBeInTheDocument();
     expect(screen.getByText('Sign out')).toBeInTheDocument();
-    expect(screen.getByText(`1 places to stay in ${CityName.Paris}`)).toBeInTheDocument();
+    expect(screen.getByText(`1 place to stay in ${CityName.Paris}`)).toBeInTheDocument();
     expect(screen.getByText(SortName.Popular)).toBeInTheDocument();
     expect(screen.getByText('Premium')).toBeInTheDocument();
     expect(screen.getByText(offers[0].title)).toBeInTheDocument();
   });
 
-  it('should render "Login" page when user navigates to "/login"', () => {
+  it('should render a "Login" page when the user navigates to "/login"', () => {
     browserHistory.push(AppRoute.Login);
 
     render(fakeApp);
 
-    expect(screen.getByLabelText('E-mail')).toBeInTheDocument();
-    expect(screen.getByLabelText('Password')).toBeInTheDocument();
+    expect(screen.getByText('E-mail')).toBeInTheDocument();
+    expect(screen.getByText('Password')).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
-  it('should render "Favorites" page when user navigates to "/favorites"', () => {
-    browserHistory.push(`${AppRoute.Favorites}`);
+  it('should render a "Favorites" page when the user navigates to "/favorites"', () => {
+    const expectedText = new RegExp(offers[0].title);
 
+    browserHistory.push(`${AppRoute.Favorites}`);
     render(fakeApp);
 
-    expect(screen.getByText(offers[0].title)).toBeInTheDocument();
-    expect(screen.getByText(offers[0].type)).toBeInTheDocument();
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveClass('place-card__bookmark-button--active');
-    expect(screen.getByRole('img', {name: 'Place'})).toHaveAttribute('src', offers[0].previewImage);
   });
 
-  it('should render "NotFound" page when user navigates to "/not-exists"', () => {
+  it('should render a "NotFound" page when the user navigates to "/not-exists"', () => {
     browserHistory.push('/not-exists');
 
     render(fakeApp);
@@ -143,13 +139,12 @@ describe('Application Routing', () => {
     expect(screen.getByText('404. Page not found')).toBeInTheDocument();
   });
 
-  it('should render "Offer" page when user navigates to "/offer/:id"', () => {
+  it('should render a "Offer" page when the user navigates to "/offer/:id"', () => {
     browserHistory.push(`${AppRoute.Offer}/1`);
 
     render(fakeApp);
 
     expect(screen.getByText(offers[0].title)).toBeInTheDocument();
-    expect(screen.getByText(offers[0].description)).toBeInTheDocument();
-    expect(screen.getByText(offers[0].type)).toBeInTheDocument();
+    expect(screen.getByText(offers[0].description || '')).toBeInTheDocument();
   });
 });

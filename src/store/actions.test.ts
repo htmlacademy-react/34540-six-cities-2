@@ -13,12 +13,12 @@ import type {AxiosInstance} from 'axios';
 describe('Async actions', () => {
   const api = createAPI();
   const mockAPI = new MockAdapter(api);
-  const middlewares = [thunk.withExtraArgument({api})];
+  const middlewares = [thunk.withExtraArgument({api: {...mockAPI, ...mockAPI}})];
 
   const mockStore = configureMockStore<
     TStateReducer,
     Action,
-    ThunkDispatch<TStateReducer, { api: AxiosInstance, history: History }, Action>
+    ThunkDispatch<TStateReducer, { api: AxiosInstance; history: History }, Action>
   >(middlewares);
 
   it('fetchUserStatus should be fullfilled when server returns 200', async () => {

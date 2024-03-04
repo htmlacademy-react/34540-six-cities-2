@@ -84,14 +84,13 @@ const postComment = createAsyncThunk<TComment, TCommentAuth, { extra: AxiosInsta
   const axios = thunkAPI.extra;
   const {data} = await axios.post<TComment>(`${ApiRoute.Comments}/${id}`, {comment, rating});
 
-  console.log(data);
-
   return data;
 });
 
 
 const fetchUserStatus = createAsyncThunk<TUser['email'], undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.User}/fetchUserStatus`, async (_, {extra: api}) => {
+  //console.log(api);
   const {data} = await api.get<TUser>(ApiRoute.Login);
 
   return data.email;
