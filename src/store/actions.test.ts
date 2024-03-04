@@ -13,7 +13,7 @@ import type {AxiosInstance} from 'axios';
 describe('Async actions', () => {
   const api = createAPI();
   const mockAPI = new MockAdapter(api);
-  const middlewares = [thunk.withExtraArgument({api})];
+  const middlewares = [thunk.withExtraArgument({api: {...mockAPI, ...mockAPI}})];
 
   const mockStore = configureMockStore<
     TStateReducer,
@@ -29,7 +29,6 @@ describe('Async actions', () => {
       .reply(200, {});
     expect(store.getActions()).toEqual([]);
 
-    // @ts-ignore
     await store.dispatch(fetchUserStatus());
 
     const actions = store.getActions().map(({type}) => type);

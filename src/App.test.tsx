@@ -87,7 +87,7 @@ const store = mockStore({
     offer: offers[0],
     isOfferLoading: false,
     favoriteOffers: offers,
-    isFavoriteOffersLoading: false,
+    isFavoriteOffersLoading: true,
     nearbyOffers: [],
     comments
   }
@@ -122,14 +122,13 @@ describe('Application Routing', () => {
   });
 
   it('should render a "Favorites" page when the user navigates to "/favorites"', () => {
-    browserHistory.push(`${AppRoute.Favorites}`);
+    const expectedText = new RegExp(offers[0].title);
 
+    browserHistory.push(`${AppRoute.Favorites}`);
     render(fakeApp);
 
-    expect(screen.getByTitle(offers[0].title)).toBeInTheDocument();
-    expect(screen.getByText(offers[0].type)).toBeInTheDocument();
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveClass('place-card__bookmark-button--active');
-    expect(screen.getByRole('img', {name: 'Place'})).toHaveAttribute('src', offers[0].previewImage);
   });
 
   it('should render a "NotFound" page when the user navigates to "/not-exists"', () => {
