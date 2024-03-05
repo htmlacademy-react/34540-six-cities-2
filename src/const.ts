@@ -92,6 +92,8 @@ const CityLocations = {
 
 const STARS_COUNT = 5;
 
+const MAX_COMMENTS = 10;
+
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as const;
 
 
@@ -107,5 +109,6 @@ export {
   SITE_NAME,
   CityLocations,
   STARS_COUNT,
+  MAX_COMMENTS,
   MONTHS
 };
