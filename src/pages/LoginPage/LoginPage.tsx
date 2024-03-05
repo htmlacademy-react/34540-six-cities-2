@@ -1,10 +1,12 @@
 import {FormEvent} from 'react';
 import {toast} from 'react-toastify';
+import {Link} from 'react-router-dom';
 import {Logo} from '../../components/Logo/Logo.tsx';
 import {Helmet} from 'react-helmet-async';
-import {SITE_NAME} from '../../const.ts';
+import {SITE_NAME, AppRoute, CityName} from '../../const.ts';
 import {useAppDispatch} from '../../hooks';
 import {loginUser} from '../../store/actions.ts';
+import {setCity} from '../../store/site-process/site-process.ts';
 import type {TUserAuth} from '../../types/user.ts';
 
 
@@ -32,6 +34,8 @@ const LoginPage = () => {
 
     dispatch(loginUser(loginData));
   };
+
+  const handleLocationClick = () => dispatch(setCity(CityName.Amsterdam));
 
   return (
     <div className="page page--gray page--login">
@@ -84,9 +88,9 @@ const LoginPage = () => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" onClick={handleLocationClick} to={AppRoute.Root}>
+                <span>{CityName.Amsterdam}</span>
+              </Link>
             </div>
           </section>
         </div>

@@ -7,6 +7,7 @@ enum AppRoute {
 }
 
 enum ApiRoute {
+  Root = '/',
   Offers = '/offers',
   Login = '/login',
   Comments = '/comments',
