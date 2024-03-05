@@ -2,6 +2,7 @@ import {STARS_COUNT, MONTHS} from './const.ts';
 import {StoreNameSlice} from './const.ts';
 import type {TOffer, TOffers} from './types/offer.ts';
 import type {TStateReducer} from './types/state.ts';
+import type {TCityNames} from './types/city.ts';
 
 
 const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase()
@@ -24,6 +25,12 @@ const getNearbyOffersbyActiveOffer = (offers: TOffers, targetOffer: TOffer, amou
   return nearbyOffers.slice(0, amount);
 };
 
+const getRandomCityName = (cityNames: TCityNames) => {
+  const cityNamesArray = Object.values(cityNames);
+
+  return cityNamesArray[Math.floor(Math.random() * cityNamesArray.length)];
+};
+
 const sortingFilters = {
   Popular: () => 0,
   PriceIncrease: (a: TOffer, b: TOffer) => a.price - b.price,
@@ -38,5 +45,6 @@ export {
   formatDate,
   getOffersByCity,
   getNearbyOffersbyActiveOffer,
+  getRandomCityName,
   sortingFilters
 };

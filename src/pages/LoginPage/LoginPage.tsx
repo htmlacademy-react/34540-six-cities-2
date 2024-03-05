@@ -1,4 +1,4 @@
-import {FormEvent} from 'react';
+import {FormEvent, MouseEvent} from 'react';
 import {toast} from 'react-toastify';
 import {Link} from 'react-router-dom';
 import {Logo} from '../../components/Logo/Logo.tsx';
@@ -7,7 +7,9 @@ import {SITE_NAME, AppRoute, CityName} from '../../const.ts';
 import {useAppDispatch} from '../../hooks';
 import {loginUser} from '../../store/actions.ts';
 import {setCity} from '../../store/site-process/site-process.ts';
+import {getRandomCityName} from '../../utils.ts';
 import type {TUserAuth} from '../../types/user.ts';
+import type {TCityName} from '../../types/city.ts';
 
 
 const INVALID_PASSWORD_MESSAGE = 'Password should contains at least one letter and digit and the password must not consist of spaces.';
@@ -35,7 +37,11 @@ const LoginPage = () => {
     dispatch(loginUser(loginData));
   };
 
-  const handleLocationClick = () => dispatch(setCity(CityName.Amsterdam));
+  const handleLocationClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    const cityName = evt.currentTarget.textContent as TCityName;
+    dispatch(setCity(cityName));
+  };
+
 
   return (
     <div className="page page--gray page--login">
@@ -89,7 +95,7 @@ const LoginPage = () => {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" onClick={handleLocationClick} to={AppRoute.Root}>
-                <span>{CityName.Amsterdam}</span>
+                <span>{getRandomCityName(CityName)}</span>
               </Link>
             </div>
           </section>
