@@ -32,7 +32,7 @@ const OfferPage = () => {
   const comments = useAppSelector(selectComments);
   let nearbyOffers = useAppSelector(getNearbyOffers);
 
-  const [_, setActiveOffer] = useState<TOffer | null>(null);
+  const [, setActiveOffer] = useState<TOffer | null>(null);
   const offersByCity: TOffers = useAppSelector((state) => getOffersByCity(state));
 
   useEffect(() => {

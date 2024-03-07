@@ -17,15 +17,15 @@ const Bookmark = ({id, isActive, place = 'place-card'}: TBookmarkProps) => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const handleButtonClick = () => {
+    if (authorizationStatus === AuthorizationStatus.NoAuth) {
+      browserHistory.push(AppRoute.Login);
+    }
+
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(postFavorite({
         id,
         status: isActive ? 0 : 1
       }));
-    }
-
-    if (authorizationStatus === AuthorizationStatus.NoAuth) {
-      browserHistory.push(AppRoute.Login);
     }
   };
 
@@ -36,8 +36,8 @@ const Bookmark = ({id, isActive, place = 'place-card'}: TBookmarkProps) => {
       onClick={handleButtonClick}
     >
       <svg className={`${place}__bookmark-icon`}
-           width={place === 'offer' ? 31 : 18}
-           height={place === 'offer' ? 33 : 19}
+        width={place === 'offer' ? 31 : 18}
+        height={place === 'offer' ? 33 : 19}
       >
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
