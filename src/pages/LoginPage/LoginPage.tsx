@@ -20,8 +20,8 @@ const LoginPage = () => {
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    const form = evt.currentTarget;
 
+    const form = evt.currentTarget;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     const loginData: TUserAuth = {
@@ -88,7 +88,7 @@ const LoginPage = () => {
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">
-                Sign in
+                Login
               </button>
             </form>
           </section>

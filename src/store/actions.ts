@@ -1,5 +1,6 @@
 import {AxiosError, AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {browserHistory} from '../browser-history.ts';
 import {ApiRoute, AppRoute, HttpCode, StoreNameSpace} from '../const.ts';
 import {saveToken} from '../services/token.ts';
 import type {TOffer, TOffers} from '../types/offer.ts';
@@ -27,7 +28,7 @@ const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance
   } catch (error) {
     if (error instanceof AxiosError) {
       if (error.response?.status === HttpCode.NotFound) {
-        history.pushState('', '', AppRoute.NotFound);
+        browserHistory.push(AppRoute.NotFound);
       }
     }
 
@@ -62,7 +63,7 @@ const postFavorite = createAsyncThunk<TOffer, TFavorite, { extra: AxiosInstance 
   } catch (error) {
     if (error instanceof AxiosError) {
       if (error.response?.status === HttpCode.NoAuth) {
-        history.pushState('', '', AppRoute.Login);
+        browserHistory.push(AppRoute.Login);
       }
     }
 
@@ -90,7 +91,6 @@ const postComment = createAsyncThunk<TComment, TCommentAuth, { extra: AxiosInsta
 
 const fetchUserStatus = createAsyncThunk<TUser['email'], undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.User}/fetchUserStatus`, async (_, {extra: api}) => {
-  //console.log(api);
   const {data} = await api.get<TUser>(ApiRoute.Login);
 
   return data.email;

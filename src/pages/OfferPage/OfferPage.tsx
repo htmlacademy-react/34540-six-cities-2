@@ -32,7 +32,7 @@ const OfferPage = () => {
   const comments = useAppSelector(selectComments);
   let nearbyOffers = useAppSelector(getNearbyOffers);
 
-  const [activeOffer, setActiveOffer] = useState<TOffer | null>(null);
+  const [_, setActiveOffer] = useState<TOffer | null>(null);
   const offersByCity: TOffers = useAppSelector((state) => getOffersByCity(state));
 
   useEffect(() => {
@@ -185,7 +185,7 @@ const OfferPage = () => {
             </div>
           </div>
           <Map
-            targetCity={activeOffer ? activeOffer : targetOffer}
+            targetCity={targetOffer}
             locations={nearbyOffers}
             place="offer"
           />
