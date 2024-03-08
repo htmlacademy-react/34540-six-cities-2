@@ -28,7 +28,7 @@ const FavoritesPage = () => {
     return acc;
   }, {});
 
-  if (!isFavoriteOffersLoading) {
+  if (isFavoriteOffersLoading) {
     return <Spinner />;
   }
 

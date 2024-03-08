@@ -5,7 +5,7 @@ import {Logo} from '../../components/Logo/Logo.tsx';
 import {Helmet} from 'react-helmet-async';
 import {SITE_NAME, AppRoute, CityName} from '../../const.ts';
 import {useAppDispatch} from '../../hooks';
-import {loginUser} from '../../store/actions.ts';
+import {fetchOffers, fetchFavoriteOffers, loginUser} from '../../store/actions.ts';
 import {setCity} from '../../store/site-process/site-process.ts';
 import {getRandomCityName} from '../../utils.ts';
 import type {TUserAuth} from '../../types/user.ts';
@@ -17,6 +17,8 @@ const VALID_PASSWORD_REGEXP = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
+
+  const dispatchLoginUser = async (loginData: TUserAuth) => dispatch(loginUser(loginData));
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -34,7 +36,10 @@ const LoginPage = () => {
       return;
     }
 
-    dispatch(loginUser(loginData));
+    dispatchLoginUser(loginData).then(() => {
+      dispatch(fetchFavoriteOffers());
+      dispatch(fetchOffers());
+    });
   };
 
   const handleLocationClick = (evt: MouseEvent<HTMLAnchorElement>) => {
