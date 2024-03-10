@@ -1,11 +1,15 @@
-import {FormEvent} from 'react';
+import {FormEvent, MouseEvent} from 'react';
 import {toast} from 'react-toastify';
+import {Link} from 'react-router-dom';
 import {Logo} from '../../components/Logo/Logo.tsx';
 import {Helmet} from 'react-helmet-async';
-import {SITE_NAME} from '../../const.ts';
+import {SITE_NAME, AppRoute, CityName} from '../../const.ts';
 import {useAppDispatch} from '../../hooks';
-import {loginUser} from '../../store/actions.ts';
+import {fetchOffers, fetchFavoriteOffers, loginUser} from '../../store/actions.ts';
+import {setCity} from '../../store/site-process/site-process.ts';
+import {getRandomCityName} from '../../utils.ts';
 import type {TUserAuth} from '../../types/user.ts';
+import type {TCityName} from '../../types/city.ts';
 
 
 const INVALID_PASSWORD_MESSAGE = 'Password should contains at least one letter and digit and the password must not consist of spaces.';
@@ -14,10 +18,12 @@ const VALID_PASSWORD_REGEXP = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
 const LoginPage = () => {
   const dispatch = useAppDispatch();
 
+  const dispatchLoginUser = async (loginData: TUserAuth) => dispatch(loginUser(loginData));
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    const form = evt.currentTarget;
 
+    const form = evt.currentTarget;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     const loginData: TUserAuth = {
@@ -30,8 +36,17 @@ const LoginPage = () => {
       return;
     }
 
-    dispatch(loginUser(loginData));
+    dispatchLoginUser(loginData).then(() => {
+      dispatch(fetchFavoriteOffers());
+      dispatch(fetchOffers());
+    });
   };
+
+  const handleLocationClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    const cityName = evt.currentTarget.textContent as TCityName;
+    dispatch(setCity(cityName));
+  };
+
 
   return (
     <div className="page page--gray page--login">
@@ -78,15 +93,15 @@ const LoginPage = () => {
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">
-                Sign in
+                Login
               </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" onClick={handleLocationClick} to={AppRoute.Root}>
+                <span>{getRandomCityName(CityName)}</span>
+              </Link>
             </div>
           </section>
         </div>

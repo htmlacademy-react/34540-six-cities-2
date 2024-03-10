@@ -17,7 +17,7 @@ import {
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import {fetchOffer, fetchNearbyOffers, fetchComments, postComment} from '../../store/actions.ts';
 import {getAuthorizationStatus} from '../../store/user-process/selectors.ts';
-import {getIsOfferLoading, getOffer, getComments, getNearbyOffers} from '../../store/site-data/selectors.ts';
+import {getIsOfferLoading, getOffer, selectComments, getNearbyOffers} from '../../store/site-data/selectors.ts';
 import classNames from 'classnames';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TCommentAuth} from '../../types/comment.ts';
@@ -29,10 +29,10 @@ const OfferPage = () => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOfferLoading = useAppSelector(getIsOfferLoading);
   const targetOffer = useAppSelector(getOffer);
-  const comments = useAppSelector(getComments);
+  const comments = useAppSelector(selectComments);
   let nearbyOffers = useAppSelector(getNearbyOffers);
 
-  const [activeOffer, setActiveOffer] = useState<TOffer | null>(null);
+  const [, setActiveOffer] = useState<TOffer | null>(null);
   const offersByCity: TOffers = useAppSelector((state) => getOffersByCity(state));
 
   useEffect(() => {
@@ -185,7 +185,7 @@ const OfferPage = () => {
             </div>
           </div>
           <Map
-            targetCity={activeOffer ? activeOffer : targetOffer}
+            targetCity={targetOffer}
             locations={nearbyOffers}
             place="offer"
           />

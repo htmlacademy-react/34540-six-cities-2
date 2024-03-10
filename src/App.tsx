@@ -1,9 +1,8 @@
 import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
-import {useEffect} from 'react';
+import {lazy, useEffect} from 'react';
 import {AppRoute} from './const.ts';
 import {MainPage} from './pages/MainPage/MainPage.tsx';
-import {NotFoundPage} from './pages/NotFoundPage/NotFoundPage.tsx';
 import {LoginPage} from './pages/LoginPage/LoginPage.tsx';
 import {OfferPage} from './pages/OfferPage/OfferPage.tsx';
 import {FavoritesPage} from './pages/FavoritesPage/FavoritesPage.tsx';
@@ -14,6 +13,8 @@ import {Provider} from 'react-redux';
 import {store} from './store';
 import {fetchUserStatus, fetchOffers, fetchFavoriteOffers} from './store/actions.ts';
 import type {ToolkitStore} from '@reduxjs/toolkit/dist/configureStore';
+
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage.tsx'));
 
 
 type TFakeStoreProps = {

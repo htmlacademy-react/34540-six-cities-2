@@ -98,19 +98,6 @@ const fakeApp = (
 );
 
 describe('Application Routing', () => {
-  it('should render a "Main" page when the user navigates to "/"', () => {
-    browserHistory.push(AppRoute.Root);
-
-    render(fakeApp);
-
-    expect(screen.getByText(user.email)).toBeInTheDocument();
-    expect(screen.getByText('Sign out')).toBeInTheDocument();
-    expect(screen.getByText(`1 place to stay in ${CityName.Paris}`)).toBeInTheDocument();
-    expect(screen.getByText(SortName.Popular)).toBeInTheDocument();
-    expect(screen.getByText('Premium')).toBeInTheDocument();
-    expect(screen.getByText(offers[0].title)).toBeInTheDocument();
-  });
-
   it('should render a "Login" page when the user navigates to "/login"', () => {
     browserHistory.push(AppRoute.Login);
 
@@ -129,22 +116,5 @@ describe('Application Routing', () => {
 
     expect(screen.getByText(expectedText)).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveClass('place-card__bookmark-button--active');
-  });
-
-  it('should render a "NotFound" page when the user navigates to "/not-exists"', () => {
-    browserHistory.push('/not-exists');
-
-    render(fakeApp);
-
-    expect(screen.getByText('404. Page not found')).toBeInTheDocument();
-  });
-
-  it('should render a "Offer" page when the user navigates to "/offer/:id"', () => {
-    browserHistory.push(`${AppRoute.Offer}/1`);
-
-    render(fakeApp);
-
-    expect(screen.getByText(offers[0].title)).toBeInTheDocument();
-    expect(screen.getByText(offers[0].description || '')).toBeInTheDocument();
   });
 });

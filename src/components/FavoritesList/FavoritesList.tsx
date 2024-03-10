@@ -1,6 +1,11 @@
-import {useState, useCallback} from 'react';
+import {useState, useCallback, MouseEvent} from 'react';
+import {Link} from 'react-router-dom';
 import {PlaceCard} from '../PlaceCard/PlaceCard.tsx';
+import {setCity} from '../../store/site-process/site-process.ts';
+import {useAppDispatch} from '../../hooks';
+import {AppRoute} from '../../const.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
+import type {TCityName} from '../../types/city.ts';
 
 
 type TFavoritesListProps = {
@@ -8,6 +13,8 @@ type TFavoritesListProps = {
 }
 
 const FavoritesList = ({groupedOffersByCity}: TFavoritesListProps) => {
+  const dispatch = useAppDispatch();
+
   const [, setActiveOffer] = useState<TOffer | null>(null);
 
   const handleCardMouseOver = useCallback((offer: TOffer) => {
@@ -18,6 +25,11 @@ const FavoritesList = ({groupedOffersByCity}: TFavoritesListProps) => {
     setActiveOffer(null);
   }, []);
 
+  const handleLocationClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    const cityName = evt.currentTarget.textContent as TCityName;
+    dispatch(setCity(cityName));
+  };
+
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>
@@ -26,9 +38,9 @@ const FavoritesList = ({groupedOffersByCity}: TFavoritesListProps) => {
           <li className="favorites__locations-items" key={city}>
             <div className="favorites__locations locations locations--current">
               <div className="locations__item">
-                <a className="locations__item-link" href="#">
+                <Link className="locations__item-link" onClick={handleLocationClick} to={AppRoute.Root}>
                   <span>{city}</span>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="favorites__places">

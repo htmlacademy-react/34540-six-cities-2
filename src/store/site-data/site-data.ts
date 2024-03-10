@@ -27,7 +27,12 @@ const initialState: TSiteData = {
 const siteData = createSlice({
   name: StoreNameSlice.SiteData,
   initialState,
-  reducers: {},
+  reducers: {
+    clearFavoriteOffers: (state) => {
+      state.offers = state.offers.map((offer) => offer.isFavorite ? {...offer, isFavorite: false} : offer);
+      state.favoriteOffers = [];
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffers.pending, (state) => {
@@ -88,3 +93,4 @@ const siteData = createSlice({
 
 
 export {siteData};
+export const {clearFavoriteOffers} = siteData.actions;

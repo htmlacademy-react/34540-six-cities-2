@@ -5,6 +5,7 @@ import {dropToken} from '../../services/token.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors.ts';
 import {logoutUser} from '../../store/user-process/user-process.ts';
+import {clearFavoriteOffers} from '../../store/site-data/site-data.ts';
 import {getFavoriteOffers} from '../../store/site-data/selectors.ts';
 
 
@@ -18,6 +19,7 @@ const Header = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dropToken();
       dispatch(logoutUser());
+      dispatch(clearFavoriteOffers());
     }
   };
 
@@ -48,7 +50,7 @@ const Header = () => {
                   <span
                     className="header__signout"
                   >
-                    {authorizationStatus === AuthorizationStatus.Auth ? 'Sign out' : 'Sign in'}
+                    {authorizationStatus === AuthorizationStatus.Auth ? 'Log Out' : 'Login'}
                   </span>
                 </Link>
               </li>
