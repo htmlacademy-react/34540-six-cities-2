@@ -1,4 +1,5 @@
 import {Helmet} from 'react-helmet-async';
+import classNames from 'classnames';
 import {Link} from 'react-router-dom';
 import {Spinner} from '../../components/Spinner/Spinner.tsx';
 import {Header} from '../../components/Header/Header.tsx';
@@ -28,22 +29,27 @@ const FavoritesPage = () => {
     return acc;
   }, {});
 
+  const isFavoriteOffers = Boolean(Object.keys(groupedOffersByCity).length);
+
   if (isFavoriteOffersLoading) {
-    return <Spinner />;
+    return <Spinner/>;
   }
 
   return (
-    <div className="page">
+    <div className={classNames('page', {'page--favorites-empty': !isFavoriteOffers})}>
       <Helmet>
         <title>{SITE_NAME}: favorites</title>
       </Helmet>
+
       <Header/>
+
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          {Object.keys(groupedOffersByCity).length === 0 ? <FavoritesListEmpty/> :
+          {!isFavoriteOffers ? <FavoritesListEmpty/> :
             <FavoritesList groupedOffersByCity={groupedOffersByCity}/>}
         </div>
       </main>
+
       <footer className="footer container">
         <Link className="footer__logo-link" to="/">
           <img
