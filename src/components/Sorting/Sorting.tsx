@@ -1,12 +1,12 @@
 import {useState, memo} from 'react';
 import {SortName} from '../../const.ts';
-import type {TSortName} from '../../types/sort-name.ts';
+import type {TSortName, TSortNameValue} from '../../types/sort-name.ts';
 import classNames from 'classnames';
 
 
 type TSortingProps = {
   onChange: (name: TSortName) => void;
-  activeSorting: TSortName;
+  activeSorting: TSortNameValue;
 };
 
 const Sorting = memo(({onChange, activeSorting}: TSortingProps) => {

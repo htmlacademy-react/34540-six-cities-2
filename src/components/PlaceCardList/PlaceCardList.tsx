@@ -2,12 +2,13 @@ import {useState, useCallback} from 'react';
 import {PlaceCard} from '../PlaceCard/PlaceCard.tsx';
 import {Map} from '../Map/Map.tsx';
 import {Sorting} from '../Sorting/Sorting.tsx';
-import type {TCity} from '../../types/city.ts';
-import type {TOffer, TOffers} from '../../types/offer.ts';
-import type {TSortName} from '../../types/sort-name.ts';
+import {SortName} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {setSorting} from '../../store/site-process/site-process.ts';
 import {getSorting} from '../../store/site-process/selectors.ts';
+import type {TCity} from '../../types/city.ts';
+import type {TOffer, TOffers} from '../../types/offer.ts';
+import type {TSortName} from '../../types/sort-name.ts';
 
 
 type TPlaceCardListProps = {
@@ -42,7 +43,7 @@ const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
           </b>
           <Sorting
             onChange={onSortingChange}
-            activeSorting={activeSorting}
+            activeSorting={SortName[activeSorting]}
           />
           <div className="cities__places-list places__list tabs__content">
             {offers.map((offer) => (
