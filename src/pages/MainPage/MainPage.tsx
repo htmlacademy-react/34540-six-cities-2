@@ -19,7 +19,7 @@ const MainPage = () => {
 
   const getPlaceCardList = () => {
     if (!offersByCity.length) {
-      return <NoPlaces/>;
+      return <NoPlaces activeCity={activeCity}/>;
     }
 
     return (
