@@ -7,7 +7,7 @@ import {PlaceCard} from '../../components/PlaceCard/PlaceCard.tsx';
 import {ReviewList} from '../../components/ReviewList/ReviewList.tsx';
 import {Map} from '../../components/Map/Map.tsx';
 import {Bookmark} from '../../components/Bookmark/Bookmark.tsx';
-import {AppRoute, SITE_NAME} from '../../const.ts';
+import {AppRoute, SITE_NAME, MAX_IMAGES_COUNT} from '../../const.ts';
 import {
   calculateRatingPercentages,
   capitalizeFirstLetter,
@@ -71,15 +71,11 @@ const OfferPage = () => {
 
   nearbyOffers = getNearbyOffersbyActiveOffer(offersByCity, targetOffer);
 
-  const sliceImages = (images: string[] | undefined) => {
-    let MAX_IMAGES_COUNT = 6;
-    let imagesList;
-
-    if (images) {
-      imagesList = images.filter((_, index) => index < MAX_IMAGES_COUNT);
+  const sliceImages = (imagesList: string[] | undefined) => {
+    if (imagesList) {
+      return imagesList.filter((_, index) => index < MAX_IMAGES_COUNT);
     }
-
-    return imagesList;
+    return [];
   };
 
   const handleCardMouseOver = (offer: TOffer) => {

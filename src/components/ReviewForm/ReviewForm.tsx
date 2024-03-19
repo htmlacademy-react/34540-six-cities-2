@@ -1,6 +1,6 @@
 import {FormEvent, Fragment, useState} from 'react';
 import {toast} from 'react-toastify';
-import {STARS_COUNT} from '../../const.ts';
+import {STARS_COUNT, RatingTitle} from '../../const.ts';
 import {useAppSelector} from '../../hooks';
 import {getIsPostCommentSuccess} from '../../store/site-data/selectors.ts';
 import type {ChangeEvent} from 'react';
@@ -66,6 +66,7 @@ const ReviewForm = ({onSubmit}: TReviewFormProps) => {
             <label
               htmlFor={`${STARS_COUNT - i}-stars`}
               className="reviews__rating-label form__rating-label"
+              title={RatingTitle[STARS_COUNT - 1 - i]}
             >
               <svg className="form__star-image" width={37} height={33}>
                 <use xlinkHref="#icon-star"/>
