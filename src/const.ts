@@ -70,6 +70,11 @@ enum SubmitStatus {
   Rejected = 'REJECTED'
 }
 
+const ValidationLengthLimits = {
+  MIN: 50,
+  MAX: 300
+};
+
 const SITE_NAME = '6 cities';
 
 const CityLocations = {
@@ -109,7 +114,7 @@ const STARS_COUNT = 5;
 
 const MAX_COMMENTS = 10;
 
-const MAX_IMAGES_COUNT = 6;
+const MAX_PHOTOS_COUNT = 6;
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as const;
 
@@ -125,10 +130,11 @@ export {
   SortName,
   RatingTitle,
   SubmitStatus,
+  ValidationLengthLimits,
   SITE_NAME,
   CityLocations,
   STARS_COUNT,
   MAX_COMMENTS,
-  MAX_IMAGES_COUNT,
+  MAX_PHOTOS_COUNT,
   MONTHS
 };

@@ -15,7 +15,7 @@ const Header = () => {
   const user = useAppSelector(getUser);
   const favoriteOffers = useAppSelector(getFavoriteOffers);
 
-  const onLoginClick = () => {
+  const handleLoginClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dropToken();
       dispatch(logoutUser());
@@ -34,7 +34,7 @@ const Header = () => {
             <ul className="header__nav-list">
               {authorizationStatus !== AuthorizationStatus.Auth && (
                 <li className="header__nav-item user">
-                  <Link className="header__nav-link" to={AppRoute.Login} onClick={onLoginClick}>
+                  <Link className="header__nav-link" to={AppRoute.Login} onClick={handleLoginClick}>
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__login">Sign in</span>
                   </Link>
@@ -53,7 +53,7 @@ const Header = () => {
                     </Link>
                   </li>
                   <li className="header__nav-item">
-                    <Link className="header__nav-link" to={AppRoute.Login} onClick={onLoginClick}>
+                    <Link className="header__nav-link" to={AppRoute.Login} onClick={handleLoginClick}>
                       <span className="header__signout">Sign out</span>
                     </Link>
                   </li>

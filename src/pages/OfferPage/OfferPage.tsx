@@ -7,7 +7,7 @@ import {PlaceCard} from '../../components/PlaceCard/PlaceCard.tsx';
 import {ReviewList} from '../../components/ReviewList/ReviewList.tsx';
 import {Map} from '../../components/Map/Map.tsx';
 import {Bookmark} from '../../components/Bookmark/Bookmark.tsx';
-import {AppRoute, SITE_NAME, MAX_IMAGES_COUNT} from '../../const.ts';
+import {AppRoute, SITE_NAME, MAX_PHOTOS_COUNT} from '../../const.ts';
 import {
   calculateRatingPercentages,
   capitalizeFirstLetter,
@@ -80,7 +80,7 @@ const OfferPage = () => {
 
   const sliceImages = (imagesList: string[] | undefined) => {
     if (imagesList) {
-      return imagesList.filter((_, index) => index < MAX_IMAGES_COUNT);
+      return imagesList.filter((_, index) => index < MAX_PHOTOS_COUNT);
     }
     return [];
   };
@@ -93,7 +93,7 @@ const OfferPage = () => {
     setActiveOffer(null);
   };
 
-  const onFormSubmit = (formData: Omit<TCommentAuth, 'id'>) => {
+  const handleFormSubmit = (formData: Omit<TCommentAuth, 'id'>) => {
     dispatch(postComment({id, ...formData}));
   };
 
@@ -198,7 +198,7 @@ const OfferPage = () => {
               <ReviewList
                 comments={comments}
                 authorizationStatus={authorizationStatus}
-                onSubmit={onFormSubmit}
+                onSubmit={handleFormSubmit}
                 submitStatus={commentStatus}
               />
             </div>

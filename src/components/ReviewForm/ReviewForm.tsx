@@ -1,6 +1,6 @@
 import {FormEvent, Fragment, useState, useEffect} from 'react';
 import {toast} from 'react-toastify';
-import {STARS_COUNT, RatingTitle, SubmitStatus} from '../../const.ts';
+import {STARS_COUNT, RatingTitle, SubmitStatus, ValidationLengthLimits} from '../../const.ts';
 import type {ChangeEvent} from 'react';
 import type {TCommentAuth} from '../../types/comment.ts';
 
@@ -17,8 +17,8 @@ const ReviewForm = ({onSubmit, submitStatus}: TReviewFormProps) => {
   const [rating, setRating] = useState('');
   const isSubmitting = submitStatus === SubmitStatus.Pending;
   const isValid =
-    comment.length >= 50 &&
-    comment.length <= 300 &&
+    comment.length >= ValidationLengthLimits.MIN &&
+    comment.length <= ValidationLengthLimits.MAX &&
     rating !== '';
 
   const handleTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
@@ -86,7 +86,7 @@ const ReviewForm = ({onSubmit, submitStatus}: TReviewFormProps) => {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
-        maxLength={300}
+        maxLength={ValidationLengthLimits.MAX}
         onChange={handleTextareaChange}
         disabled={isSubmitting}
       />
@@ -95,7 +95,7 @@ const ReviewForm = ({onSubmit, submitStatus}: TReviewFormProps) => {
           To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe
           your stay with at least{' '}
-          <b className="reviews__text-amount">50 characters</b>.
+          <b className="reviews__text-amount">{ValidationLengthLimits.MIN} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"
