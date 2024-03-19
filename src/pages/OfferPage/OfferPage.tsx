@@ -11,7 +11,6 @@ import {AppRoute, SITE_NAME, MAX_IMAGES_COUNT} from '../../const.ts';
 import {
   calculateRatingPercentages,
   capitalizeFirstLetter,
-  getOffersByCity,
   getNearbyOffersbyActiveOffer
 } from '../../utils.ts';
 import {useAppSelector, useAppDispatch} from '../../hooks';
@@ -20,6 +19,7 @@ import {getAuthorizationStatus} from '../../store/user-process/selectors.ts';
 import {
   getIsOfferLoading,
   getOffer,
+  getOffersByCity,
   selectComments,
   getNearbyOffers,
   getCommentStatus

@@ -9,6 +9,7 @@ const getIsOffersLoading = (state: TStateReducer): boolean => state[StoreNameSli
 
 const getIsOfferLoading = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isOfferLoading;
 const getOffer = (state: TStateReducer): TOffer | null => state[StoreNameSlice.SiteData].offer;
+const getOffersByCity = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].offers.filter((offer: TOffer) => offer.city.name === state[StoreNameSlice.SiteProcess].city.name);
 
 const getNearbyOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].nearbyOffers;
 const getComments = (state: TStateReducer): TComments => state[StoreNameSlice.SiteData].comments;
@@ -29,6 +30,7 @@ export {
   getIsOffersLoading,
   getIsOfferLoading,
   getOffer,
+  getOffersByCity,
   getNearbyOffers,
   getComments,
   getCommentStatus,
