@@ -14,11 +14,10 @@ const formatDate = (date: string) => {
   return `${MONTHS[dateParsed.getMonth()]} ${dateParsed.getFullYear()}`;
 };
 
-const getNearbyOffersbyActiveOffer = (offers: TOffers, targetOffer: TOffer, amount = 3) => {
+const getNearbyOffersbyActiveOffer = (offers: TOffers, targetOffer: TOffer) => {
   const nearbyOffers = offers.filter((offer) => offer.id !== targetOffer.id);
-  amount = offers.length < 3 ? offers.length : amount;
 
-  return nearbyOffers.slice(0, amount);
+  return nearbyOffers.slice(0, Math.min(offers.length, 3));
 };
 
 const getRandomCityName = (cityNames: TCityNames) => {
