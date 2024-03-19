@@ -1,5 +1,5 @@
 import {createSelector} from '@reduxjs/toolkit';
-import {StoreNameSlice, MAX_COMMENTS} from '../../const.ts';
+import {StoreNameSlice, MAX_COMMENTS, SubmitStatus} from '../../const.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TComments} from '../../types/comment.ts';
 import type {TStateReducer} from '../../types/state.ts';
@@ -12,7 +12,7 @@ const getOffer = (state: TStateReducer): TOffer | null => state[StoreNameSlice.S
 
 const getNearbyOffers = (state: TStateReducer): TOffers => state[StoreNameSlice.SiteData].nearbyOffers;
 const getComments = (state: TStateReducer): TComments => state[StoreNameSlice.SiteData].comments;
-const getIsPostCommentSuccess = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isPostCommentSuccess;
+const getCommentStatus = (state: TStateReducer): SubmitStatus => state[StoreNameSlice.SiteData].commentStatus;
 
 
 const getIsFavoriteOffersLoading = (state: TStateReducer): boolean => state[StoreNameSlice.SiteData].isFavoriteOffersLoading;
@@ -31,7 +31,7 @@ export {
   getOffer,
   getNearbyOffers,
   getComments,
-  getIsPostCommentSuccess,
+  getCommentStatus,
   getIsFavoriteOffersLoading,
   getFavoriteOffers,
   selectComments

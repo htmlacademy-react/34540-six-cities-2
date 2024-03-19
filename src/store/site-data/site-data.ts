@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {StoreNameSlice} from '../../const.ts';
+import {StoreNameSlice, SubmitStatus} from '../../const.ts';
 import {
   fetchOffers,
   fetchOffer,
@@ -19,7 +19,7 @@ const initialState: TSiteData = {
   isOfferLoading: true,
   nearbyOffers: [],
   comments: [],
-  isPostCommentSuccess: true,
+  commentStatus: SubmitStatus.Still,
   favoriteOffers: [],
   isFavoriteOffersLoading: true
 };
@@ -55,11 +55,15 @@ const siteData = createSlice({
       .addCase(fetchComments.fulfilled, (state, action) => {
         state.comments = action.payload;
       })
+      .addCase(postComment.pending, (state) => {
+        state.commentStatus = SubmitStatus.Pending;
+      })
       .addCase(postComment.fulfilled, (state, action) => {
         state.comments = [...state.comments, action.payload];
+        state.commentStatus = SubmitStatus.Fulfilled;
       })
       .addCase(postComment.rejected, (state) => {
-        state.isPostCommentSuccess = false;
+        state.commentStatus = SubmitStatus.Rejected;
       })
       .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;

@@ -1,22 +1,21 @@
-import {FormEvent, Fragment, useState} from 'react';
+import {FormEvent, Fragment, useState, useEffect} from 'react';
 import {toast} from 'react-toastify';
-import {STARS_COUNT, RatingTitle} from '../../const.ts';
-import {useAppSelector} from '../../hooks';
-import {getIsPostCommentSuccess} from '../../store/site-data/selectors.ts';
+import {STARS_COUNT, RatingTitle, SubmitStatus} from '../../const.ts';
 import type {ChangeEvent} from 'react';
 import type {TCommentAuth} from '../../types/comment.ts';
 
 
 type TReviewFormProps = {
   onSubmit: (formData: Omit<TCommentAuth, 'id'>) => void;
+  submitStatus: SubmitStatus;
 }
 
 const UNSUCCESSFUL_COMMENT_POST_MESSAGE = 'An error occurred while posting a comment. Please try again later.';
 
-const ReviewForm = ({onSubmit}: TReviewFormProps) => {
-  const isPostCommentSuccess = useAppSelector(getIsPostCommentSuccess);
+const ReviewForm = ({onSubmit, submitStatus}: TReviewFormProps) => {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
+  const isSubmitting = submitStatus === SubmitStatus.Pending;
   const isValid =
     comment.length >= 50 &&
     comment.length <= 300 &&
@@ -37,14 +36,19 @@ const ReviewForm = ({onSubmit}: TReviewFormProps) => {
       comment: comment,
       rating: +rating
     });
-
-    setComment('');
-    setRating('');
-
-    if (!isPostCommentSuccess) {
-      toast.warn(UNSUCCESSFUL_COMMENT_POST_MESSAGE);
-    }
   };
+
+  useEffect(() => {
+    switch (submitStatus) {
+      case SubmitStatus.Fulfilled:
+        setComment('');
+        setRating('');
+        break;
+      case SubmitStatus.Rejected:
+        toast.warn(UNSUCCESSFUL_COMMENT_POST_MESSAGE);
+        break;
+    }
+  }, [submitStatus]);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
@@ -62,6 +66,7 @@ const ReviewForm = ({onSubmit}: TReviewFormProps) => {
               checked={STARS_COUNT - i === +rating}
               value={STARS_COUNT - i}
               onChange={handleInputChange}
+              disabled={isSubmitting}
             />
             <label
               htmlFor={`${STARS_COUNT - i}-stars`}
@@ -83,6 +88,7 @@ const ReviewForm = ({onSubmit}: TReviewFormProps) => {
         value={comment}
         maxLength={300}
         onChange={handleTextareaChange}
+        disabled={isSubmitting}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

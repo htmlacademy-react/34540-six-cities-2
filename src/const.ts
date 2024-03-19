@@ -63,6 +63,13 @@ enum RatingTitle {
   'perfect'
 }
 
+enum SubmitStatus {
+  Still = 'STILL',
+  Pending = 'PENDING',
+  Fulfilled = 'FULLFILLED',
+  Rejected = 'REJECTED'
+}
+
 const SITE_NAME = '6 cities';
 
 const CityLocations = {
@@ -117,6 +124,7 @@ export {
   CityName,
   SortName,
   RatingTitle,
+  SubmitStatus,
   SITE_NAME,
   CityLocations,
   STARS_COUNT,

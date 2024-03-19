@@ -17,7 +17,13 @@ import {
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import {fetchOffer, fetchNearbyOffers, fetchComments, postComment} from '../../store/actions.ts';
 import {getAuthorizationStatus} from '../../store/user-process/selectors.ts';
-import {getIsOfferLoading, getOffer, selectComments, getNearbyOffers} from '../../store/site-data/selectors.ts';
+import {
+  getIsOfferLoading,
+  getOffer,
+  selectComments,
+  getNearbyOffers,
+  getCommentStatus
+} from '../../store/site-data/selectors.ts';
 import classNames from 'classnames';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TCommentAuth} from '../../types/comment.ts';
@@ -29,6 +35,7 @@ const OfferPage = () => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOfferLoading = useAppSelector(getIsOfferLoading);
   const targetOffer = useAppSelector(getOffer);
+  const commentStatus = useAppSelector(getCommentStatus);
   const comments = useAppSelector(selectComments);
   let nearbyOffers = useAppSelector(getNearbyOffers);
 
@@ -188,7 +195,12 @@ const OfferPage = () => {
                   </p>
                 </div>
               </div>
-              <ReviewList comments={comments} authorizationStatus={authorizationStatus} onSubmit={onFormSubmit}/>
+              <ReviewList
+                comments={comments}
+                authorizationStatus={authorizationStatus}
+                onSubmit={onFormSubmit}
+                submitStatus={commentStatus}
+              />
             </div>
           </div>
           <Map
