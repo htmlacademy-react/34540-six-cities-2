@@ -71,6 +71,17 @@ const OfferPage = () => {
 
   nearbyOffers = getNearbyOffersbyActiveOffer(offersByCity, targetOffer);
 
+  const sliceImages = (images: string[] | undefined) => {
+    let MAX_IMAGES_COUNT = 6;
+    let imagesList;
+
+    if (images) {
+      imagesList = images.filter((_, index) => index < MAX_IMAGES_COUNT);
+    }
+
+    return imagesList;
+  };
+
   const handleCardMouseOver = (offer: TOffer) => {
     setActiveOffer(offer);
   };
@@ -93,7 +104,7 @@ const OfferPage = () => {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {(images ?? []).map((image) => (
+              {(sliceImages(images) ?? []).map((image) => (
                 <div key={image} className="offer__image-wrapper">
                   <img className="offer__image" src={image} alt={title}/>
                 </div>
