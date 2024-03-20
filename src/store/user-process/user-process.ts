@@ -5,7 +5,7 @@ import type {TUserProcess} from '../../types/state.ts';
 
 
 const initialState: TUserProcess = {
-  authorizationStatus: AuthorizationStatus.NoAuth,
+  authorizationStatus: AuthorizationStatus.Unknown,
   user: ''
 };
 
