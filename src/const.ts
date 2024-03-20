@@ -55,6 +55,26 @@ enum SortName {
   TopRated = 'Top rated first'
 }
 
+enum RatingTitle {
+  'terribly',
+  'badly',
+  'not bad',
+  'good',
+  'perfect'
+}
+
+enum SubmitStatus {
+  Still = 'STILL',
+  Pending = 'PENDING',
+  Fulfilled = 'FULLFILLED',
+  Rejected = 'REJECTED'
+}
+
+const ValidationLengthLimits = {
+  MIN: 50,
+  MAX: 300
+};
+
 const SITE_NAME = '6 cities';
 
 const CityLocations = {
@@ -94,6 +114,8 @@ const STARS_COUNT = 5;
 
 const MAX_COMMENTS = 10;
 
+const MAX_PHOTOS_COUNT = 6;
+
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as const;
 
 
@@ -106,9 +128,13 @@ export {
   StoreNameSlice,
   CityName,
   SortName,
+  RatingTitle,
+  SubmitStatus,
+  ValidationLengthLimits,
   SITE_NAME,
   CityLocations,
   STARS_COUNT,
   MAX_COMMENTS,
+  MAX_PHOTOS_COUNT,
   MONTHS
 };

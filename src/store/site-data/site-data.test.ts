@@ -1,12 +1,11 @@
 import {siteData} from './site-data.ts';
-import {StoreNameSlice, CityName, CityLocations} from '../../const.ts';
+import {StoreNameSlice, CityName, CityLocations, SubmitStatus} from '../../const.ts';
 import {
   fetchComments,
   fetchFavoriteOffers,
   fetchNearbyOffers,
   fetchOffer,
   fetchOffers,
-  postComment,
   postFavorite
 } from '../actions.ts';
 import type {TOffers} from '../../types/offer.ts';
@@ -78,7 +77,7 @@ const initialState = {
   isOfferLoading: true,
   nearbyOffers: [],
   comments: [],
-  isPostCommentSuccess: true,
+  commentStatus: SubmitStatus.Still,
   favoriteOffers: [],
   isFavoriteOffersLoading: true
 };
@@ -93,7 +92,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
@@ -108,7 +107,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
@@ -121,7 +120,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
@@ -136,7 +135,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
@@ -149,7 +148,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: false,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
@@ -162,7 +161,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: false,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
@@ -177,7 +176,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
@@ -190,7 +189,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: offers,
         isFavoriteOffersLoading: false
       });
@@ -203,7 +202,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
@@ -218,7 +217,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: offers,
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
@@ -233,35 +232,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: [],
         comments,
-        isPostCommentSuccess: true,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: true
-      });
-  });
-
-  it('should post comment', () => {
-    expect(siteData.reducer(initialState, {type: postComment.fulfilled.type, payload: comment}))
-      .toEqual({
-        offers: [],
-        isOffersLoading: true,
-        offer: null,
-        isOfferLoading: true,
-        nearbyOffers: [],
-        comments: [comment],
-        isPostCommentSuccess: true,
-        favoriteOffers: [],
-        isFavoriteOffersLoading: true
-      });
-
-    expect(siteData.reducer(initialState, {type: postComment.rejected.type}))
-      .toEqual({
-        offers: [],
-        isOffersLoading: true,
-        offer: null,
-        isOfferLoading: true,
-        nearbyOffers: [],
-        comments: [],
-        isPostCommentSuccess: false,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });
@@ -275,7 +246,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
       isOfferLoading: true,
       nearbyOffers: [],
       comments: [],
-      isPostCommentSuccess: true,
+      commentStatus: SubmitStatus.Still,
       favoriteOffers: [],
       isFavoriteOffersLoading: true
     };
@@ -290,7 +261,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [{...offers[0], isFavorite: true}],
         isFavoriteOffersLoading: true
       });
@@ -305,7 +276,7 @@ describe(`Reducer: ${StoreNameSlice.SiteProcess}`, () => {
         isOfferLoading: true,
         nearbyOffers: [],
         comments: [],
-        isPostCommentSuccess: true,
+        commentStatus: SubmitStatus.Still,
         favoriteOffers: [],
         isFavoriteOffersLoading: true
       });

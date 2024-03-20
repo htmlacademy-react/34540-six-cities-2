@@ -1,5 +1,5 @@
 import {store} from '../store';
-import {AuthorizationStatus} from '../const.ts';
+import {AuthorizationStatus, SubmitStatus} from '../const.ts';
 import type {TCity} from './city.ts';
 import type {TOffer, TOffers} from './offer.ts';
 import type {TSortName} from './sort-name.ts';
@@ -15,7 +15,7 @@ type TSiteData = {
   isOfferLoading: boolean;
   nearbyOffers: TOffers;
   comments: TComments;
-  isPostCommentSuccess: boolean;
+  commentStatus: SubmitStatus;
   favoriteOffers: TOffers;
   isFavoriteOffersLoading: boolean;
 }

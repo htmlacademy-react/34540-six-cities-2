@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {ToastContainer} from 'react-toastify';
-import {App} from './App.tsx';
+import {App} from './app.tsx';
 import 'react-toastify/dist/ReactToastify.css';
 
 
