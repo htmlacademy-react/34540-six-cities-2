@@ -5,7 +5,7 @@ import {Sorting} from '../sorting/sorting.tsx';
 import {SortName} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {setSorting} from '../../store/site-process/site-process.ts';
-import {getSorting} from '../../store/site-process/selectors.ts';
+import {getSorting} from '../../store/site-data/selectors.ts';
 import type {TCity} from '../../types/city.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TSortName} from '../../types/sort-name.ts';

@@ -4,17 +4,14 @@ import {CitiesList} from '../../components/cities-list/cities-list.tsx';
 import {NoPlaces} from '../../components/no-places/no-places.tsx';
 import {PlaceCardList} from '../../components/place-card-list/place-card-list.tsx';
 import {useAppSelector} from '../../hooks';
-import {sortingFilters} from '../../utils.ts';
-import {getIsOffersLoading, getOffersByCity} from '../../store/site-data/selectors.ts';
+import {getIsOffersLoading, selectOffersByCity} from '../../store/site-data/selectors.ts';
 import {getCity} from '../../store/site-process/selectors.ts';
-import {getSorting} from '../../store/site-process/selectors.ts';
 import classNames from 'classnames';
 
 
 const MainPage = () => {
   const isOffersLoading = useAppSelector(getIsOffersLoading);
-  const activeSorting = useAppSelector(getSorting);
-  const offersByCity = useAppSelector((state) => getOffersByCity(state).sort(sortingFilters[activeSorting]));
+  const offersByCity = useAppSelector(selectOffersByCity);
   const activeCity = useAppSelector(getCity);
 
   const getPlaceCardList = () => {
