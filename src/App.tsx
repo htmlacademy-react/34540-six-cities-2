@@ -2,19 +2,19 @@ import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import {lazy, useEffect} from 'react';
 import {AppRoute} from './const.ts';
-import {MainPage} from './pages/MainPage/MainPage.tsx';
-import {LoginPage} from './pages/LoginPage/LoginPage.tsx';
-import {OfferPage} from './pages/OfferPage/OfferPage.tsx';
-import {FavoritesPage} from './pages/FavoritesPage/FavoritesPage.tsx';
-import {HistoryRouter} from './components/HistoryRouter/HistoryRouter.tsx';
+import {MainPage} from './pages/main-page/main-page.tsx';
+import {LoginPage} from './pages/login-page/login-page.tsx';
+import {OfferPage} from './pages/offer-page/offer-page.tsx';
+import {FavoritesPage} from './pages/favorites-page/favorites-page.tsx';
+import {HistoryRouter} from './components/history-router/history-router.tsx';
 import {browserHistory} from './browser-history.ts';
-import {PrivateRoute} from './components/PrivateRoute/PrivateRoute.tsx';
+import {PrivateRoute} from './components/private-route/private-route.tsx';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {fetchUserStatus, fetchOffers, fetchFavoriteOffers} from './store/actions.ts';
 import type {ToolkitStore} from '@reduxjs/toolkit/dist/configureStore';
 
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage.tsx'));
+const NotFoundPage = lazy(() => import('./pages/not-found-page/not-found-page.tsx'));
 
 
 type TFakeStoreProps = {
