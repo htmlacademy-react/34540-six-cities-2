@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
-import {App} from './App.tsx';
+import {App} from './app.tsx';
 import {browserHistory} from './browser-history.ts';
 import {ApiRoute, AppRoute, AuthorizationStatus, SortName, StoreNameSlice, CityLocations, CityName} from './const.ts';
 import {createAPI} from './services/api.ts';
