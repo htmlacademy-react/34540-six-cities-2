@@ -1,5 +1,5 @@
 import {createSelector} from '@reduxjs/toolkit';
-import {StoreNameSlice, MAX_COMMENTS, SubmitStatus} from '../../const.ts';
+import {StoreNameSlice, SubmitStatus} from '../../const.ts';
 import type {TOffer, TOffers} from '../../types/offer.ts';
 import type {TComments} from '../../types/comment.ts';
 import type {TStateReducer} from '../../types/state.ts';
@@ -22,7 +22,7 @@ const getFavoriteOffers = (state: TStateReducer): TOffers => state[StoreNameSlic
 
 const selectComments = createSelector(
   [getComments],
-  (comments) => [...comments].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, MAX_COMMENTS)
+  (comments) => [...comments].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 );
 
 

@@ -1,7 +1,7 @@
 import type {TComments} from '../../types/comment.ts';
 import {Review} from '../Review/Review.tsx';
 import {ReviewForm} from '../ReviewForm/ReviewForm.tsx';
-import {AuthorizationStatus, SubmitStatus} from '../../const.ts';
+import {AuthorizationStatus, SubmitStatus, MAX_COMMENTS} from '../../const.ts';
 import type {TCommentAuth} from '../../types/comment.ts';
 
 
@@ -20,7 +20,7 @@ const ReviewList = ({comments, authorizationStatus, onSubmit, submitStatus}: Rev
           Reviews · <span className="reviews__amount">{comments.length}</span>
         </h2>
         <ul className="reviews__list">
-          {comments.map((comment) => (
+          {comments.slice(0, MAX_COMMENTS).map((comment) => (
             <Review key={comment.id} {...comment} />
           ))}
         </ul>
@@ -28,5 +28,6 @@ const ReviewList = ({comments, authorizationStatus, onSubmit, submitStatus}: Rev
     {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm onSubmit={onSubmit} submitStatus={submitStatus}/>}
   </section>
 );
+
 
 export {ReviewList};
