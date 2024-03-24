@@ -7,21 +7,31 @@ import type {TOffer, TOffers} from '../types/offer.ts';
 import type {TFavorite} from '../types/favorite.ts';
 import type {TUser, TUserAuth} from '../types/user.ts';
 import type {TCommentAuth, TComment, TComments} from '../types/comment.ts';
+import {toast} from 'react-toastify';
 
+
+const ERROR_MESSAGE = 'Попробуйте пожалуйста зайти на страницу позже.';
 
 const fetchOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/fetchOffers`, async (_, thunkAPI) => {
-  const axios = thunkAPI.extra;
-  const {data} = await axios.get<TOffers>(ApiRoute.Offers);
+  try {
+    const axios = thunkAPI.extra;
+    const {data} = await axios.get<TOffers>(ApiRoute.Offers);
 
-  return data;
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast.warn(`Не получилось загрузить предложения. ${ERROR_MESSAGE}`);
+    }
+
+    return Promise.reject(error);
+  }
 });
 
 const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/fetchOffer`, async (id, thunkAPI) => {
-  const axios = thunkAPI.extra;
-
   try {
+    const axios = thunkAPI.extra;
     const {data} = await axios.get<TOffer>(`${ApiRoute.Offers}/${id}`);
 
     return data;
@@ -29,6 +39,7 @@ const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance
     if (error instanceof AxiosError) {
       if (error.response?.status === HttpCode.NotFound) {
         browserHistory.push(AppRoute.NotFound);
+        toast.warn(`Не получилось загрузить предложение. ${ERROR_MESSAGE}`);
       }
     }
 
@@ -38,25 +49,42 @@ const fetchOffer = createAsyncThunk<TOffer, TOffer['id'], { extra: AxiosInstance
 
 const fetchNearbyOffers = createAsyncThunk<TOffers, TOffer['id'], { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/fetchNearbyOffers`, async (id, thunkAPI) => {
-  const axios = thunkAPI.extra;
-  const {data} = await axios.get<TOffers>(`${ApiRoute.Offers}/${id}/nearby`);
+  try {
+    const axios = thunkAPI.extra;
+    const {data} = await axios.get<TOffers>(`${ApiRoute.Offers}/${id}/nearby`);
 
-  return data;
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast.warn(`Не получилось загрузить окрестности. ${ERROR_MESSAGE}`);
+    }
+
+    return Promise.reject(error);
+  }
 });
 
 const fetchFavoriteOffers = createAsyncThunk<TOffers, undefined, { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/fetchFavoriteOffers`, async (_, thunkAPI) => {
-  const axios = thunkAPI.extra;
-  const {data} = await axios.get<TOffers>(ApiRoute.Favorite);
+  try {
+    const axios = thunkAPI.extra;
+    const {data} = await axios.get<TOffers>(ApiRoute.Favorite);
 
-  return data;
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response?.status !== HttpCode.NoAuth) {
+        toast.warn(`Не получилось загрузить избранные предложения. ${ERROR_MESSAGE}`);
+      }
+    }
+
+    return Promise.reject(error);
+  }
 });
 
 const postFavorite = createAsyncThunk<TOffer, TFavorite, { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/postFavoriteOffer`, async ({id, status}, thunkAPI) => {
-  const axios = thunkAPI.extra;
-
   try {
+    const axios = thunkAPI.extra;
     const {data} = await axios.post<TOffer>(`${ApiRoute.Favorite}/${id}/${status}`);
 
     return data;
@@ -64,6 +92,7 @@ const postFavorite = createAsyncThunk<TOffer, TFavorite, { extra: AxiosInstance 
     if (error instanceof AxiosError) {
       if (error.response?.status === HttpCode.NoAuth) {
         browserHistory.push(AppRoute.Login);
+        toast.warn(`Не получилось добавить избранное предложение. ${ERROR_MESSAGE}`);
       }
     }
 
@@ -74,18 +103,34 @@ const postFavorite = createAsyncThunk<TOffer, TFavorite, { extra: AxiosInstance 
 
 const fetchComments = createAsyncThunk<TComments, TOffer['id'], { extra: AxiosInstance }>
 (`${StoreNameSpace.Comments}/fetchComments`, async (id, thunkAPI) => {
-  const axios = thunkAPI.extra;
-  const {data} = await axios.get<TComments>(`${ApiRoute.Comments}/${id}`);
+  try {
+    const axios = thunkAPI.extra;
+    const {data} = await axios.get<TComments>(`${ApiRoute.Comments}/${id}`);
 
-  return data;
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast.warn(`Не получилось загрузить комментарии. ${ERROR_MESSAGE}`);
+    }
+
+    return Promise.reject(error);
+  }
 });
 
 const postComment = createAsyncThunk<TComment, TCommentAuth, { extra: AxiosInstance }>
 (`${StoreNameSpace.Comments}/postComment`, async ({id, comment, rating}, thunkAPI) => {
-  const axios = thunkAPI.extra;
-  const {data} = await axios.post<TComment>(`${ApiRoute.Comments}/${id}`, {comment, rating});
+  try {
+    const axios = thunkAPI.extra;
+    const {data} = await axios.post<TComment>(`${ApiRoute.Comments}/${id}`, {comment, rating});
 
-  return data;
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast.warn(`Не получилось отправить комментарий. ${ERROR_MESSAGE}`);
+    }
+
+    return Promise.reject(error);
+  }
 });
 
 
@@ -98,13 +143,21 @@ const fetchUserStatus = createAsyncThunk<TUser['email'], undefined, { extra: Axi
 
 const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: AxiosInstance }>
 (`${StoreNameSpace.Offers}/login`, async ({email, password}, {extra: api}) => {
-  const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
-  const {token} = data;
+  try {
+    const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
+    const {token} = data;
 
-  saveToken(token);
-  window.history.back();
+    saveToken(token);
+    window.history.back();
 
-  return email;
+    return email;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast.warn(`Не получилось войти в аккаунт. ${ERROR_MESSAGE}`);
+    }
+
+    return Promise.reject(error);
+  }
 });
 
 
