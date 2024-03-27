@@ -2,10 +2,10 @@ import {render, screen} from '@testing-library/react';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import {Bookmark} from './bookmark.tsx';
-import type {TUser} from '../../types/user.ts';
 import {createAPI} from '../../services/api.ts';
 import thunk from 'redux-thunk';
 import {AuthorizationStatus, StoreNameSlice} from '../../const.ts';
+import type {TUser} from '../../types/user.ts';
 
 
 const user: TUser = {
