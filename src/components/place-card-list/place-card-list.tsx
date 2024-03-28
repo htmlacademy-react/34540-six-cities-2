@@ -64,4 +64,5 @@ const PlaceCardList = ({activeCity, offers}: TPlaceCardListProps) => {
   );
 };
 
+
 export {PlaceCardList};

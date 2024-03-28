@@ -9,7 +9,7 @@ describe(`Reducer: ${StoreNameSlice.UserProcess}`, () => {
   it('should return initial state without additional parameters ', () => {
     expect(userProcess.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
       .toEqual({
-        authorizationStatus: AuthorizationStatus.NoAuth,
+        authorizationStatus: AuthorizationStatus.Unknown,
         user: ''
       });
   });

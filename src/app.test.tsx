@@ -8,7 +8,7 @@ import {ApiRoute, AppRoute, AuthorizationStatus, SortName, StoreNameSlice, CityL
 import {createAPI} from './services/api.ts';
 import type {TUser} from './types/user.ts';
 import type {TOffers} from './types/offer.ts';
-import type {TComment} from './types/comment.ts';
+import type {TComments} from './types/comment.ts';
 
 
 const user: TUser = {
@@ -49,13 +49,13 @@ const offers: TOffers = [
   }
 ];
 
-const comments: TComment = {
+const comments: TComments = [{
   id: '1',
   comment: 'Test comment 1',
   date: '20-02-2024',
   rating: 3.0,
   user
-};
+}];
 
 
 const api = createAPI();
@@ -87,7 +87,7 @@ const store = mockStore({
     offer: offers[0],
     isOfferLoading: false,
     favoriteOffers: offers,
-    isFavoriteOffersLoading: true,
+    isFavoriteOffersLoading: false,
     nearbyOffers: [],
     comments
   }
@@ -98,6 +98,15 @@ const fakeApp = (
 );
 
 describe('Application Routing', () => {
+  it('should render a "Main" page when the user navigates to "/"', () => {
+    const expectedText = new RegExp(offers[0].title);
+
+    browserHistory.push(`${AppRoute.Root}`);
+    render(fakeApp);
+
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
+  });
+
   it('should render a "Login" page when the user navigates to "/login"', () => {
     browserHistory.push(AppRoute.Login);
 
@@ -116,5 +125,14 @@ describe('Application Routing', () => {
 
     expect(screen.getByText(expectedText)).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveClass('place-card__bookmark-button--active');
+  });
+
+  it('should render a "Offer" page when the user navigates to "/offer/ID"', () => {
+    const expectedText = new RegExp(offers[0].title);
+
+    browserHistory.push(`${AppRoute.Offer}/1`);
+    render(fakeApp);
+
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 });
